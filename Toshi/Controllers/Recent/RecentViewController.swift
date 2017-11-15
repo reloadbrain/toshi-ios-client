@@ -110,8 +110,8 @@ open class RecentViewController: SweetTableController, Emptiable {
     }
     
     @objc private func didPressCompose(_ barButtonItem: UIBarButtonItem) {
-        let favoritesController = FavoritesNavigationController(rootViewController: FavoritesController())
-        Navigator.presentModally(favoritesController)
+        let profilesViewController = FavoritesNavigationController(rootViewController: ProfilesViewController(type: .newChat))
+        Navigator.presentModally(profilesViewController)
     }
 
     fileprivate func addSubviewsAndConstraints() {
