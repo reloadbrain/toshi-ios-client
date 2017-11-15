@@ -110,7 +110,7 @@ open class RecentViewController: SweetTableController, Emptiable {
     }
     
     @objc private func didPressCompose(_ barButtonItem: UIBarButtonItem) {
-        let profilesViewController = FavoritesNavigationController(rootViewController: ProfilesViewController(type: .newChat))
+        let profilesViewController = ProfilesNavigationController(rootViewController: ProfilesViewController(type: .newChat))
         Navigator.presentModally(profilesViewController)
     }
 

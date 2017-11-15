@@ -29,7 +29,7 @@ open class ProfilesViewController: SweetTableController, KeyboardAdjustable, Emp
     
     let type: ProfilesViewControllerType
     
-    var scrollViewBottomInset: CGFloat = 0.0
+    var scrollViewBottomInset: CGFloat = 0
     let emptyView = EmptyView(title: Localized("favorites_empty_title"), description: Localized("favorites_empty_description"), buttonTitle: Localized("invite_friends_action_title"))
     let filteredDatabaseViewName = "filteredDatabaseViewName"
     let keyboardWillShowSelector = #selector(keyboardShownNotificationReceived(_:))
@@ -93,7 +93,7 @@ open class ProfilesViewController: SweetTableController, KeyboardAdjustable, Emp
         guard #available(iOS 11.0, *) else {
             controller.searchBar.searchBarStyle = .minimal
             controller.searchBar.backgroundColor = Theme.viewBackgroundColor
-            controller.searchBar.layer.borderWidth = 1.0 / UIScreen.main.scale
+            controller.searchBar.layer.borderWidth = .lineHeight
             controller.searchBar.layer.borderColor = Theme.borderColor.cgColor
             
             return controller
@@ -154,9 +154,9 @@ open class ProfilesViewController: SweetTableController, KeyboardAdjustable, Emp
         
         displayContacts()
         
-        if let address = UserDefaults.standard.string(forKey: FavoritesNavigationController.selectedContactKey), type != .newChat {
+        if let address = UserDefaults.standard.string(forKey: ProfilesNavigationController.selectedContactKey), type != .newChat {
             // This doesn't restore a contact if they are not our contact, but a search result
-            DispatchQueue.main.asyncAfter(seconds: 0.0) {
+            DispatchQueue.main.asyncAfter(seconds: 0) {
                 guard let contact = self.contact(with: address) else { return }
                 
                 let appController = ProfileViewController(contact: contact)
@@ -443,10 +443,8 @@ extension ProfilesViewController: UITableViewDelegate {
                     self.dismiss(animated: true)
                 }
             } else {
-                let contactController = ProfileViewController(contact: contact)
-                navigationController?.pushViewController(contactController, animated: true)
-                
-                UserDefaults.standard.setValue(contact.address, forKey: FavoritesNavigationController.selectedContactKey)
+                navigationController?.pushViewController(ProfileViewController(contact: contact), animated: true)
+                UserDefaults.standard.setValue(contact.address, forKey: ProfilesNavigationController.selectedContactKey)
             }
         }
     }

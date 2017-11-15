@@ -15,7 +15,7 @@
 
 import UIKit
 
-public class FavoritesNavigationController: UINavigationController {
+public class ProfilesNavigationController: UINavigationController {
 
     static let selectedContactKey = "Restoration::SelectedContact"
 
@@ -39,17 +39,17 @@ public class FavoritesNavigationController: UINavigationController {
     }
 
     public override func popViewController(animated: Bool) -> UIViewController? {
-        UserDefaults.standard.removeObject(forKey: FavoritesNavigationController.selectedContactKey)
+        UserDefaults.standard.removeObject(forKey: ProfilesNavigationController.selectedContactKey)
         return super.popViewController(animated: animated)
     }
 
     public override func popToRootViewController(animated: Bool) -> [UIViewController]? {
-        UserDefaults.standard.removeObject(forKey: FavoritesNavigationController.selectedContactKey)
+        UserDefaults.standard.removeObject(forKey: ProfilesNavigationController.selectedContactKey)
         return super.popToRootViewController(animated: animated)
     }
 
     public override func popToViewController(_ viewController: UIViewController, animated: Bool) -> [UIViewController]? {
-        UserDefaults.standard.removeObject(forKey: FavoritesNavigationController.selectedContactKey)
+        UserDefaults.standard.removeObject(forKey: ProfilesNavigationController.selectedContactKey)
         return super.popToViewController(viewController, animated: animated)
     }
 }
