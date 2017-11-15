@@ -16,38 +16,53 @@
 import UIKit
 
 public class ProfilesNavigationController: UINavigationController {
-
+    
     static let selectedContactKey = "Restoration::SelectedContact"
-
+    
     public override var preferredStatusBarStyle: UIStatusBarStyle {
         return .default
     }
-
+    
     public override init(rootViewController: UIViewController) {
-        super.init(rootViewController: rootViewController)
+        
+        if let rootViewController = rootViewController as? ProfilesViewController, let address = UserDefaults.standard.string(forKey: ProfilesNavigationController.selectedContactKey), rootViewController.type != .newChat {
+            super.init(nibName: nil, bundle: nil)
+            
+            rootViewController.uiDatabaseConnection.read { [weak self] transaction in
+                if let data = transaction.object(forKey: address, inCollection: TokenUser.favoritesCollectionKey) as? Data, let user = TokenUser.user(with: data) {
+                    self?.viewControllers = [rootViewController, ProfileViewController(contact: user)]
+                    self?.configureTabBarItem()
+                }
+            }
+        } else {
+            super.init(rootViewController: rootViewController)
+        }
     }
-
+    
     public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-
+        configureTabBarItem()
+    }
+    
+    required public init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func configureTabBarItem() {
         tabBarItem = UITabBarItem(title: Localized("tab_bar_title_favorites"), image: #imageLiteral(resourceName: "tab4"), tag: 1)
         tabBarItem.titlePositionAdjustment.vertical = TabBarItemTitleOffset
     }
-
-    public required init?(coder _: NSCoder) {
-        fatalError("")
-    }
-
+    
     public override func popViewController(animated: Bool) -> UIViewController? {
         UserDefaults.standard.removeObject(forKey: ProfilesNavigationController.selectedContactKey)
         return super.popViewController(animated: animated)
     }
-
+    
     public override func popToRootViewController(animated: Bool) -> [UIViewController]? {
         UserDefaults.standard.removeObject(forKey: ProfilesNavigationController.selectedContactKey)
         return super.popToRootViewController(animated: animated)
     }
-
+    
     public override func popToViewController(_ viewController: UIViewController, animated: Bool) -> [UIViewController]? {
         UserDefaults.standard.removeObject(forKey: ProfilesNavigationController.selectedContactKey)
         return super.popToViewController(viewController, animated: animated)

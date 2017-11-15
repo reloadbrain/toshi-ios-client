@@ -62,7 +62,7 @@ open class ProfilesViewController: SweetTableController, KeyboardAdjustable, Emp
         return mappings
     }()
     
-    private lazy var uiDatabaseConnection: YapDatabaseConnection = {
+    lazy var uiDatabaseConnection: YapDatabaseConnection = {
         let database = Yap.sharedInstance.database
         let dbConnection = database!.newConnection()
         dbConnection.beginLongLivedReadTransaction()
@@ -80,14 +80,11 @@ open class ProfilesViewController: SweetTableController, KeyboardAdjustable, Emp
     private lazy var searchController: UISearchController = {
         let controller = UISearchController(searchResultsController: nil)
         controller.searchResultsUpdater = self
-        
         controller.dimsBackgroundDuringPresentation = false
         controller.hidesNavigationBarDuringPresentation = false
-        
         controller.searchBar.delegate = self
         controller.searchBar.barTintColor = Theme.viewBackgroundColor
         controller.searchBar.tintColor = Theme.tintColor
-        
         controller.searchBar.placeholder = "Search by username"
         
         guard #available(iOS 11.0, *) else {
@@ -153,16 +150,6 @@ open class ProfilesViewController: SweetTableController, KeyboardAdjustable, Emp
         appearance.setTitleColor(Theme.greyTextColor, for: .normal)
         
         displayContacts()
-        
-        if let address = UserDefaults.standard.string(forKey: ProfilesNavigationController.selectedContactKey), type != .newChat {
-            // This doesn't restore a contact if they are not our contact, but a search result
-            DispatchQueue.main.asyncAfter(seconds: 0) {
-                guard let contact = self.contact(with: address) else { return }
-                
-                let appController = ProfileViewController(contact: contact)
-                self.navigationController?.pushViewController(appController, animated: false)
-            }
-        }
         
         view.addSubview(emptyView)
         emptyView.actionButton.addTarget(self, action: #selector(emptyViewButtonPressed(_:)), for: .touchUpInside)
@@ -364,18 +351,6 @@ open class ProfilesViewController: SweetTableController, KeyboardAdjustable, Emp
             guard let data = dbExtension.object(at: indexPath, with: strongSelf.mappings) as? Data else { return }
             
             contact = TokenUser.user(with: data, shouldUpdate: false)
-        }
-        
-        return contact
-    }
-    
-    private func contact(with address: String) -> TokenUser? {
-        var contact: TokenUser?
-        
-        uiDatabaseConnection.read { transaction in
-            if let data = transaction.object(forKey: address, inCollection: TokenUser.favoritesCollectionKey) as? Data {
-                contact = TokenUser.user(with: data)
-            }
         }
         
         return contact
