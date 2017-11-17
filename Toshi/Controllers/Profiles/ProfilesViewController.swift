@@ -124,10 +124,8 @@ open class ProfilesViewController: SweetTableController, KeyboardAdjustable, Emp
         
         tableView.register(ContactCell.self)
         tableView.estimatedRowHeight = 80
-        
         tableView.dataSource = self
         tableView.delegate = self
-        
         tableView.backgroundColor = Theme.viewBackgroundColor
         tableView.separatorStyle = .none
         
