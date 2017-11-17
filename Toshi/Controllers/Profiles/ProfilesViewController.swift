@@ -134,8 +134,9 @@ open class ProfilesViewController: SweetTableController, KeyboardAdjustable, Emp
         if #available(iOS 11.0, *) {
             navigationItem.searchController = searchController
             navigationItem.hidesSearchBarWhenScrolling = false
+            tableView.tableHeaderView = ProfilesHeaderView(type: type)
         } else {
-            tableView.tableHeaderView = searchController.searchBar
+            tableView.tableHeaderView = ProfilesHeaderView(with: searchController.searchBar, type: type)
         }
         
         if type == .newChat {

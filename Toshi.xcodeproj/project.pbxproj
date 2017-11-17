@@ -365,6 +365,12 @@
 		A93432CC1F94E48500A52F11 /* SF-Pro-Display-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = A93432C71F94E48500A52F11 /* SF-Pro-Display-Light.otf */; };
 		A93432CD1F94E48500A52F11 /* SF-Pro-Display-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = A93432C81F94E48500A52F11 /* SF-Pro-Display-Bold.otf */; };
 		A93432CE1F94E48500A52F11 /* SF-Pro-Display-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = A93432C91F94E48500A52F11 /* SF-Pro-Display-Medium.otf */; };
+		A938AE031FBEF332002A2CD3 /* ProfilesHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A938AE021FBEF332002A2CD3 /* ProfilesHeaderView.swift */; };
+		A938AE041FBEF332002A2CD3 /* ProfilesHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A938AE021FBEF332002A2CD3 /* ProfilesHeaderView.swift */; };
+		A938AE051FBEF332002A2CD3 /* ProfilesHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A938AE021FBEF332002A2CD3 /* ProfilesHeaderView.swift */; };
+		A938AE071FBEFAB2002A2CD3 /* LeftAlignedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A938AE061FBEFAB2002A2CD3 /* LeftAlignedButton.swift */; };
+		A938AE081FBEFAB2002A2CD3 /* LeftAlignedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A938AE061FBEFAB2002A2CD3 /* LeftAlignedButton.swift */; };
+		A938AE091FBEFAB2002A2CD3 /* LeftAlignedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A938AE061FBEFAB2002A2CD3 /* LeftAlignedButton.swift */; };
 		A94BDE151E800EF800B2F0CF /* ConfirmationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A94BDE141E800EF800B2F0CF /* ConfirmationButton.swift */; };
 		A95D315B1F8289C900B0FED1 /* TextEditingOptionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D315A1F8289C900B0FED1 /* TextEditingOptionsViewController.swift */; };
 		A95D315C1F8289C900B0FED1 /* TextEditingOptionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D315A1F8289C900B0FED1 /* TextEditingOptionsViewController.swift */; };
@@ -1040,6 +1046,8 @@
 		A93432C71F94E48500A52F11 /* SF-Pro-Display-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Light.otf"; sourceTree = "<group>"; };
 		A93432C81F94E48500A52F11 /* SF-Pro-Display-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Bold.otf"; sourceTree = "<group>"; };
 		A93432C91F94E48500A52F11 /* SF-Pro-Display-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Medium.otf"; sourceTree = "<group>"; };
+		A938AE021FBEF332002A2CD3 /* ProfilesHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilesHeaderView.swift; sourceTree = "<group>"; };
+		A938AE061FBEFAB2002A2CD3 /* LeftAlignedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftAlignedButton.swift; sourceTree = "<group>"; };
 		A94BDE141E800EF800B2F0CF /* ConfirmationButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfirmationButton.swift; sourceTree = "<group>"; };
 		A95D315A1F8289C900B0FED1 /* TextEditingOptionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextEditingOptionsViewController.swift; sourceTree = "<group>"; };
 		A9603F951F4DABDC00BF57B1 /* Toshi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Toshi.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1583,11 +1591,12 @@
 				A9ED6CCF1E83CD8400160637 /* Footnote.swift */,
 				2BC85F7E1F0F946600BCB171 /* InputCell.swift */,
 				2BC85F7B1F0F939C00BCB171 /* InputCell.xib */,
+				A938AE061FBEFAB2002A2CD3 /* LeftAlignedButton.swift */,
+				D197BD136059B5C238CB3425 /* OfflineAlertView.swift */,
 				9FE398401E2E225600386FAF /* ProfileItemCell.swift */,
 				A9181D211EDD8154005B63F6 /* RoundIconButton.swift */,
 				A9AC74101E78064500365029 /* TextLabel.swift */,
 				A9AC740D1E78051F00365029 /* TitleLabel.swift */,
-				D197BD136059B5C238CB3425 /* OfflineAlertView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1859,6 +1868,7 @@
 		A96823C51FBC89F3000993FE /* Profiles */ = {
 			isa = PBXGroup;
 			children = (
+				A938AE021FBEF332002A2CD3 /* ProfilesHeaderView.swift */,
 				A96823C61FBC89F3000993FE /* ProfilesNavigationController.swift */,
 				A96823C71FBC89F3000993FE /* ProfilesViewController.swift */,
 			);
@@ -2765,6 +2775,7 @@
 				A9A9F9A51F8B70850010F877 /* ChatFloatingHeaderView.swift in Sources */,
 				A9E1DCDE1F1E276B001A4ABE /* MessagesPaymentCell.swift in Sources */,
 				9FAC46EE1E800C13005F76A9 /* UIColor+Additions.swift in Sources */,
+				A938AE051FBEF332002A2CD3 /* ProfilesHeaderView.swift in Sources */,
 				149F9A641E72E29A00FB74AA /* BackgroundNotificationHandler.swift in Sources */,
 				A9E1DCDC1F1E2765001A4ABE /* MessagesBasicCell.swift in Sources */,
 				9F54AB0E1ECC8D390008489F /* ScannerController.swift in Sources */,
@@ -2809,6 +2820,7 @@
 				2B953ACC1FAC9EF0005A5BF3 /* ProfileManager.m in Sources */,
 				A95D315D1F8289C900B0FED1 /* TextEditingOptionsViewController.swift in Sources */,
 				8446632C1F41CD5700892DB8 /* PaymentRequestMetadata.swift in Sources */,
+				A938AE091FBEFAB2002A2CD3 /* LeftAlignedButton.swift in Sources */,
 				A9E691CD1F7A49AB00317DB1 /* SignInFooterView.swift in Sources */,
 				A9CADC241F94B1C50096D017 /* BrowseViewController.swift in Sources */,
 				A9CADC2C1F94B1D30096D017 /* SearchResultCell.swift in Sources */,
@@ -2952,6 +2964,7 @@
 				9FAACCD71E310C1100FB871D /* SettingsNavigationController.swift in Sources */,
 				9FAE4A6E1E4CC04300126217 /* BaseConverter.swift in Sources */,
 				A9BA6B7D1EF7D746007C3206 /* DepositMoneyBulletPoint.swift in Sources */,
+				A938AE031FBEF332002A2CD3 /* ProfilesHeaderView.swift in Sources */,
 				A94BDE151E800EF800B2F0CF /* ConfirmationButton.swift in Sources */,
 				2BD6FB401F02927F00F1E2BF /* IndexPath+Additions.swift in Sources */,
 				A9CADC1E1F94AF2D0096D017 /* OpenURLButton.swift in Sources */,
@@ -2996,6 +3009,7 @@
 				2B953ACA1FAC9EF0005A5BF3 /* ProfileManager.m in Sources */,
 				A9E691C51F7A496800317DB1 /* SignInLayout.swift in Sources */,
 				9FEB8C8B1E6832120088D5A6 /* NSData+ows_StripToken.m in Sources */,
+				A938AE071FBEFAB2002A2CD3 /* LeftAlignedButton.swift in Sources */,
 				A9BA6B7F1EF7D864007C3206 /* DepositMoneyItem.swift in Sources */,
 				9FE398411E2E225600386FAF /* ProfileItemCell.swift in Sources */,
 				A9E691C11F7A496800317DB1 /* SignInView.swift in Sources */,
@@ -3139,6 +3153,7 @@
 				A9603D891F4DABDC00BF57B1 /* UIColor+Additions.swift in Sources */,
 				A9603D8C1F4DABDC00BF57B1 /* BackgroundNotificationHandler.swift in Sources */,
 				A9603D8F1F4DABDC00BF57B1 /* MessagesBasicCell.swift in Sources */,
+				A938AE041FBEF332002A2CD3 /* ProfilesHeaderView.swift in Sources */,
 				A9603D911F4DABDC00BF57B1 /* ScannerController.swift in Sources */,
 				A91D72AC1F8785E10093420C /* ChatButtonsCollectionViewLayout.swift in Sources */,
 				A9603D941F4DABDC00BF57B1 /* ImagesViewController.swift in Sources */,
@@ -3183,6 +3198,7 @@
 				2B953ACB1FAC9EF0005A5BF3 /* ProfileManager.m in Sources */,
 				A9E691CC1F7A49AB00317DB1 /* SignInFooterView.swift in Sources */,
 				A9CADC231F94B1C50096D017 /* BrowseViewController.swift in Sources */,
+				A938AE081FBEFAB2002A2CD3 /* LeftAlignedButton.swift in Sources */,
 				A9CADC2B1F94B1D30096D017 /* SearchResultCell.swift in Sources */,
 				A9603E1D1F4DABDC00BF57B1 /* RatingsClient.swift in Sources */,
 				A9603E1F1F4DABDC00BF57B1 /* AvatarManager.swift in Sources */,
