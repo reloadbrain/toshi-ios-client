@@ -117,6 +117,36 @@ class BrowseViewController: SearchableCollectionController {
         searchField?.backgroundColor = Theme.inputFieldBackgroundColor
         
         addSubviewsAndConstraints()
+
+        NotificationCenter.default.addObserver(forName: .UIKeyboardWillShow, object: nil, queue: .main) { notification in
+            guard let info = notification.userInfo else { return }
+            let endFrame = info[UIKeyboardFrameEndUserInfoKey] as? CGRect ?? .zero
+            let duration = info[UIKeyboardAnimationDurationUserInfoKey] as? TimeInterval ?? 0.2
+            let curveRaw = info[UIKeyboardAnimationCurveUserInfoKey] as? UInt ?? 0
+            let curve = UIViewAnimationOptions(rawValue: curveRaw)
+            let height = self.view.frame.intersection(endFrame).height
+
+            UIView.animate(withDuration: duration, delay: 0, options: UIViewAnimationOptions(rawValue: UInt(curve.rawValue)), animations: {
+                self.searchResultView.contentInset.bottom = height
+                self.collectionView.contentInset.bottom = height
+            }, completion: { _ in
+
+            })
+        }
+
+        NotificationCenter.default.addObserver(forName: .UIKeyboardWillHide, object: nil, queue: .main) { notification in
+            guard let info = notification.userInfo else { return }
+            let duration = info[UIKeyboardAnimationDurationUserInfoKey] as? TimeInterval ?? 0.2
+            let curveRaw = info[UIKeyboardAnimationCurveUserInfoKey] as? UInt ?? 0
+            let curve = UIViewAnimationOptions(rawValue: curveRaw)
+
+            UIView.animate(withDuration: duration, delay: 0, options: UIViewAnimationOptions(rawValue: UInt(curve.rawValue)), animations: {
+                self.searchResultView.contentInset.bottom = 60
+                self.collectionView.contentInset.bottom = self.bottomInset
+            }, completion: { _ in
+
+            })
+        }
     }
     
     private func addSubviewsAndConstraints() {
@@ -145,15 +175,12 @@ class BrowseViewController: SearchableCollectionController {
         if let indexPathForSelectedRow = searchResultView.indexPathForSelectedRow {
             searchResultView.deselectRow(at: indexPathForSelectedRow, animated: true)
         }
-        
-        searchBar.text = nil
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
         searchBar.resignFirstResponder()
-        clearSearch()
     }
     
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
