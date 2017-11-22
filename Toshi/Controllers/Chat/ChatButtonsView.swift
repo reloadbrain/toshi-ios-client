@@ -7,7 +7,7 @@ protocol ChatButtonsSelectionDelegate: class {
 }
 
 final class ChatButtonsView: UIView {
-    static let height: CGFloat = 54
+    static let height: CGFloat = 59
     
     weak var delegate: ChatButtonsSelectionDelegate?
     private var heightConstraint: NSLayoutConstraint?
@@ -22,7 +22,7 @@ final class ChatButtonsView: UIView {
 
     private lazy var gradientLayer: CAGradientLayer = {
         let gradientLayer = CAGradientLayer()
-        gradientLayer.colors = [UIColor(white: 1.0, alpha: 0.0).cgColor, UIColor.white.cgColor, UIColor.white.cgColor, UIColor.white.cgColor]
+        gradientLayer.colors = [UIColor(white: 1.0, alpha: 0.0).cgColor, UIColor.white.cgColor, UIColor.white.cgColor, UIColor.white.cgColor, UIColor.white.cgColor]
         gradientLayer.startPoint.y = 0.01
 
         return gradientLayer
@@ -34,7 +34,7 @@ final class ChatButtonsView: UIView {
         view.isOpaque = false
         view.delegate = self
         view.dataSource = self
-        view.contentInset = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15)
+        view.contentInset = UIEdgeInsets(top: 8, left: 15, bottom: 0, right: 15)
         view.alwaysBounceHorizontal = true
 
         view.register(ChatButtonsViewCell.self, forCellWithReuseIdentifier: ChatButtonsViewCell.reuseIdentifier)
@@ -50,13 +50,11 @@ final class ChatButtonsView: UIView {
         layer.addSublayer(gradientLayer)
         addSubview(collectionView)
 
-        layer.masksToBounds = false
         layer.shadowColor = UIColor.white.cgColor
         layer.shadowOpacity = 0.5
-        layer.shadowOffset = CGSize(width: 0, height: -8)
+        layer.shadowOffset = CGSize(width: 0, height: -14)
 
-        collectionView.edgesToSuperview(excluding: .bottom)
-        collectionView.height(ChatButtonsView.height)
+        collectionView.edgesToSuperview()
     }
     
     required init?(coder aDecoder: NSCoder) {
