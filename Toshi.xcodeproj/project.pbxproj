@@ -2138,6 +2138,7 @@
 				2BC408531EF2CED30044C242 /* ShellScript */,
 				4380A44F194F905C73188527 /* [CP] Embed Pods Frameworks */,
 				0B4023E44BAD654CF957546B /* [CP] Copy Pods Resources */,
+				9F80CE751FC57AA800FA72EB /* Load Reveal If Possible */,
 			);
 			buildRules = (
 			);
@@ -2508,6 +2509,20 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CocoaPods-Distribution/Pods-CocoaPods-Distribution-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		9F80CE751FC57AA800FA72EB /* Load Reveal If Possible */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Load Reveal If Possible";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "REVEAL_APP_PATH=$(mdfind kMDItemCFBundleIdentifier=\"com.ittybittyapps.Reveal2\" | head -n 1)\nBUILD_SCRIPT_PATH=\"${REVEAL_APP_PATH}/Contents/SharedSupport/Scripts/reveal_server_build_phase.sh\"\nif [ \"${REVEAL_APP_PATH}\" -a -e \"${BUILD_SCRIPT_PATH}\" ]; then\n    \"${BUILD_SCRIPT_PATH}\"\nelse\n    echo \"Reveal Server not loaded: Cannot find a compatible Reveal app.\"\nfi";
 		};
 		A411A820DB838EA1AA408B87 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;

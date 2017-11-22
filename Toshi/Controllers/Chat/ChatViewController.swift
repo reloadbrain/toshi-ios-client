@@ -35,9 +35,9 @@ final class ChatViewController: UIViewController, UINavigationControllerDelegate
         }
     }
 
-    fileprivate var heightOfKeyboard: CGFloat = 0 {
+    fileprivate var keyboardScreenPositionOffset: CGFloat = 0 {
         didSet {
-            if isVisible, heightOfKeyboard != oldValue {
+            if isVisible, keyboardScreenPositionOffset != oldValue {
                 updateContentInset()
                 updateConstraints()
             }
@@ -180,7 +180,7 @@ final class ChatViewController: UIViewController, UINavigationControllerDelegate
         super.viewWillDisappear(animated)
 
         isVisible = false
-        heightOfKeyboard = 0
+        keyboardScreenPositionOffset = 0
 
         viewModel.saveDraftIfNeeded(inputViewText: textInputView.text)
 
@@ -216,7 +216,12 @@ final class ChatViewController: UIViewController, UINavigationControllerDelegate
         tableView.right(to: view)
 
         textInputView.left(to: view)
-        textInputViewBottomConstraint = textInputView.bottom(to: view)
+        if #available(iOS 11.0, *) {
+            textInputViewBottomConstraint = textInputView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor)
+            textInputViewBottomConstraint?.isActive = true
+        } else {
+            textInputViewBottomConstraint = textInputView.bottom(to: view)
+        }
         textInputView.right(to: view)
         textInputViewHeightConstraint = textInputView.height(ChatInputTextPanel.defaultHeight)
         
@@ -224,8 +229,14 @@ final class ChatViewController: UIViewController, UINavigationControllerDelegate
         buttonsView.leadingToSuperview()
         buttonsView.bottomToTop(of: textInputView)
         buttonsView.trailingToSuperview()
-        
-        ethereumPromptView.top(to: view, offset: 64)
+
+        let anchor: NSLayoutYAxisAnchor
+        if #available(iOS 11.0, *) {
+            anchor = self.view.safeAreaLayoutGuide.topAnchor
+        } else {
+            anchor = topLayoutGuide.bottomAnchor
+        }
+        ethereumPromptView.topAnchor.constraint(equalTo: anchor).isActive = true // .top(to: view, offset: 64)
         ethereumPromptView.left(to: view)
         ethereumPromptView.right(to: view)
         ethereumPromptView.height(ChatFloatingHeaderView.height)
@@ -241,11 +252,8 @@ final class ChatViewController: UIViewController, UINavigationControllerDelegate
     }
 
     fileprivate func updateConstraints() {
-        textInputViewBottomConstraint?.constant = heightOfKeyboard < -textInputHeight ? heightOfKeyboard + textInputHeight + ChatButtonsView.height : 0
+        textInputViewBottomConstraint?.constant = keyboardScreenPositionOffset // < -textInputHeight ? heightOfKeyboard + textInputHeight + ChatButtonsView.height : 0
         textInputViewHeightConstraint?.constant = textInputHeight
-        
-        keyboardAwareInputView.height = ChatButtonsView.height + textInputHeight
-        keyboardAwareInputView.invalidateIntrinsicContentSize()
 
         view.layoutIfNeeded()
     }
@@ -761,7 +769,7 @@ extension ChatViewController: UIViewControllerTransitioningDelegate {
 
 extension ChatViewController: KeyboardAwareAccessoryViewDelegate {
     func inputView(_: KeyboardAwareInputAccessoryView, shouldUpdatePosition keyboardOriginYDistance: CGFloat) {
-        heightOfKeyboard = keyboardOriginYDistance
+        keyboardScreenPositionOffset = keyboardOriginYDistance
     }
 
     override var inputAccessoryView: UIView? {
