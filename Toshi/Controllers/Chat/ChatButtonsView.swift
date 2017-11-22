@@ -19,6 +19,14 @@ final class ChatButtonsView: UIView {
             collectionView.collectionViewLayout.invalidateLayout()
         }
     }
+
+    private lazy var gradientLayer: CAGradientLayer = {
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.colors = [UIColor(white: 1.0, alpha: 0.0).cgColor, UIColor.white.cgColor, UIColor.white.cgColor, UIColor.white.cgColor]
+        gradientLayer.startPoint.y = 0.01
+
+        return gradientLayer
+    }()
     
     private(set) lazy var collectionView: UICollectionView = {
         let view = UICollectionView(frame: .zero, collectionViewLayout: ChatButtonsViewLayout())
@@ -28,7 +36,7 @@ final class ChatButtonsView: UIView {
         view.dataSource = self
         view.contentInset = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15)
         view.alwaysBounceHorizontal = true
-        
+
         view.register(ChatButtonsViewCell.self, forCellWithReuseIdentifier: ChatButtonsViewCell.reuseIdentifier)
         
         return view
@@ -38,14 +46,27 @@ final class ChatButtonsView: UIView {
         super.init(frame: frame)
         
         heightConstraint = height(0)
-        
+
+        layer.addSublayer(gradientLayer)
         addSubview(collectionView)
+
+        layer.masksToBounds = false
+        layer.shadowColor = UIColor.white.cgColor
+        layer.shadowOpacity = 0.5
+        layer.shadowOffset = CGSize(width: 0, height: -8)
+
         collectionView.edgesToSuperview(excluding: .bottom)
         collectionView.height(ChatButtonsView.height)
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+
+        gradientLayer.frame = bounds
     }
 }
 

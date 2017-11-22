@@ -298,7 +298,6 @@ extension TabBarController: ScannerViewControllerDelegate {
 
 extension TabBarController: ReachabilityDelegate {
     func reachabilityDidChange(toConnected connected: Bool) {
-
         if connected {
             hideOfflineAlertView()
         } else {

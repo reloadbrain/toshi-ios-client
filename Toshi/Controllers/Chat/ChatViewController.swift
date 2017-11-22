@@ -125,8 +125,8 @@ final class ChatViewController: UIViewController, UINavigationControllerDelegate
         let topInset = ChatFloatingHeaderView.height + 64.0 + activeNetworkViewHeight
         
         // The tableview is inverted 180 degrees
-        tableView.contentInset = UIEdgeInsets(top: 10, left: 0, bottom: topInset + 2 + 10, right: 0)
-        tableView.scrollIndicatorInsets = UIEdgeInsets(top: 0, left: 0, bottom: topInset + 2, right: 0)
+        tableView.contentInset = UIEdgeInsets(top: buttonsView.frame.height + 10, left: 0, bottom: topInset + 2 + 10, right: 0)
+        tableView.scrollIndicatorInsets = UIEdgeInsets(top: buttonsView.frame.height, left: 0, bottom: topInset + 2, right: 0)
     }
     
     override func viewDidLoad() {
@@ -225,7 +225,7 @@ final class ChatViewController: UIViewController, UINavigationControllerDelegate
         textInputView.right(to: view)
         textInputViewHeightConstraint = textInputView.height(ChatInputTextPanel.defaultHeight)
         
-        buttonsView.topToBottom(of: tableView)
+        buttonsView.bottom(to: tableView)
         buttonsView.leadingToSuperview()
         buttonsView.bottomToTop(of: textInputView)
         buttonsView.trailingToSuperview()
@@ -283,6 +283,9 @@ final class ChatViewController: UIViewController, UINavigationControllerDelegate
     fileprivate func adjustToLastMessage() {
         let buttonsMessage = viewModel.messages.flatMap { $0.sofaWrapper as? SofaMessage }.first(where: { $0.buttons.count > 0 })
         buttonsView.buttons = buttonsMessage?.buttons
+
+        view.layoutIfNeeded()
+        updateContentInset()
     }
 
     fileprivate func scrollToBottom(animated: Bool = true) {
