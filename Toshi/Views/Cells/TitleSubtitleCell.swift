@@ -38,8 +38,5 @@ final class TitleSubtitleCell: ToshiTableViewCell {
         subtitleLabel?.setContentHuggingPriority(.required, for: .vertical)
         subtitleLabel?.setContentCompressionResistancePriority(.required, for: .horizontal)
         subtitleLabel?.setContentCompressionResistancePriority(.required, for: .vertical)
-
-        subtitleLabel?.backgroundColor = .yellow
-        contentView.backgroundColor = .purple
     }
 }

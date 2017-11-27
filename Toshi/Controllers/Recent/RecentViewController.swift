@@ -87,6 +87,8 @@ open class RecentViewController: SweetTableController, Emptiable {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(ChatCell.self)
+        ToshiTableViewCell.register(in: tableView)
+
         tableView.showsVerticalScrollIndicator = true
         tableView.alwaysBounceVertical = true
     }
@@ -107,6 +109,37 @@ open class RecentViewController: SweetTableController, Emptiable {
         tabBarController?.tabBar.isHidden = false
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .compose, target: self, action: #selector(didPressCompose(_:)))
+
+        let configurator = CellConfigurator()
+        var reuseIdentifier = ""
+
+        let titleComponent: TableCellDataComponents = .title
+        reuseIdentifier = configurator.cellIdentifier(for: titleComponent)
+        print(reuseIdentifier)
+
+        let titleSubtitle: TableCellDataComponents = .titleSubtitle
+        reuseIdentifier = configurator.cellIdentifier(for: titleSubtitle)
+        print(reuseIdentifier)
+
+        let titleLeftImageComponents: TableCellDataComponents = .titleLeftImage
+        reuseIdentifier = configurator.cellIdentifier(for: titleLeftImageComponents)
+        print(reuseIdentifier)
+
+        let titleSubtitleLeftImage: TableCellDataComponents = .titleSubtitleLeftImage
+        reuseIdentifier = configurator.cellIdentifier(for: titleSubtitleLeftImage)
+        print(reuseIdentifier)
+
+        let titleSwitchComponents: TableCellDataComponents = .titleSwitchControl
+        reuseIdentifier = configurator.cellIdentifier(for: titleSwitchComponents)
+        print(reuseIdentifier)
+
+        let titleSubtitleSwitchComponents: TableCellDataComponents = .titleSubtitleSwitchControl
+        reuseIdentifier = configurator.cellIdentifier(for: titleSubtitleSwitchComponents)
+        print(reuseIdentifier)
+
+        let titleSubtitleImageSwitchComponents: TableCellDataComponents = .titleSubtitleSwitchControlLeftImage
+        reuseIdentifier = configurator.cellIdentifier(for: titleSubtitleImageSwitchComponents)
+        print(reuseIdentifier)
     }
     
     @objc private func didPressCompose(_ barButtonItem: UIBarButtonItem) {
@@ -299,15 +332,43 @@ extension RecentViewController: UITableViewDelegate {
 extension RecentViewController: UITableViewDataSource {
 
     open func tableView(_: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return Int(mappings.numberOfItems(inSection: UInt(section)))
+        return 7// Int(mappings.numberOfItems(inSection: UInt(section)))
     }
 
     open func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeue(ChatCell.self, for: indexPath)
-        let thread = self.thread(at: indexPath)
+
+        let configurator = CellConfigurator()
+        var reuseIdentifier = ""
+
+
+        var tableData: TableCellData!
+
+        if indexPath.row == 0 {
+            tableData = TableCellData(title: "Toshi  title cell")
+        } else if indexPath.row == 1 {
+            tableData = TableCellData(title: "Toshi title and subtitle cell", subtitle: "The subtitle")
+        } else if indexPath.row == 2 {
+            tableData = TableCellData(title: "Title, subtitle and switch cell", subtitle: "some subtitle", switchState: false)
+        } else if indexPath.row == 3 {
+            tableData = TableCellData(title: "Title, subtitle and avatar cell", subtitle: "some subtitle", leftImage: UIImage(named: "CameraExposureIcon")!)
+        } else if indexPath.row == 4 {
+            tableData = TableCellData(title: "Title and avatar cell", leftImage: UIImage(named: "CameraExposureIcon")!)
+        } else if indexPath.row == 5 {
+            tableData = TableCellData(title: "Title and switch cell", switchState: true)
+        } else if indexPath.row == 6 {
+            tableData = TableCellData(title: "Title avatar, subtitle and details cell", subtitle: "Some subtitle", leftImage: UIImage(named: "CameraExposureIcon")!, details: "Detail")
+        }
+
+        reuseIdentifier = configurator.cellIdentifier(for: tableData.components)
+
+        let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath)
+
+        configurator.configureCell(cell, with: tableData)
+
+        //let thread = self.thread(at: indexPath)
 
         // TODO: deal with last message from thread. It should be last visible message.
-        cell.thread = thread
+        //cell.thread = thread
 
         return cell
     }

@@ -29,7 +29,6 @@ final class AvatarTitleSubtitleDetailsCell: ToshiTableViewCell {
         detailsLabel = UILabel(frame: .zero)
         detailsLabel?.textAlignment = .right
         detailsLabel?.textColor = Theme.lightGreyTextColor
-        detailsLabel?.backgroundColor = .red
         contentView.addSubview(detailsLabel!)
         detailsLabel?.right(to: contentView, offset: -16.0)
         detailsLabel?.centerY(to: contentView)
