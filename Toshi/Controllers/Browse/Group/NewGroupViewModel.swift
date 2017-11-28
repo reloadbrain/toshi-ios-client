@@ -23,24 +23,40 @@ enum NewGroupItemType: Int {
     case addParticipant
 }
 
+struct GroupInfo {
+    let placeholder = "New Group"
+    var title: String = ""
+    var avatar = UIImage(named: "avatar-edit")
+    var isPublic = false
+    var participantsIDs: [TokenUser] = []
+}
+
 final class NewGroupViewModel {
+
+    var groupInfo: GroupInfo {
+        didSet {
+            setup()
+        }
+    }
+
+    init() {
+        groupInfo = GroupInfo()
+        setup()
+    }
 
     private(set) var sectionModels: [TableSectionData] = []
 
-    init() {
-        prepare()
-    }
-
-    private func prepare() {
-        var avatarTitleData = TableCellData(title: "New Group", leftImage: UIImage(named: "avatar-edit"))
+    private func setup() {
+        let avatarTitleData = TableCellData(title: groupInfo.title, leftImage: groupInfo.avatar)
+        avatarTitleData.isPlaceholder = groupInfo.title.length > 0
         avatarTitleData.tag = NewGroupItemType.avatarTitle.rawValue
 
         let avatarTitleSectionData = TableSectionData(cellsData: [avatarTitleData])
-        var publicData = TableCellData(title: "Public", switchState: false)
+        let publicData = TableCellData(title: "Public", switchState: groupInfo.isPublic)
         publicData.tag = NewGroupItemType.isPublic.rawValue
         let publicSectionData = TableSectionData(cellsData: [publicData], headerTitle: "Group settings")
 
-        var addParticipantsData = TableCellData(title: "Add Participants")
+        let addParticipantsData = TableCellData(title: "Add Participants")
         addParticipantsData.tag = NewGroupItemType.addParticipant.rawValue
         let addParticipantsSectionData = TableSectionData(cellsData: [addParticipantsData], headerTitle: "Participants")
 

@@ -70,6 +70,10 @@ open class NewGroupViewController: UIViewController, KeyboardAdjustable, UINavig
     open override func viewDidLoad() {
         super.viewDidLoad()
 
+        if #available(iOS 11.0, *) {
+            self.navigationController?.navigationBar.prefersLargeTitles = false
+        }
+
         view.backgroundColor = Theme.lightGrayBackgroundColor
         title = "New Group"
 
@@ -106,7 +110,7 @@ open class NewGroupViewController: UIViewController, KeyboardAdjustable, UINavig
         self.activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         self.activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
 
-        tableView.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor).isActive = true
+        tableView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         tableView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         tableView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
@@ -142,8 +146,8 @@ open class NewGroupViewController: UIViewController, KeyboardAdjustable, UINavig
 
     func changeAvatar(to avatar: UIImage?) {
         if let avatar = avatar {
-            let scaledImage = avatar.resized(toHeight: 320)
-            // CHANGE AVATAR TO SCALED IMAGE
+            viewModel.groupInfo.avatar = avatar.resized(toHeight: 320)
+            tableView.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
         }
     }
 
@@ -281,8 +285,9 @@ extension NewGroupViewController: UITableViewDataSource {
 
         let reuseIdentifier = configurator.cellIdentifier(for: cellData.components)
 
-        let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath)
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as? ToshiTableViewCell else { return UITableViewCell(frame: .zero) }
         configurator.configureCell(cell, with: cellData)
+        cell.actionDelegate = self
 
         return cell
     }
@@ -291,11 +296,21 @@ extension NewGroupViewController: UITableViewDataSource {
 extension NewGroupViewController: ToshiCellActionDelegate {
 
     func didChangeSwitchState(_ cell: ToshiTableViewCell, _ state: Bool) {
+        guard let indexPath = tableView.indexPath(for: cell) else { return }
 
+        viewModel.groupInfo.isPublic = state
+        tableView.reloadRows(at: [indexPath], with: .automatic)
     }
 
     func didTapLeftImage(_ cell: ToshiTableViewCell) {
+        updateAvatar()
+    }
 
+    func didFinishTitleInput(_ cell: ToshiTableViewCell, text: String?) {
+        view.endEditing(true)
+
+        viewModel.groupInfo.title = text ?? ""
+        tableView.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
     }
 }
 
