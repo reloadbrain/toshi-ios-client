@@ -17,10 +17,18 @@ import Foundation
 
 public struct TableSectionData {
 
+    var tag: Int = 0
+
     var headerTitle = ""
     var footerTitle = ""
 
     var cellsData: [TableCellData]
+
+    init(cellsData: [TableCellData] = [], headerTitle: String = "", footerTitle: String = "") {
+        self.cellsData = cellsData
+        self.headerTitle = headerTitle
+        self.footerTitle = footerTitle
+    }
 }
 
 public struct TableCellDataComponents: OptionSet {
@@ -45,6 +53,8 @@ public struct TableCellDataComponents: OptionSet {
 }
 
 public struct TableCellData {
+    var tag: Int = 0
+
     var title: String?
     var subtitle: String?
     var leftImage: UIImage?

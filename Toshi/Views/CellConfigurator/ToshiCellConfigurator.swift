@@ -23,10 +23,6 @@ protocol ToshiCellConfigurator: class {
 
 class CellConfigurator: ToshiCellConfigurator { // lets say we have this configurator responsible for
 
-}
-
-extension ToshiCellConfigurator {
-
     func configureCell(_ cell: UITableViewCell, with cellData: TableCellData) {
         guard let cell = cell as? ToshiTableViewCell else { return }
 
@@ -41,6 +37,9 @@ extension ToshiCellConfigurator {
         cell.leftImageView?.image = cellData.leftImage
         cell.switchControl?.isOn = cellData.switchState == true
     }
+}
+
+extension ToshiCellConfigurator {
 
     func cellIdentifier(for components: TableCellDataComponents) -> String {
         var reuseIdentifier = TitleCell.reuseIdentifier
