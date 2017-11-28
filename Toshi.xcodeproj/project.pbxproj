@@ -111,6 +111,15 @@
 		2B4E26041FCCCE78004614D5 /* AvatarTitleSubtitleSwitchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4E26021FCCCE78004614D5 /* AvatarTitleSubtitleSwitchCell.swift */; };
 		2B4E26051FCCCE78004614D5 /* AvatarTitleSubtitleSwitchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4E26021FCCCE78004614D5 /* AvatarTitleSubtitleSwitchCell.swift */; };
 		2B695CBA1EF9B9A80025119B /* KeyboardAdjustable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BE66A0B1EF910B6007A7130 /* KeyboardAdjustable.swift */; };
+		2B6C18F41FCD431800DE432B /* NewGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6C18F31FCD431800DE432B /* NewGroupViewController.swift */; };
+		2B6C18F51FCD431800DE432B /* NewGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6C18F31FCD431800DE432B /* NewGroupViewController.swift */; };
+		2B6C18F61FCD431800DE432B /* NewGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6C18F31FCD431800DE432B /* NewGroupViewController.swift */; };
+		2B6C18F81FCD438000DE432B /* NewGroupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6C18F71FCD438000DE432B /* NewGroupViewModel.swift */; };
+		2B6C18F91FCD438000DE432B /* NewGroupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6C18F71FCD438000DE432B /* NewGroupViewModel.swift */; };
+		2B6C18FA1FCD438000DE432B /* NewGroupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6C18F71FCD438000DE432B /* NewGroupViewModel.swift */; };
+		2B6C18FD1FCD531E00DE432B /* NewGroupConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6C18FC1FCD531E00DE432B /* NewGroupConfigurator.swift */; };
+		2B6C18FE1FCD531E00DE432B /* NewGroupConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6C18FC1FCD531E00DE432B /* NewGroupConfigurator.swift */; };
+		2B6C18FF1FCD531E00DE432B /* NewGroupConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6C18FC1FCD531E00DE432B /* NewGroupConfigurator.swift */; };
 		2B953AC51FAC9E1A005A5BF3 /* NSString+OWS.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B953AC41FAC9E1A005A5BF3 /* NSString+OWS.m */; };
 		2B953AC61FAC9E1A005A5BF3 /* NSString+OWS.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B953AC41FAC9E1A005A5BF3 /* NSString+OWS.m */; };
 		2B953AC71FAC9E1A005A5BF3 /* NSString+OWS.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B953AC41FAC9E1A005A5BF3 /* NSString+OWS.m */; };
@@ -918,6 +927,9 @@
 		2B4E25F91FCCCE00004614D5 /* AvatarTitleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarTitleCell.swift; sourceTree = "<group>"; };
 		2B4E25FE1FCCCE38004614D5 /* ToshiCellConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToshiCellConfigurator.swift; sourceTree = "<group>"; };
 		2B4E26021FCCCE78004614D5 /* AvatarTitleSubtitleSwitchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarTitleSubtitleSwitchCell.swift; sourceTree = "<group>"; };
+		2B6C18F31FCD431800DE432B /* NewGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGroupViewController.swift; sourceTree = "<group>"; };
+		2B6C18F71FCD438000DE432B /* NewGroupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGroupViewModel.swift; sourceTree = "<group>"; };
+		2B6C18FC1FCD531E00DE432B /* NewGroupConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGroupConfigurator.swift; sourceTree = "<group>"; };
 		2B953AC31FAC9E19005A5BF3 /* NSString+OWS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+OWS.h"; sourceTree = "<group>"; };
 		2B953AC41FAC9E1A005A5BF3 /* NSString+OWS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+OWS.m"; sourceTree = "<group>"; };
 		2B953AC81FAC9EEF005A5BF3 /* ProfileManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileManager.h; sourceTree = "<group>"; };
@@ -1366,6 +1378,7 @@
 		14ED3AB91E4A2A8D00DF8079 /* Browse */ = {
 			isa = PBXGroup;
 			children = (
+				2B6C18F21FCD42F700DE432B /* Group */,
 				A9CADC121F94AF2D0096D017 /* Views */,
 				A9CADC101F94AF2C0096D017 /* BrowseAllViewController.swift */,
 				A9CADC191F94AF2D0096D017 /* BrowseNavigationController.swift */,
@@ -1471,6 +1484,16 @@
 				2B4E25FE1FCCCE38004614D5 /* ToshiCellConfigurator.swift */,
 			);
 			path = CellConfigurator;
+			sourceTree = "<group>";
+		};
+		2B6C18F21FCD42F700DE432B /* Group */ = {
+			isa = PBXGroup;
+			children = (
+				2B6C18F31FCD431800DE432B /* NewGroupViewController.swift */,
+				2B6C18F71FCD438000DE432B /* NewGroupViewModel.swift */,
+				2B6C18FC1FCD531E00DE432B /* NewGroupConfigurator.swift */,
+			);
+			path = Group;
 			sourceTree = "<group>";
 		};
 		2B6C18FB1FCD494E00DE432B /* CellSectionData */ = {
@@ -2890,6 +2913,7 @@
 				A9A9F9A51F8B70850010F877 /* ChatFloatingHeaderView.swift in Sources */,
 				A9E1DCDE1F1E276B001A4ABE /* MessagesPaymentCell.swift in Sources */,
 				9FAC46EE1E800C13005F76A9 /* UIColor+Additions.swift in Sources */,
+				2B6C18F61FCD431800DE432B /* NewGroupViewController.swift in Sources */,
 				149F9A641E72E29A00FB74AA /* BackgroundNotificationHandler.swift in Sources */,
 				A9E1DCDC1F1E2765001A4ABE /* MessagesBasicCell.swift in Sources */,
 				9F54AB0E1ECC8D390008489F /* ScannerController.swift in Sources */,
@@ -2959,6 +2983,7 @@
 				9F88EA051EE0411A00267573 /* SettingsController.swift in Sources */,
 				A9BF33B51E76F8D0009A51AA /* PassphraseVerifyController.swift in Sources */,
 				A9E1DCDF1F1E276E001A4ABE /* MessagesTextCell.swift in Sources */,
+				2B6C18FA1FCD438000DE432B /* NewGroupViewModel.swift in Sources */,
 				A9A9F9A31F8B707C0010F877 /* RecentNavigationController.swift in Sources */,
 				149F9A861E72E29A00FB74AA /* EthereumConverter.swift in Sources */,
 				2BF634541F7D568C00235C67 /* UIImage+Utils.m in Sources */,
@@ -2997,6 +3022,7 @@
 				149F9A941E72E29A00FB74AA /* EthereumAPIClient.swift in Sources */,
 				149F9A951E72E29A00FB74AA /* ContactCell.swift in Sources */,
 				9FDCE4831E8D5923003A996F /* KeyboardInfo.swift in Sources */,
+				2B6C18FF1FCD531E00DE432B /* NewGroupConfigurator.swift in Sources */,
 				9F78D9D21EE93E68003A0B95 /* ModalTransition.swift in Sources */,
 				2BC85F801F0F946600BCB171 /* InputCell.swift in Sources */,
 				2B435CB21F135DBF00C91272 /* ProfileEditConfigurator.swift in Sources */,
@@ -3089,6 +3115,7 @@
 				9FAACCD71E310C1100FB871D /* SettingsNavigationController.swift in Sources */,
 				9FAE4A6E1E4CC04300126217 /* BaseConverter.swift in Sources */,
 				A9BA6B7D1EF7D746007C3206 /* DepositMoneyBulletPoint.swift in Sources */,
+				2B6C18F41FCD431800DE432B /* NewGroupViewController.swift in Sources */,
 				A94BDE151E800EF800B2F0CF /* ConfirmationButton.swift in Sources */,
 				2BD6FB401F02927F00F1E2BF /* IndexPath+Additions.swift in Sources */,
 				A9CADC1E1F94AF2D0096D017 /* OpenURLButton.swift in Sources */,
@@ -3158,6 +3185,7 @@
 				A91D72A01F877FFA0093420C /* RecentNavigationController.swift in Sources */,
 				9FA12BF21E65D135003705F6 /* SoundPlayer.swift in Sources */,
 				2B3DF3611F4721EB00A869A3 /* SettingsProfileCell.swift in Sources */,
+				2B6C18F81FCD438000DE432B /* NewGroupViewModel.swift in Sources */,
 				A916290D1F3B5828008A7F36 /* PaymentAddressController.swift in Sources */,
 				9F78D9D11EE93E68003A0B95 /* ModalTransition.swift in Sources */,
 				9FD247831ED3037F00A38C40 /* String+isURL.swift in Sources */,
@@ -3196,6 +3224,7 @@
 				9F78D9D41EE93EFF003A0B95 /* PaymentConfirmationController.swift in Sources */,
 				E6B8577A1F25F3D700979650 /* AddressChangeAlertController.swift in Sources */,
 				84FFE1E41F3C7D09008CEEF2 /* EthereumAddress.swift in Sources */,
+				2B6C18FD1FCD531E00DE432B /* NewGroupConfigurator.swift in Sources */,
 				2BE66A0C1EF910B6007A7130 /* KeyboardAdjustable.swift in Sources */,
 				A9180FB11F5452A000DC668E /* MessagesErrorView.swift in Sources */,
 				A9ED6CD01E83CD8400160637 /* Footnote.swift in Sources */,
@@ -3288,6 +3317,7 @@
 				A9603D891F4DABDC00BF57B1 /* UIColor+Additions.swift in Sources */,
 				A9603D8C1F4DABDC00BF57B1 /* BackgroundNotificationHandler.swift in Sources */,
 				A9603D8F1F4DABDC00BF57B1 /* MessagesBasicCell.swift in Sources */,
+				2B6C18F51FCD431800DE432B /* NewGroupViewController.swift in Sources */,
 				A9603D911F4DABDC00BF57B1 /* ScannerController.swift in Sources */,
 				A91D72AC1F8785E10093420C /* ChatButtonsCollectionViewLayout.swift in Sources */,
 				A9603D941F4DABDC00BF57B1 /* ImagesViewController.swift in Sources */,
@@ -3357,6 +3387,7 @@
 				A9603E5D1F4DABDC00BF57B1 /* MessagesTextCell.swift in Sources */,
 				A9A9F9A21F8B707C0010F877 /* RecentNavigationController.swift in Sources */,
 				A9603E611F4DABDC00BF57B1 /* EthereumConverter.swift in Sources */,
+				2B6C18F91FCD438000DE432B /* NewGroupViewModel.swift in Sources */,
 				2BF634531F7D568C00235C67 /* UIImage+Utils.m in Sources */,
 				A9603E671F4DABDC00BF57B1 /* SplashNavigationController.swift in Sources */,
 				A9603E6E1F4DABDC00BF57B1 /* CurrencyPicker.swift in Sources */,
@@ -3395,6 +3426,7 @@
 				A9603EC91F4DABDC00BF57B1 /* ContactCell.swift in Sources */,
 				A9603ECC1F4DABDC00BF57B1 /* KeyboardInfo.swift in Sources */,
 				A9603ECF1F4DABDC00BF57B1 /* ModalTransition.swift in Sources */,
+				2B6C18FE1FCD531E00DE432B /* NewGroupConfigurator.swift in Sources */,
 				A9603ED11F4DABDC00BF57B1 /* InputCell.swift in Sources */,
 				A9603ED61F4DABDC00BF57B1 /* ProfileEditConfigurator.swift in Sources */,
 				A9603EDA1F4DABDC00BF57B1 /* UserBootstrapParameters.swift in Sources */,
