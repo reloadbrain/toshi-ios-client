@@ -20,12 +20,14 @@ import TinyConstraints
 protocol ToshiCellActionDelegate {
     func didTapLeftImage(_ cell: ToshiTableViewCell)
     func didChangeSwitchState(_ cell: ToshiTableViewCell, _ state: Bool)
+    func didFinishTitleInput(_ cell: ToshiTableViewCell, text: String?)
 }
 
 //extenstion with default implementation which is alternative for optional functions in protocols
 extension ToshiCellActionDelegate {
     func didTapLeftImage(_ cell: ToshiTableViewCell) {}
     func didChangeSwitchState(_ cell: ToshiTableViewCell, _ state: Bool) {}
+    func didFinishTitleInput(_ cell: ToshiTableViewCell, text: String?) {}
 }
 
 class ToshiTableViewCell: UITableViewCell {
@@ -45,9 +47,12 @@ class ToshiTableViewCell: UITableViewCell {
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
-        selectionStyle = .none
         addSubviewsAndConstraints()
         setupTextStyles()
+
+        selectionStyle = .none
+        leftImageView?.isUserInteractionEnabled = true
+        titleTextField?.delegate = self
     }
 
     required init?(coder _: NSCoder) {
@@ -92,5 +97,18 @@ class ToshiTableViewCell: UITableViewCell {
         tableView.register(TitleSubtitleSwitchCell.self)
         tableView.register(AvatarTitleSubtitleCell.self)
         tableView.register(AvatarTitleSubtitleDetailsCell.self)
+    }
+}
+
+extension ToshiTableViewCell: UITextFieldDelegate {
+
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+
+        return true
+    }
+
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        self.actionDelegate?.didFinishTitleInput(self, text: textField.text)
     }
 }

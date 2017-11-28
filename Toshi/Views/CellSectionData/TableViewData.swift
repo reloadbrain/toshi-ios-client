@@ -15,7 +15,7 @@
 
 import Foundation
 
-public struct TableSectionData {
+public final class TableSectionData {
 
     var tag: Int = 0
 
@@ -52,7 +52,7 @@ public struct TableCellDataComponents: OptionSet {
     static let titleSubtitleSwitchControlLeftImage: TableCellDataComponents = [.titleLeftImage, .subtitle, .switchControl]
 }
 
-public struct TableCellData {
+public final class TableCellData {
     var tag: Int = 0
 
     var title: String?
@@ -76,7 +76,7 @@ public struct TableCellData {
         setupComponents()
     }
 
-    private mutating func setupComponents() {
+    private func setupComponents() {
         if title != nil {
             components.insert(.title)
         }
