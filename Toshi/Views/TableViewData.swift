@@ -51,14 +51,17 @@ public struct TableCellData {
     var details: String?
     var switchState: Bool?
 
+    var isPlaceholder = false
+
     private(set) var components: TableCellDataComponents = []
 
-    init(title: String? = nil, subtitle: String? = nil, leftImage: UIImage? = nil, details: String? = nil, switchState: Bool? = nil) {
+    init(title: String? = nil, isPlaceholder: Bool = false, subtitle: String? = nil, leftImage: UIImage? = nil, details: String? = nil, switchState: Bool? = nil) {
         self.title = title
         self.subtitle = subtitle
         self.leftImage = leftImage
         self.details = details
         self.switchState = switchState
+        self.isPlaceholder = isPlaceholder
 
         setupComponents()
     }
