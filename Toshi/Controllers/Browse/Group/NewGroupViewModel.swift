@@ -19,6 +19,7 @@ import UIKit
 enum NewGroupItemType: Int {
     case avatarTitle
     case isPublic
+    case participant
     case addParticipant
 }
 
