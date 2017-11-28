@@ -267,13 +267,12 @@ extension NewGroupViewController: ToshiCellActionDelegate {
     }
 
     func didTapLeftImage(_ cell: ToshiTableViewCell) {
+        cell.titleTextField?.resignFirstResponder()
         updateAvatar()
     }
 
     func didFinishTitleInput(_ cell: ToshiTableViewCell, text: String?) {
-        view.endEditing(true)
-
-        viewModel.groupInfo.title = text ?? ""
+        viewModel.groupInfo.title = text?.trimmingCharacters(in: .whitespaces) ?? ""
         tableView.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
     }
 }
