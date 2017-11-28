@@ -27,14 +27,14 @@ final class AvatarTitleCell: ToshiTableViewCell {
         leftImageView?.set(width: 40.0)
         leftImageView?.set(height: 40.0)
 
-        titleLabel = UILabel(frame: .zero)
-        contentView.addSubview(titleLabel!)
+        titleTextField = UITextField(frame: .zero)
+        contentView.addSubview(titleTextField!)
 
-        titleLabel?.centerY(to: contentView)
-        titleLabel?.leftToRight(of: leftImageView!, offset: 10.0)
-        titleLabel?.trailing(to: contentView, offset: -16.0)
-        titleLabel?.setContentHuggingPriority(.required, for: .vertical)
-        titleLabel?.setContentCompressionResistancePriority(.required, for: .horizontal)
-        titleLabel?.setContentCompressionResistancePriority(.required, for: .vertical)
+        titleTextField?.centerY(to: contentView)
+        titleTextField?.leftToRight(of: leftImageView!, offset: 10.0)
+        titleTextField?.trailing(to: contentView, offset: -16.0)
+        titleTextField?.setContentHuggingPriority(.required, for: .vertical)
+        titleTextField?.setContentCompressionResistancePriority(.required, for: .horizontal)
+        titleTextField?.setContentCompressionResistancePriority(.required, for: .vertical)
     }
 }

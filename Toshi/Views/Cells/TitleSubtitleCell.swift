@@ -18,21 +18,21 @@ import UIKit
 final class TitleSubtitleCell: ToshiTableViewCell {
 
     override func addSubviewsAndConstraints() {
-        titleLabel = UILabel(frame: .zero)
-        contentView.addSubview(titleLabel!)
+        titleTextField = UITextField(frame: .zero)
+        contentView.addSubview(titleTextField!)
 
-        titleLabel?.top(to: contentView, offset: 16.0, priority: .defaultHigh)
-        titleLabel?.leading(to: contentView, offset: 16.0, priority: .defaultHigh)
-        titleLabel?.trailing(to: contentView, offset: -16.0, priority: .defaultHigh)
-        titleLabel?.setContentHuggingPriority(.required, for: .vertical)
-        titleLabel?.setContentCompressionResistancePriority(.required, for: .horizontal)
-        titleLabel?.setContentCompressionResistancePriority(.required, for: .vertical)
+        titleTextField?.top(to: contentView, offset: 16.0, priority: .defaultHigh)
+        titleTextField?.leading(to: contentView, offset: 16.0, priority: .defaultHigh)
+        titleTextField?.trailing(to: contentView, offset: -16.0, priority: .defaultHigh)
+        titleTextField?.setContentHuggingPriority(.required, for: .vertical)
+        titleTextField?.setContentCompressionResistancePriority(.required, for: .horizontal)
+        titleTextField?.setContentCompressionResistancePriority(.required, for: .vertical)
 
         subtitleLabel = UILabel(frame: .zero)
         contentView.addSubview(subtitleLabel!)
 
         subtitleLabel?.leading(to: contentView, offset: 16.0, priority: .defaultHigh)
-        subtitleLabel?.topToBottom(of: titleLabel!, offset: 5.0, priority: .defaultHigh)
+        subtitleLabel?.topToBottom(of: titleTextField!, offset: 5.0, priority: .defaultHigh)
         subtitleLabel?.bottom(to: contentView, offset: -16.0, priority: .required)
         subtitleLabel?.setContentHuggingPriority(.required, for: .horizontal)
         subtitleLabel?.setContentHuggingPriority(.required, for: .vertical)

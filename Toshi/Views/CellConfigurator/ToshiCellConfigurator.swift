@@ -30,7 +30,7 @@ extension ToshiCellConfigurator {
     func configureCell(_ cell: UITableViewCell, with cellData: TableCellData) {
         guard let cell = cell as? ToshiTableViewCell else { return }
 
-        cell.titleLabel?.text = cellData.title
+        cell.titleTextField?.text = cellData.title
         cell.subtitleLabel?.text = cellData.subtitle
         cell.detailsLabel?.text = cellData.details
         cell.leftImageView?.image = cellData.leftImage

@@ -19,7 +19,7 @@ import TinyConstraints
 
 class ToshiTableViewCell: UITableViewCell {
 
-    var titleLabel: UILabel?
+    var titleTextField: UITextField?
     var subtitleLabel: UILabel?
     var detailsLabel: UILabel?
     var leftImageView: UIImageView?
@@ -42,7 +42,9 @@ class ToshiTableViewCell: UITableViewCell {
     }
 
     open func setupTextStyles() {
-        titleLabel?.font = Theme.preferredRegular()
+        titleTextField?.font = Theme.preferredRegular()
+        titleTextField?.isUserInteractionEnabled = false
+
         subtitleLabel?.font = Theme.preferredRegularSmall()
         detailsLabel?.font = Theme.preferredFootnote()
 

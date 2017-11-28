@@ -19,13 +19,13 @@ import TinyConstraints
 final class TitleCell: ToshiTableViewCell {
 
     override open func addSubviewsAndConstraints() {
-        titleLabel = UILabel(frame: .zero)
-        contentView.addSubview(titleLabel!)
+        titleTextField = UITextField(frame: .zero)
+        contentView.addSubview(titleTextField!)
 
-        titleLabel?.edgesToSuperview(excluding: .right, insets: TinyEdgeInsets(top: 10, left: 16, bottom: 10, right: 0))
-        titleLabel?.setContentHuggingPriority(.required, for: .horizontal)
-        titleLabel?.setContentHuggingPriority(.required, for: .vertical)
-        titleLabel?.setContentCompressionResistancePriority(.required, for: .horizontal)
-        titleLabel?.setContentCompressionResistancePriority(.required, for: .vertical)
+        titleTextField?.edgesToSuperview(excluding: .right, insets: TinyEdgeInsets(top: 10, left: 16, bottom: 10, right: 0))
+        titleTextField?.setContentHuggingPriority(.required, for: .horizontal)
+        titleTextField?.setContentHuggingPriority(.required, for: .vertical)
+        titleTextField?.setContentCompressionResistancePriority(.required, for: .horizontal)
+        titleTextField?.setContentCompressionResistancePriority(.required, for: .vertical)
     }
 }

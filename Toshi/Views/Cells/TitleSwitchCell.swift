@@ -23,14 +23,14 @@ final class TitleSwitchCell: ToshiTableViewCell {
         switchControl!.trailing(to: contentView, offset: -16.0, priority: .defaultHigh)
         switchControl!.centerY(to: contentView)
 
-        titleLabel = UILabel(frame: .zero)
-        contentView.addSubview(titleLabel!)
+        titleTextField = UITextField(frame: .zero)
+        contentView.addSubview(titleTextField!)
 
-        titleLabel?.top(to: contentView, offset: 16.0)
-        titleLabel?.leading(to: contentView, offset: 16.0, priority: .defaultHigh)
-        titleLabel?.rightToLeft(of: switchControl!, offset: -10.0)
-        titleLabel?.setContentHuggingPriority(.required, for: .vertical)
-        titleLabel?.setContentCompressionResistancePriority(.required, for: .horizontal)
-        titleLabel?.setContentCompressionResistancePriority(.required, for: .vertical)
+        titleTextField?.top(to: contentView, offset: 16.0)
+        titleTextField?.leading(to: contentView, offset: 16.0, priority: .defaultHigh)
+        titleTextField?.rightToLeft(of: switchControl!, offset: -10.0)
+        titleTextField?.setContentHuggingPriority(.required, for: .vertical)
+        titleTextField?.setContentCompressionResistancePriority(.required, for: .horizontal)
+        titleTextField?.setContentCompressionResistancePriority(.required, for: .vertical)
     }
 }
