@@ -236,6 +236,20 @@ extension NewGroupViewController: UITableViewDelegate {
     public func tableView(_: UITableView, estimatedHeightForRowAt _: IndexPath) -> CGFloat {
         return UITableViewAutomaticDimension
     }
+
+    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let sectionData = viewModel.sectionModels[indexPath.section]
+        let cellData = sectionData.cellsData[indexPath.row]
+
+        switch cellData.tag {
+        case NewGroupItemType.participant.rawValue:
+            break // open participan details
+        case NewGroupItemType.addParticipant.rawValue:
+            break // push participants picker
+        default:
+            break
+        }
+    }
 }
 
 extension NewGroupViewController: UITableViewDataSource {
@@ -271,6 +285,17 @@ extension NewGroupViewController: UITableViewDataSource {
         configurator.configureCell(cell, with: cellData)
 
         return cell
+    }
+}
+
+extension NewGroupViewController: ToshiCellActionDelegate {
+
+    func didChangeSwitchState(_ cell: ToshiTableViewCell, _ state: Bool) {
+
+    }
+
+    func didTapLeftImage(_ cell: ToshiTableViewCell) {
+
     }
 }
 
