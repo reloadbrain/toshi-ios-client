@@ -16,45 +16,25 @@
 import Foundation
 import UIKit
 
-enum NewGroupItemType: Int {
-    case avatarTitle
-    case isPublic
-    case participant
-    case addParticipant
-}
+final class GroupInfoViewModel {
 
-struct GroupInfo {
-    let placeholder = Localized("new_group_title")
-    var title: String = ""
-    var avatar = UIImage(named: "avatar-edit")
-    var isPublic = false
-    var participantsIDs: [TokenUser] = []
-}
-
-final class NewGroupViewModel {
-
+    private var groupModel: TSGroupModel
     var groupInfo: GroupInfo {
         didSet {
             setup()
         }
     }
 
-    init() {
+    init(_ groupModel: TSGroupModel) {
+        self.groupModel = groupModel
         groupInfo = GroupInfo()
+        groupInfo.title = groupModel.groupName
+        groupInfo.participantsIDs = groupModel.groupMemberIds
+
         setup()
     }
 
-    var viewControllerTitle: String { return Localized("new_group_title") }
-    var createGroupButtonTitle: String { return Localized("create_group_button_title") }
-    var imagePickerTitle: String { return Localized("image-picker-select-source-title") }
-    var imagePickerCameraActionTitle: String { return Localized("image-picker-camera-action-title") }
-    var imagePickerLibraryActionTitle: String { return Localized("image-picker-library-action-title") }
-    var imagePickerCancelActionTitle: String { return Localized("cancel_action_title") }
-
-    var errorAlertTitle: String { return Localized("error_title") }
-    var errorAlertMessage: String { return Localized("toshi_generic_error") }
-
-    private(set) var sectionModels: [TableSectionData] = []
+    private var models: [TableSectionData] = []
 
     private func setup() {
         let avatarTitleData = TableCellData(title: groupInfo.title, leftImage: groupInfo.avatar)
@@ -70,6 +50,42 @@ final class NewGroupViewModel {
         addParticipantsData.tag = NewGroupItemType.addParticipant.rawValue
         let addParticipantsSectionData = TableSectionData(cellsData: [addParticipantsData], headerTitle: Localized("new_group_participants_header_title"))
 
-        sectionModels = [avatarTitleSectionData, publicSectionData, addParticipantsSectionData]
+        models = [avatarTitleSectionData, publicSectionData, addParticipantsSectionData]
+    }
+
+    @objc private func updateGroup() {
+        ChatInteractor.updateGroup(with: groupModel)
     }
 }
+
+extension GroupInfoViewModel: GroupViewModelProtocol {
+
+    var sectionModels: [TableSectionData] {
+        return models
+    }
+
+    func updateAvatar(_ image: UIImage) {
+        groupInfo.avatar = image
+    }
+
+    func updateTitle(_ title: String) {
+        groupInfo.title = title
+    }
+
+    func updatePublicState(_ isPublic: Bool) {
+        groupInfo.isPublic = isPublic
+    }
+
+    var rightBarButtonSelector: Selector { return #selector(updateGroup) }
+
+    var viewControllerTitle: String { return Localized("group_info_title") }
+    var rightBarButtonTitle: String { return Localized("update_group_button_title") }
+    var imagePickerTitle: String { return Localized("image-picker-select-source-title") }
+    var imagePickerCameraActionTitle: String { return Localized("image-picker-camera-action-title") }
+    var imagePickerLibraryActionTitle: String { return Localized("image-picker-library-action-title") }
+    var imagePickerCancelActionTitle: String { return Localized("cancel_action_title") }
+
+    var errorAlertTitle: String { return Localized("error_title") }
+    var errorAlertMessage: String { return Localized("toshi_generic_error") }
+}
+

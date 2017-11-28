@@ -111,15 +111,24 @@
 		2B4E26041FCCCE78004614D5 /* AvatarTitleSubtitleSwitchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4E26021FCCCE78004614D5 /* AvatarTitleSubtitleSwitchCell.swift */; };
 		2B4E26051FCCCE78004614D5 /* AvatarTitleSubtitleSwitchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4E26021FCCCE78004614D5 /* AvatarTitleSubtitleSwitchCell.swift */; };
 		2B695CBA1EF9B9A80025119B /* KeyboardAdjustable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BE66A0B1EF910B6007A7130 /* KeyboardAdjustable.swift */; };
-		2B6C18F41FCD431800DE432B /* NewGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6C18F31FCD431800DE432B /* NewGroupViewController.swift */; };
-		2B6C18F51FCD431800DE432B /* NewGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6C18F31FCD431800DE432B /* NewGroupViewController.swift */; };
-		2B6C18F61FCD431800DE432B /* NewGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6C18F31FCD431800DE432B /* NewGroupViewController.swift */; };
+		2B6C18F41FCD431800DE432B /* GroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6C18F31FCD431800DE432B /* GroupViewController.swift */; };
+		2B6C18F51FCD431800DE432B /* GroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6C18F31FCD431800DE432B /* GroupViewController.swift */; };
+		2B6C18F61FCD431800DE432B /* GroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6C18F31FCD431800DE432B /* GroupViewController.swift */; };
 		2B6C18F81FCD438000DE432B /* NewGroupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6C18F71FCD438000DE432B /* NewGroupViewModel.swift */; };
 		2B6C18F91FCD438000DE432B /* NewGroupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6C18F71FCD438000DE432B /* NewGroupViewModel.swift */; };
 		2B6C18FA1FCD438000DE432B /* NewGroupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6C18F71FCD438000DE432B /* NewGroupViewModel.swift */; };
 		2B6C18FD1FCD531E00DE432B /* NewGroupConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6C18FC1FCD531E00DE432B /* NewGroupConfigurator.swift */; };
 		2B6C18FE1FCD531E00DE432B /* NewGroupConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6C18FC1FCD531E00DE432B /* NewGroupConfigurator.swift */; };
 		2B6C18FF1FCD531E00DE432B /* NewGroupConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6C18FC1FCD531E00DE432B /* NewGroupConfigurator.swift */; };
+		2B6C19011FCDA4C600DE432B /* GroupInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6C19001FCDA4C600DE432B /* GroupInfoViewModel.swift */; };
+		2B6C19021FCDA4C600DE432B /* GroupInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6C19001FCDA4C600DE432B /* GroupInfoViewModel.swift */; };
+		2B6C19031FCDA4C600DE432B /* GroupInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6C19001FCDA4C600DE432B /* GroupInfoViewModel.swift */; };
+		2B6C19051FCDA4D900DE432B /* GroupViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6C19041FCDA4D900DE432B /* GroupViewModelProtocol.swift */; };
+		2B6C19061FCDA4D900DE432B /* GroupViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6C19041FCDA4D900DE432B /* GroupViewModelProtocol.swift */; };
+		2B6C19071FCDA4D900DE432B /* GroupViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6C19041FCDA4D900DE432B /* GroupViewModelProtocol.swift */; };
+		2B6C190B1FCDAA3F00DE432B /* GroupInfoConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6C190A1FCDAA3F00DE432B /* GroupInfoConfigurator.swift */; };
+		2B6C190C1FCDAA3F00DE432B /* GroupInfoConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6C190A1FCDAA3F00DE432B /* GroupInfoConfigurator.swift */; };
+		2B6C190D1FCDAA3F00DE432B /* GroupInfoConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6C190A1FCDAA3F00DE432B /* GroupInfoConfigurator.swift */; };
 		2B953AC51FAC9E1A005A5BF3 /* NSString+OWS.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B953AC41FAC9E1A005A5BF3 /* NSString+OWS.m */; };
 		2B953AC61FAC9E1A005A5BF3 /* NSString+OWS.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B953AC41FAC9E1A005A5BF3 /* NSString+OWS.m */; };
 		2B953AC71FAC9E1A005A5BF3 /* NSString+OWS.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B953AC41FAC9E1A005A5BF3 /* NSString+OWS.m */; };
@@ -927,9 +936,12 @@
 		2B4E25F91FCCCE00004614D5 /* AvatarTitleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarTitleCell.swift; sourceTree = "<group>"; };
 		2B4E25FE1FCCCE38004614D5 /* ToshiCellConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToshiCellConfigurator.swift; sourceTree = "<group>"; };
 		2B4E26021FCCCE78004614D5 /* AvatarTitleSubtitleSwitchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarTitleSubtitleSwitchCell.swift; sourceTree = "<group>"; };
-		2B6C18F31FCD431800DE432B /* NewGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGroupViewController.swift; sourceTree = "<group>"; };
+		2B6C18F31FCD431800DE432B /* GroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupViewController.swift; sourceTree = "<group>"; };
 		2B6C18F71FCD438000DE432B /* NewGroupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGroupViewModel.swift; sourceTree = "<group>"; };
 		2B6C18FC1FCD531E00DE432B /* NewGroupConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGroupConfigurator.swift; sourceTree = "<group>"; };
+		2B6C19001FCDA4C600DE432B /* GroupInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupInfoViewModel.swift; sourceTree = "<group>"; };
+		2B6C19041FCDA4D900DE432B /* GroupViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupViewModelProtocol.swift; sourceTree = "<group>"; };
+		2B6C190A1FCDAA3F00DE432B /* GroupInfoConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupInfoConfigurator.swift; sourceTree = "<group>"; };
 		2B953AC31FAC9E19005A5BF3 /* NSString+OWS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+OWS.h"; sourceTree = "<group>"; };
 		2B953AC41FAC9E1A005A5BF3 /* NSString+OWS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+OWS.m"; sourceTree = "<group>"; };
 		2B953AC81FAC9EEF005A5BF3 /* ProfileManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileManager.h; sourceTree = "<group>"; };
@@ -1378,7 +1390,6 @@
 		14ED3AB91E4A2A8D00DF8079 /* Browse */ = {
 			isa = PBXGroup;
 			children = (
-				2B6C18F21FCD42F700DE432B /* Group */,
 				A9CADC121F94AF2D0096D017 /* Views */,
 				A9CADC101F94AF2C0096D017 /* BrowseAllViewController.swift */,
 				A9CADC191F94AF2D0096D017 /* BrowseNavigationController.swift */,
@@ -1486,14 +1497,13 @@
 			path = CellConfigurator;
 			sourceTree = "<group>";
 		};
-		2B6C18F21FCD42F700DE432B /* Group */ = {
+		2B6C18F21FCD42F700DE432B /* NewGroup */ = {
 			isa = PBXGroup;
 			children = (
-				2B6C18F31FCD431800DE432B /* NewGroupViewController.swift */,
 				2B6C18F71FCD438000DE432B /* NewGroupViewModel.swift */,
 				2B6C18FC1FCD531E00DE432B /* NewGroupConfigurator.swift */,
 			);
-			path = Group;
+			path = NewGroup;
 			sourceTree = "<group>";
 		};
 		2B6C18FB1FCD494E00DE432B /* CellSectionData */ = {
@@ -1502,6 +1512,26 @@
 				2B1D669A1FC2F96500EB166C /* TableViewData.swift */,
 			);
 			path = CellSectionData;
+			sourceTree = "<group>";
+		};
+		2B6C19081FCDA94400DE432B /* GroupChat */ = {
+			isa = PBXGroup;
+			children = (
+				2B6C19041FCDA4D900DE432B /* GroupViewModelProtocol.swift */,
+				2B6C18F31FCD431800DE432B /* GroupViewController.swift */,
+				2B6C19091FCDA96400DE432B /* GroupInfo */,
+				2B6C18F21FCD42F700DE432B /* NewGroup */,
+			);
+			path = GroupChat;
+			sourceTree = "<group>";
+		};
+		2B6C19091FCDA96400DE432B /* GroupInfo */ = {
+			isa = PBXGroup;
+			children = (
+				2B6C19001FCDA4C600DE432B /* GroupInfoViewModel.swift */,
+				2B6C190A1FCDAA3F00DE432B /* GroupInfoConfigurator.swift */,
+			);
+			path = GroupInfo;
 			sourceTree = "<group>";
 		};
 		2BD0AC881F278619000D2A58 /* Certificate(dis) */ = {
@@ -1667,6 +1697,7 @@
 		9F9238CD1E24F3DE004BEEE0 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				2B6C19081FCDA94400DE432B /* GroupChat */,
 				9F78D9D61EE93F36003A0B95 /* AlertController */,
 				14ED3AB91E4A2A8D00DF8079 /* Browse */,
 				A91D729B1F877FFA0093420C /* Chat */,
@@ -2913,7 +2944,8 @@
 				A9A9F9A51F8B70850010F877 /* ChatFloatingHeaderView.swift in Sources */,
 				A9E1DCDE1F1E276B001A4ABE /* MessagesPaymentCell.swift in Sources */,
 				9FAC46EE1E800C13005F76A9 /* UIColor+Additions.swift in Sources */,
-				2B6C18F61FCD431800DE432B /* NewGroupViewController.swift in Sources */,
+				2B6C18F61FCD431800DE432B /* GroupViewController.swift in Sources */,
+				2B6C190D1FCDAA3F00DE432B /* GroupInfoConfigurator.swift in Sources */,
 				149F9A641E72E29A00FB74AA /* BackgroundNotificationHandler.swift in Sources */,
 				A9E1DCDC1F1E2765001A4ABE /* MessagesBasicCell.swift in Sources */,
 				9F54AB0E1ECC8D390008489F /* ScannerController.swift in Sources */,
@@ -3012,6 +3044,7 @@
 				9FF6AFA01E83DE04001B5907 /* AvatarImageView.swift in Sources */,
 				14A769E11E72EC70007B4C1A /* DistributionTokenURLPaths.swift in Sources */,
 				149F9A901E72E29A00FB74AA /* CryptoTools.m in Sources */,
+				2B6C19031FCDA4C600DE432B /* GroupInfoViewModel.swift in Sources */,
 				A9E1DCE11F1E277A001A4ABE /* IconLabelView.swift in Sources */,
 				2B002D901F17BA1800D92240 /* NetworkSwitcher.swift in Sources */,
 				A9E691D31F7A49B800317DB1 /* SignInView.swift in Sources */,
@@ -3084,6 +3117,7 @@
 				D197B6174378B26EDA051439 /* SofaCommand.swift in Sources */,
 				2B4E25F41FCCCDC4004614D5 /* TitleSubtitleSwitchCell.swift in Sources */,
 				D197BDE01E75D36B5D636838 /* PersonalProfileViewController.swift in Sources */,
+				2B6C19071FCDA4D900DE432B /* GroupViewModelProtocol.swift in Sources */,
 				D197B329D1F28B5F7868DE4D /* ProfileEditController.swift in Sources */,
 				D197B99E1E1E4A6020699D14 /* ProfileViewController.swift in Sources */,
 				D197BFF1B944A12C9733439F /* ProfileView.swift in Sources */,
@@ -3115,7 +3149,8 @@
 				9FAACCD71E310C1100FB871D /* SettingsNavigationController.swift in Sources */,
 				9FAE4A6E1E4CC04300126217 /* BaseConverter.swift in Sources */,
 				A9BA6B7D1EF7D746007C3206 /* DepositMoneyBulletPoint.swift in Sources */,
-				2B6C18F41FCD431800DE432B /* NewGroupViewController.swift in Sources */,
+				2B6C18F41FCD431800DE432B /* GroupViewController.swift in Sources */,
+				2B6C190B1FCDAA3F00DE432B /* GroupInfoConfigurator.swift in Sources */,
 				A94BDE151E800EF800B2F0CF /* ConfirmationButton.swift in Sources */,
 				2BD6FB401F02927F00F1E2BF /* IndexPath+Additions.swift in Sources */,
 				A9CADC1E1F94AF2D0096D017 /* OpenURLButton.swift in Sources */,
@@ -3214,6 +3249,7 @@
 				145666061E30D31A00E52027 /* EthereumAPIClient.swift in Sources */,
 				2BC4C07F1EF3ED4700F99CE2 /* ActivityIndicating.swift in Sources */,
 				2BA888EB1F600ED500B03D8E /* Currency.swift in Sources */,
+				2B6C19011FCDA4C600DE432B /* GroupInfoViewModel.swift in Sources */,
 				A9E691BF1F7A496800317DB1 /* SignInCell.swift in Sources */,
 				A9BF33B71E76F918009A51AA /* CheckboxControl.swift in Sources */,
 				2BC4084E1EF186000044C242 /* PaymentPresentable.swift in Sources */,
@@ -3286,6 +3322,7 @@
 				D197B3CD97B238550A27A173 /* SofaCommand.swift in Sources */,
 				2B4E25F21FCCCDC4004614D5 /* TitleSubtitleSwitchCell.swift in Sources */,
 				D197B77259031691F95DA6AA /* PersonalProfileViewController.swift in Sources */,
+				2B6C19051FCDA4D900DE432B /* GroupViewModelProtocol.swift in Sources */,
 				D197BE83E68416D3FA0AE9BF /* ProfileEditController.swift in Sources */,
 				D197B7826883306A72319E51 /* ProfileViewController.swift in Sources */,
 				D197B4267BE0D9E6F9357723 /* ProfileView.swift in Sources */,
@@ -3317,7 +3354,8 @@
 				A9603D891F4DABDC00BF57B1 /* UIColor+Additions.swift in Sources */,
 				A9603D8C1F4DABDC00BF57B1 /* BackgroundNotificationHandler.swift in Sources */,
 				A9603D8F1F4DABDC00BF57B1 /* MessagesBasicCell.swift in Sources */,
-				2B6C18F51FCD431800DE432B /* NewGroupViewController.swift in Sources */,
+				2B6C18F51FCD431800DE432B /* GroupViewController.swift in Sources */,
+				2B6C190C1FCDAA3F00DE432B /* GroupInfoConfigurator.swift in Sources */,
 				A9603D911F4DABDC00BF57B1 /* ScannerController.swift in Sources */,
 				A91D72AC1F8785E10093420C /* ChatButtonsCollectionViewLayout.swift in Sources */,
 				A9603D941F4DABDC00BF57B1 /* ImagesViewController.swift in Sources */,
@@ -3416,6 +3454,7 @@
 				A9603EB01F4DABDC00BF57B1 /* CryptoTools.m in Sources */,
 				A9603EB11F4DABDC00BF57B1 /* IconLabelView.swift in Sources */,
 				A9603EB51F4DABDC00BF57B1 /* NetworkSwitcher.swift in Sources */,
+				2B6C19021FCDA4C600DE432B /* GroupInfoViewModel.swift in Sources */,
 				A9603EB81F4DABDC00BF57B1 /* ChatAPIClient.swift in Sources */,
 				A9E691D21F7A49B800317DB1 /* SignInView.swift in Sources */,
 				A9E691C61F7A499B00317DB1 /* DeletableTextField.swift in Sources */,
@@ -3488,6 +3527,7 @@
 				D197B3781644ABF575195A69 /* SofaCommand.swift in Sources */,
 				2B4E25F31FCCCDC4004614D5 /* TitleSubtitleSwitchCell.swift in Sources */,
 				D197B0EE47ED98F7705E95B1 /* PersonalProfileViewController.swift in Sources */,
+				2B6C19061FCDA4D900DE432B /* GroupViewModelProtocol.swift in Sources */,
 				D197BADA32392E95EA354C18 /* ProfileEditController.swift in Sources */,
 				D197B47D98009339295B1A5C /* ProfileViewController.swift in Sources */,
 				D197BBA31772C24F264C2D3B /* ProfileView.swift in Sources */,

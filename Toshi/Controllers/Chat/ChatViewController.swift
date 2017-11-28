@@ -251,7 +251,14 @@ final class ChatViewController: UIViewController, UINavigationControllerDelegate
     }
 
     @objc fileprivate func showContactProfile(_ sender: UITapGestureRecognizer) {
-        if let contact = self.viewModel.contact, sender.state == .ended {
+
+        if let groupThread = thread as? TSGroupThread {
+            let groupModel = groupThread.groupModel
+            let viewModel = GroupInfoViewModel(groupModel)
+
+            let groupViewController = GroupViewController(viewModel, configurator: NewGroupConfigurator())
+            Navigator.push(groupViewController)
+        } else if let contact = self.viewModel.contact, sender.state == .ended {
             let contactController = ProfileViewController(contact: contact)
             navigationController?.pushViewController(contactController, animated: true)
         }

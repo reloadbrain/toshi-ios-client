@@ -143,8 +143,11 @@ open class RecentViewController: SweetTableController, Emptiable {
     }
     
     @objc private func didPressCompose(_ barButtonItem: UIBarButtonItem) {
-        let newGroupViewController = NewGroupViewController()
-        Navigator.push(newGroupViewController)
+        guard let groupModel = TSGroupModel(title: "", memberIds: [], image: UIImage(named: "avatar-edit"), groupId: nil) else { return }
+
+        let viewModel = NewGroupViewModel(groupModel)
+        let groupViewController = GroupViewController(viewModel, configurator: NewGroupConfigurator())
+        Navigator.push(groupViewController)
     }
 
     fileprivate func addSubviewsAndConstraints() {

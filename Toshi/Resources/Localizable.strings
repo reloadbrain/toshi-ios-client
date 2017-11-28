@@ -240,7 +240,9 @@
 
 /* Group chat */
 "new_group_title" = "New Group";
+"group_info_title" = "Group Info";
 "create_group_button_title" = "Create";
+"update_group_button_title" = "Update";
 "new_group_settings_header_title" = "Group settings";
 "new_group_participants_header_title" = "Participants";
 "new_group_add_participants_action_title" = "Add Participants";

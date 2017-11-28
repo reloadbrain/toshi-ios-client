@@ -17,9 +17,10 @@ import UIKit
 import SweetUIKit
 import SweetFoundation
 
-open class NewGroupViewController: UIViewController, KeyboardAdjustable, UINavigationControllerDelegate {
+open class GroupViewController: UIViewController, KeyboardAdjustable, UINavigationControllerDelegate {
 
-    private let viewModel = NewGroupViewModel()
+    private var configurator: ToshiCellConfigurator
+    private var viewModel: GroupViewModelProtocol
 
     var scrollViewBottomInset: CGFloat = 0.0
 
@@ -60,6 +61,16 @@ open class NewGroupViewController: UIViewController, KeyboardAdjustable, UINavig
         return view
     }()
 
+    init(_ viewModel: GroupViewModelProtocol, configurator: ToshiCellConfigurator) {
+        self.viewModel = viewModel
+        self.configurator = configurator
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required public init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     open override var canBecomeFirstResponder: Bool {
         return true
     }
@@ -74,7 +85,7 @@ open class NewGroupViewController: UIViewController, KeyboardAdjustable, UINavig
         view.backgroundColor = Theme.lightGrayBackgroundColor
         title = viewModel.viewControllerTitle
 
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: viewModel.createGroupButtonTitle, style: .plain, target: self, action: #selector(self.create))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: viewModel.rightBarButtonTitle, style: .plain, target: self, action: viewModel.rightBarButtonSelector)
         navigationItem.rightBarButtonItem?.setTitleTextAttributes([.font: Theme.bold(size: 17.0), .foregroundColor: Theme.tintColor], for: .normal)
 
         addSubviewsAndConstraints()
@@ -143,7 +154,7 @@ open class NewGroupViewController: UIViewController, KeyboardAdjustable, UINavig
 
     func changeAvatar(to avatar: UIImage?) {
         if let avatar = avatar {
-            viewModel.groupInfo.avatar = avatar.resized(toHeight: 320)
+            viewModel.updateAvatar(avatar)
             tableView.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
         }
     }
@@ -183,7 +194,7 @@ open class NewGroupViewController: UIViewController, KeyboardAdjustable, UINavig
     }()
 }
 
-extension NewGroupViewController: UIImagePickerControllerDelegate {
+extension GroupViewController: UIImagePickerControllerDelegate {
 
     public func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true, completion: nil)
@@ -201,7 +212,7 @@ extension NewGroupViewController: UIImagePickerControllerDelegate {
     }
 }
 
-extension NewGroupViewController: UITableViewDelegate {
+extension GroupViewController: UITableViewDelegate {
 
     public func tableView(_: UITableView, estimatedHeightForRowAt _: IndexPath) -> CGFloat {
         return UITableViewAutomaticDimension
@@ -220,7 +231,7 @@ extension NewGroupViewController: UITableViewDelegate {
     }
 }
 
-extension NewGroupViewController: UITableViewDataSource {
+extension GroupViewController: UITableViewDataSource {
 
     public func tableView(_: UITableView, titleForHeaderInSection section: Int) -> String? {
         let sectionData = viewModel.sectionModels[section]
@@ -242,7 +253,6 @@ extension NewGroupViewController: UITableViewDataSource {
     }
 
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let configurator = NewGroupConfigurator()
 
         let sectionData = viewModel.sectionModels[indexPath.section]
         let cellData = sectionData.cellsData[indexPath.row]
@@ -257,12 +267,12 @@ extension NewGroupViewController: UITableViewDataSource {
     }
 }
 
-extension NewGroupViewController: ToshiCellActionDelegate {
+extension GroupViewController: ToshiCellActionDelegate {
 
     func didChangeSwitchState(_ cell: ToshiTableViewCell, _ state: Bool) {
         guard let indexPath = tableView.indexPath(for: cell) else { return }
 
-        viewModel.groupInfo.isPublic = state
+        viewModel.updatePublicState(state)
         tableView.reloadRows(at: [indexPath], with: .automatic)
     }
 
@@ -272,7 +282,8 @@ extension NewGroupViewController: ToshiCellActionDelegate {
     }
 
     func didFinishTitleInput(_ cell: ToshiTableViewCell, text: String?) {
-        viewModel.groupInfo.title = text?.trimmingCharacters(in: .whitespaces) ?? ""
+        let title = text?.trimmingCharacters(in: .whitespaces) ?? ""
+        viewModel.updateTitle(title)
         tableView.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
     }
 }

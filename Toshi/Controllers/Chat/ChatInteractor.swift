@@ -324,6 +324,10 @@ final class ChatInteractor: NSObject {
         return thread!
     }
 
+    public static func updateGroup(with groupModel: TSGroupModel) {
+
+    }
+
     public static func createGroup(with recipientsIds: NSMutableArray = ["0xfed3c4db1dc5878fd19c401754dd1e887da8af03", "0x60c7c1935f787a6474b84f3a997263080bb20b1c", "0xd79ade23a00ebbf1485938f375f1310ca5b57b6a"], name: String, avatar: UIImage? = UIImage(named: "white")) {
 
         let groupId = Randomness.generateRandomBytes(32)
