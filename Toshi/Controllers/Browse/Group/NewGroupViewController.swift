@@ -21,9 +21,6 @@ open class NewGroupViewController: UIViewController, KeyboardAdjustable, UINavig
 
     private let viewModel = NewGroupViewModel()
 
-    fileprivate static let profileVisibilitySectionTitle = Localized("Profile visibility")
-    fileprivate static let profileVisibilitySectionFooter = Localized("Setting your profile to public will allow it to show up on the Browse page. Other users will be able to message you from there.")
-
     var scrollViewBottomInset: CGFloat = 0.0
 
     var scrollView: UIScrollView {
@@ -75,9 +72,9 @@ open class NewGroupViewController: UIViewController, KeyboardAdjustable, UINavig
         }
 
         view.backgroundColor = Theme.lightGrayBackgroundColor
-        title = "New Group"
+        title = viewModel.viewControllerTitle
 
-        navigationItem.rightBarButtonItem = UIBarButtonItem.init(title: "Create", style: .plain, target: self, action: #selector(self.create))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: viewModel.createGroupButtonTitle, style: .plain, target: self, action: #selector(self.create))
         navigationItem.rightBarButtonItem?.setTitleTextAttributes([.font: Theme.bold(size: 17.0), .foregroundColor: Theme.tintColor], for: .normal)
 
         addSubviewsAndConstraints()
@@ -117,16 +114,16 @@ open class NewGroupViewController: UIViewController, KeyboardAdjustable, UINavig
     }
 
     @objc func updateAvatar() {
-        let pickerTypeAlertController = UIAlertController(title: Localized("image-picker-select-source-title"), message: nil, preferredStyle: .actionSheet)
-        let cameraAction = UIAlertAction(title: Localized("image-picker-camera-action-title"), style: .default) { _ in
+        let pickerTypeAlertController = UIAlertController(title: viewModel.imagePickerTitle, message: nil, preferredStyle: .actionSheet)
+        let cameraAction = UIAlertAction(title: viewModel.imagePickerCameraActionTitle, style: .default) { _ in
             self.presentImagePicker(sourceType: .camera)
         }
 
-        let libraryAction = UIAlertAction(title: Localized("image-picker-library-action-title"), style: .default) { _ in
+        let libraryAction = UIAlertAction(title: viewModel.imagePickerLibraryActionTitle, style: .default) { _ in
             self.presentImagePicker(sourceType: .photoLibrary)
         }
 
-        let cancelAction = UIAlertAction(title: Localized("cancel_action_title"), style: .cancel, handler: nil)
+        let cancelAction = UIAlertAction(title: viewModel.imagePickerCancelActionTitle, style: .cancel, handler: nil)
 
         pickerTypeAlertController.addAction(cameraAction)
         pickerTypeAlertController.addAction(libraryAction)
@@ -159,44 +156,13 @@ open class NewGroupViewController: UIViewController, KeyboardAdjustable, UINavig
 
     }
 
-    fileprivate func validateName(_ username: String) -> Bool {
-        let none = NSRegularExpression.MatchingOptions(rawValue: 0)
-        let range = NSRange(location: 0, length: username.characters.count)
-
-        var isValid = true
-
-        if isValid {
-            isValid = username.characters.count >= 2
-        }
-
-        if isValid {
-            isValid = username.characters.count <= 60
-        }
-
-        var regex: NSRegularExpression?
-        do {
-            let pattern = IDAPIClient.usernameValidationPattern
-            regex = try NSRegularExpression(pattern: pattern, options: [.anchorsMatchLines, .dotMatchesLineSeparators, .useUnicodeWordBoundaries])
-        } catch {
-            fatalError("Invalid regular expression pattern")
-        }
-
-        if isValid {
-            if let validationRegex = regex {
-                isValid = validationRegex.numberOfMatches(in: username, options: none, range: range) >= 1
-            }
-        }
-
-        return isValid
-    }
-
     fileprivate func completeEdit(success: Bool, message: String?) {
         activityIndicator.stopAnimating()
 
         if success == true {
             navigationController?.popViewController(animated: true)
         } else {
-            let alert = UIAlertController.dismissableAlert(title: "Error", message: message ?? "Something went wrong")
+            let alert = UIAlertController.dismissableAlert(title: viewModel.errorAlertTitle, message: message ?? viewModel.errorAlertMessage)
             Navigator.presentModally(alert)
         }
     }
