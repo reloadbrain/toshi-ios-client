@@ -39,6 +39,8 @@ class ProfilesView: UITableView {
         separatorStyle = .none
         
         register(ProfileCell.self, forCellReuseIdentifier: ProfileCell.reuseIdentifier)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(yapDatabaseDidChange(notification:)), name: .YapDatabaseModified, object: nil)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -62,19 +64,68 @@ class ProfilesView: UITableView {
     func updateProfileIfNeeded(at indexPath: IndexPath) {
         guard let profile = profile(at: indexPath) else { return }
         
-        print("Updating profile infor for address: \(profile.address).")
-        
         IDAPIClient.shared.findContact(name: profile.address) { [weak self] _ in
             self?.beginUpdates()
             self?.reloadRows(at: [indexPath], with: .automatic)
             self?.endUpdates()
         }
     }
+    
+    @objc private func yapDatabaseDidChange(notification _: NSNotification) {
+//        defer {
+//            showOrHideEmptyState()
+//        }
+        
+        let notifications = databaseConnection.beginLongLivedReadTransaction()
+        
+        // swiftlint:disable force_cast
+        let threadViewConnection = databaseConnection.ext(ProfilesView.filteredProfilesKey) as! YapDatabaseViewConnection
+        // swiftlint:enable force_cast
+        
+        if !threadViewConnection.hasChanges(for: notifications) {
+            databaseConnection.read { [weak self] transaction in
+                self?.mappings.update(with: transaction)
+            }
+            
+            return
+        }
+        
+        let yapDatabaseChanges = threadViewConnection.getChangesFor(notifications: notifications, with: mappings)
+        let isDatabaseChanged = yapDatabaseChanges.rowChanges.count != 0 || yapDatabaseChanges.sectionChanges.count != 0
+        
+        guard isDatabaseChanged else { return }
+        
+        reloadData()
+        
+        beginUpdates()
+        
+        for rowChange in yapDatabaseChanges.rowChanges {
+            
+            switch rowChange.type {
+            case .delete:
+                guard let indexPath = rowChange.indexPath else { continue }
+                deleteRows(at: [indexPath], with: .none)
+            case .insert:
+                guard let newIndexPath = rowChange.newIndexPath else { continue }
+                updateProfileIfNeeded(at: newIndexPath)
+                insertRows(at: [newIndexPath], with: .none)
+            case .move:
+                guard let newIndexPath = rowChange.newIndexPath, let indexPath = rowChange.indexPath else { continue }
+                deleteRows(at: [indexPath], with: .none)
+                insertRows(at: [newIndexPath], with: .none)
+            case .update:
+                guard let indexPath = rowChange.indexPath else { continue }
+                reloadRows(at: [indexPath], with: .none)
+            }
+        }
+        
+        endUpdates()
+    }
 }
 
 extension ProfilesView: UITableViewDataSource {
     
-    func numberOfSections(in _: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return Int(mappings.numberOfSections())
     }
     

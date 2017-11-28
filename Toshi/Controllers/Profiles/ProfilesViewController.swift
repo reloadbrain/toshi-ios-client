@@ -178,8 +178,6 @@ open class ProfilesViewController: UIViewController, Emptiable {
         profilesView?.databaseConnection.asyncRead { [weak self] transaction in
             self?.profilesView?.mappings.update(with: transaction)
         }
-        
-        registerDatabaseNotifications()
     }
     
     @objc func emptyViewButtonPressed(_ button: ActionButton) {
@@ -237,68 +235,6 @@ open class ProfilesViewController: UIViewController, Emptiable {
     private func displayContacts() {
         profilesView?.reloadData()
         showOrHideEmptyState()
-    }
-    
-    private func registerDatabaseNotifications() {
-        let notificationController = NotificationCenter.default
-        notificationController.addObserver(self, selector: #selector(yapDatabaseDidChange(notification:)), name: .YapDatabaseModified, object: nil)
-    }
-    
-    @objc private func yapDatabaseDidChange(notification _: NSNotification) {
-        defer {
-            showOrHideEmptyState()
-        }
-        
-        guard let profilesView = profilesView else { return }
-        
-        let notifications = profilesView.databaseConnection.beginLongLivedReadTransaction()
-        
-        // If changes do not affect current view, update and return without updating collection view
-        
-        // swiftlint:disable force_cast
-        let threadViewConnection = profilesView.databaseConnection.ext(ProfilesView.filteredProfilesKey) as! YapDatabaseViewConnection
-        // swiftlint:enable force_cast
-        
-        if !threadViewConnection.hasChanges(for: notifications) {
-            profilesView.databaseConnection.read { [weak self] transaction in
-                profilesView.mappings.update(with: transaction)
-            }
-            
-            return
-        }
-        
-        let yapDatabaseChanges = threadViewConnection.getChangesFor(notifications: notifications, with: profilesView.mappings)
-        let isDatabaseChanged = yapDatabaseChanges.rowChanges.count != 0 || yapDatabaseChanges.sectionChanges.count != 0
-        
-        guard isDatabaseChanged else { return }
-        
-        profilesView.beginUpdates()
-        
-        for rowChange in yapDatabaseChanges.rowChanges {
-            
-            switch rowChange.type {
-            case .delete:
-                guard let indexPath = rowChange.indexPath else { continue }
-                
-                profilesView.deleteRows(at: [indexPath], with: .none)
-            case .insert:
-                guard let newIndexPath = rowChange.newIndexPath else { continue }
-                
-                profilesView.updateProfileIfNeeded(at: newIndexPath)
-                profilesView.insertRows(at: [newIndexPath], with: .none)
-            case .move:
-                guard let newIndexPath = rowChange.newIndexPath, let indexPath = rowChange.indexPath else { continue }
-                
-                profilesView.deleteRows(at: [indexPath], with: .none)
-                profilesView.insertRows(at: [newIndexPath], with: .none)
-            case .update:
-                guard let indexPath = rowChange.indexPath else { continue }
-                
-                profilesView.reloadRows(at: [indexPath], with: .none)
-            }
-        }
-        
-        profilesView.endUpdates()
     }
     
     @objc private func didTapCancel(_ button: UIBarButtonItem) {
