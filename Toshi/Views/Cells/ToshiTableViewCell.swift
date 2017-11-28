@@ -17,7 +17,24 @@ import Foundation
 import UIKit
 import TinyConstraints
 
+protocol ToshiCellActionDelegate {
+    func didTapLeftImage(_ cell: ToshiTableViewCell)
+    func didChangeSwitchState(_ cell: ToshiTableViewCell, _ state: Bool)
+}
+
+//extenstion with default implementation which is alternative for optional functions in protocols
+extension ToshiCellActionDelegate {
+    func didTapLeftImage(_ cell: ToshiTableViewCell) {}
+    func didChangeSwitchState(_ cell: ToshiTableViewCell, _ state: Bool) {}
+}
+
 class ToshiTableViewCell: UITableViewCell {
+
+    var actionDelegate: ToshiCellActionDelegate? {
+        didSet {
+            setupActions()
+        }
+    }
 
     var titleTextField: UITextField?
     var subtitleLabel: UILabel?
@@ -41,7 +58,7 @@ class ToshiTableViewCell: UITableViewCell {
         fatalError("addSubviewsAndConstraints() should be overriden")
     }
 
-    open func setupTextStyles() {
+    private func setupTextStyles() {
         titleTextField?.font = Theme.preferredRegular()
         titleTextField?.isUserInteractionEnabled = false
 
@@ -49,6 +66,21 @@ class ToshiTableViewCell: UITableViewCell {
         detailsLabel?.font = Theme.preferredFootnote()
 
         subtitleLabel?.textColor = Theme.lightGreyTextColor
+    }
+
+    private func setupActions() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapLeftImage(_:)))
+        leftImageView?.addGestureRecognizer(tapGesture)
+
+        switchControl?.addTarget(self, action: #selector(didChangeSwitchState(_:)), for: .valueChanged)
+    }
+
+    @objc private func didTapLeftImage(_ tapGesture: UITapGestureRecognizer) {
+        actionDelegate?.didTapLeftImage(self)
+    }
+
+    @objc private func didChangeSwitchState(_ switchControl: UISwitch) {
+        actionDelegate?.didChangeSwitchState(self, switchControl.isOn)
     }
 
     public static func register(in tableView: UITableView) {
