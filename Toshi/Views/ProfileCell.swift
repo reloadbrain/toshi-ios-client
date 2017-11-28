@@ -15,34 +15,32 @@
 
 import UIKit
 
-/// Displays user's contacts.
 class ProfileCell: UITableViewCell {
     
     static let reuseIdentifier = "ProfileCell"
     
-    var contact: TokenUser? {
+    var profile: TokenUser? {
         didSet {
-            if let contact = self.contact {
-                if contact.name.isEmpty {
-                    nameLabel.text = contact.displayUsername
-                    usernameLabel.text = nil
-                } else {
-                    usernameLabel.text = contact.displayUsername
-                    nameLabel.text = contact.name
-                }
-
-                AvatarManager.shared.avatar(for: contact.avatarPath) { [weak self] image, path in
-                    if image != nil && contact.avatarPath == path {
-                        self?.avatarImageView.image = image
-                    }
-                }
-
+            guard let profile = profile else {
+                usernameLabel.text = nil
+                nameLabel.text = nil
+                avatarImageView.image = nil
                 return
             }
+            
+            if profile.name.isEmpty {
+                nameLabel.text = profile.displayUsername
+                usernameLabel.text = nil
+            } else {
+                usernameLabel.text = profile.displayUsername
+                nameLabel.text = profile.name
+            }
 
-            usernameLabel.text = nil
-            nameLabel.text = nil
-            avatarImageView.image = nil
+            AvatarManager.shared.avatar(for: profile.avatarPath) { [weak self] image, path in
+                if image != nil && profile.avatarPath == path {
+                    self?.avatarImageView.image = image
+                }
+            }
         }
     }
 
@@ -83,7 +81,7 @@ class ProfileCell: UITableViewCell {
         avatarImageView.image = nil
         nameLabel.text = nil
         usernameLabel.text = nil
-        contact = nil
+        profile = nil
     }
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {

@@ -24,7 +24,7 @@ public class ProfileViewController: UIViewController {
         self.defaultActivityIndicator()
     }()
 
-    public var contact: TokenUser
+    public var profile: TokenUser
 
     fileprivate var idAPIClient: IDAPIClient {
         return IDAPIClient.shared
@@ -38,8 +38,8 @@ public class ProfileViewController: UIViewController {
 
     private var profileView: ProfileView? { return view as? ProfileView }
 
-    public init(contact: TokenUser) {
-        self.contact = contact
+    public init(profile: TokenUser) {
+        self.profile = profile
 
         super.init(nibName: nil, bundle: nil)
 
@@ -57,7 +57,7 @@ public class ProfileViewController: UIViewController {
     }
 
     open override func loadView() {
-        if contact.isCurrentUser {
+        if profile.isCurrentUser {
             view = ProfileView(viewType: .personalProfileReadOnly)
         } else {
             view = ProfileView(viewType: .profile)
@@ -71,7 +71,7 @@ public class ProfileViewController: UIViewController {
 
         profileView?.profileDelegate = self
 
-        if !contact.isCurrentUser {
+        if !profile.isCurrentUser {
             navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "more"), style: .plain, target: self, action: #selector(didSelectMoreButton))
         }
 
@@ -95,9 +95,9 @@ public class ProfileViewController: UIViewController {
 
         preferLargeTitleIfPossible(false)
 
-        profileView?.setContact(contact)
+        profileView?.setProfile(profile)
 
-        AvatarManager.shared.avatar(for: contact.avatarPath) { [weak self] image, _ in
+        AvatarManager.shared.avatar(for: profile.avatarPath) { [weak self] image, _ in
             if image != nil {
                 self?.profileView?.avatarImageView.image = image
             }
@@ -116,7 +116,7 @@ public class ProfileViewController: UIViewController {
     fileprivate func yapDatabaseDidChange(notification _: NSNotification) {
         let notifications = uiDatabaseConnection.beginLongLivedReadTransaction()
 
-        if uiDatabaseConnection.hasChange(forKey: contact.address, inCollection: TokenUser.favoritesCollectionKey, in: notifications) {
+        if uiDatabaseConnection.hasChange(forKey: profile.address, inCollection: TokenUser.favoritesCollectionKey, in: notifications) {
             updateButton()
         }
     }
@@ -125,18 +125,18 @@ public class ProfileViewController: UIViewController {
         uiDatabaseConnection.read { [weak self] transaction in
             guard let strongSelf = self else { return }
 
-            let isContactAdded = transaction.object(forKey: strongSelf.contact.address, inCollection: TokenUser.favoritesCollectionKey) != nil
+            let isProfileAdded = transaction.object(forKey: strongSelf.profile.address, inCollection: TokenUser.favoritesCollectionKey) != nil
 
-            let fontColor = isContactAdded ? Theme.tintColor : Theme.lightGreyTextColor
-            let title = isContactAdded ? "Favorited" : "Favorite"
+            let fontColor = isProfileAdded ? Theme.tintColor : Theme.lightGreyTextColor
+            let title = isProfileAdded ? "Favorited" : "Favorite"
 
             strongSelf.profileView?.actionView.addFavoriteButton.titleLabel.text = title
             strongSelf.profileView?.actionView.addFavoriteButton.tintColor = fontColor
         }
     }
 
-    private func presentUserRatingPrompt(contact: TokenUser) {
-        let rateUserController = RateUserController(user: contact)
+    private func presentUserRatingPrompt(profile: TokenUser) {
+        let rateUserController = RateUserController(user: profile)
         rateUserController.delegate = self
 
         Navigator.presentModally(rateUserController)
@@ -144,9 +144,9 @@ public class ProfileViewController: UIViewController {
 
     @objc private func didSelectMoreButton() {
         let actions = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        let address = contact.address
+        let address = profile.address
 
-        if contact.isBlocked {
+        if profile.isBlocked {
             let unblockAction = UIAlertAction(title: Localized("unblock_action_title"), style: .destructive) { _ in
                 OWSBlockingManager.shared().removeBlockedPhoneNumber(address)
 
@@ -190,7 +190,7 @@ public class ProfileViewController: UIViewController {
     private func didSelectBlockUser() {
         let alert = UIAlertController(title: Localized("block_alert_title"), message: Localized("block_alert_message"), preferredStyle: .alert)
         let blockAction = UIAlertAction(title: Localized("block_action_title"), style: .default) { _ in
-            OWSBlockingManager.shared().addBlockedPhoneNumber(self.contact.address)
+            OWSBlockingManager.shared().addBlockedPhoneNumber(self.profile.address)
 
             let alert = UIAlertController.dismissableAlert(title: Localized("block_feedback_alert_title"), message: Localized("block_feedback_alert_message"))
             Navigator.presentModally(alert)
@@ -203,7 +203,7 @@ public class ProfileViewController: UIViewController {
     }
 
     fileprivate func updateReputation() {
-        RatingsClient.shared.scores(for: contact.address) { [weak self] ratingScore in
+        RatingsClient.shared.scores(for: profile.address) { [weak self] ratingScore in
             self?.profileView?.reputationView.setScore(ratingScore)
         }
     }
@@ -244,7 +244,7 @@ extension ProfileViewController: PaymentControllerDelegate {
 
         let parameters: [String: Any] = [
             "from": Cereal.shared.paymentAddress,
-            "to": self.contact.paymentAddress,
+            "to": self.profile.paymentAddress,
             "value": value.toHexString
         ]
 
@@ -280,7 +280,7 @@ extension ProfileViewController: PaymentControllerDelegate {
                     let payment = SofaPayment(txHash: txHash, valueHex: value.toHexString)
 
                     // send message to thread
-                    let thread = ChatInteractor.getOrCreateThread(for: strongSelf.contact.address)
+                    let thread = ChatInteractor.getOrCreateThread(for: strongSelf.profile.address)
                     let timestamp = NSDate.ows_millisecondsSince1970(for: Date())
                     let outgoingMessage = TSOutgoingMessage(timestamp: timestamp, in: thread, messageBody: payment.content)
 
@@ -297,12 +297,12 @@ extension ProfileViewController: PaymentControllerDelegate {
 }
 
 extension ProfileViewController: ProfileViewDelegate {
-    func didTapMessageContactButton(in view: ProfileView) {
+    func didTapMessageProfileButton(in view: ProfileView) {
         // create thread if needed
-        ChatInteractor.getOrCreateThread(for: contact.address)
+        ChatInteractor.getOrCreateThread(for: profile.address)
 
         DispatchQueue.main.async {
-            (self.tabBarController as? TabBarController)?.displayMessage(forAddress: self.contact.address)
+            (self.tabBarController as? TabBarController)?.displayMessage(forAddress: self.profile.address)
 
             if let navController = self.navigationController as? BrowseNavigationController {
                 _ = navController.popToRootViewController(animated: false)
@@ -310,12 +310,12 @@ extension ProfileViewController: ProfileViewDelegate {
         }
     }
 
-    func didTapAddContactButton(in view: ProfileView) {
-        if Yap.sharedInstance.containsObject(for: contact.address, in: TokenUser.favoritesCollectionKey) {
-            Yap.sharedInstance.removeObject(for: contact.address, in: TokenUser.favoritesCollectionKey)
+    func didTapAddProfileButton(in view: ProfileView) {
+        if Yap.sharedInstance.containsObject(for: profile.address, in: TokenUser.favoritesCollectionKey) {
+            Yap.sharedInstance.removeObject(for: profile.address, in: TokenUser.favoritesCollectionKey)
         } else {
-            Yap.sharedInstance.insert(object: contact.json, for: contact.address, in: TokenUser.favoritesCollectionKey)
-            SoundPlayer.playSound(type: .addedContact)
+            Yap.sharedInstance.insert(object: profile.json, for: profile.address, in: TokenUser.favoritesCollectionKey)
+            SoundPlayer.playSound(type: .addedProfile)
         }
     }
 
@@ -328,6 +328,6 @@ extension ProfileViewController: ProfileViewDelegate {
     }
 
     func didTapRateUser(in view: ProfileView) {
-        presentUserRatingPrompt(contact: contact)
+        presentUserRatingPrompt(profile: profile)
     }
 }

@@ -8,7 +8,8 @@ protocol ProfilesHeaderViewDelegate: class {
 
 final class ProfilesHeaderView: UIView {
     
-    let type: ProfilesViewControllerType
+    private let type: ProfilesViewControllerType
+    private let searchBar: UISearchBar?
     
     private lazy var button: LeftAlignedButton = {
         let view = LeftAlignedButton()
@@ -20,6 +21,7 @@ final class ProfilesHeaderView: UIView {
     
     required init(with searchBar: UISearchBar? = nil, type: ProfilesViewControllerType) {
         self.type = type
+        self.searchBar = searchBar
         super.init(frame: .zero)
         
         height(100)

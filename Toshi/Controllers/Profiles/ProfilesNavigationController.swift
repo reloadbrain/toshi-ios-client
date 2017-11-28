@@ -17,7 +17,7 @@ import UIKit
 
 public class ProfilesNavigationController: UINavigationController {
     
-    static let selectedContactKey = "Restoration::SelectedContact"
+    static let selectedProfileKey = "Restoration::SelectedProfile"
     
     public override var preferredStatusBarStyle: UIStatusBarStyle {
         return .default
@@ -25,12 +25,12 @@ public class ProfilesNavigationController: UINavigationController {
     
     public override init(rootViewController: UIViewController) {
         
-        if let rootViewController = rootViewController as? ProfilesViewController, let address = UserDefaults.standard.string(forKey: ProfilesNavigationController.selectedContactKey), rootViewController.type != .newChat {
+        if let rootViewController = rootViewController as? ProfilesViewController, let profilesView = rootViewController.profilesView, let address = UserDefaults.standard.string(forKey: ProfilesNavigationController.selectedProfileKey), rootViewController.type != .newChat {
             super.init(nibName: nil, bundle: nil)
             
-            rootViewController.uiDatabaseConnection.read { [weak self] transaction in
+            profilesView.databaseConnection.read { [weak self] transaction in
                 if let data = transaction.object(forKey: address, inCollection: TokenUser.favoritesCollectionKey) as? Data, let user = TokenUser.user(with: data) {
-                    self?.viewControllers = [rootViewController, ProfileViewController(contact: user)]
+                    self?.viewControllers = [rootViewController, ProfileViewController(profile: user)]
                     self?.configureTabBarItem()
                 }
             }
@@ -54,17 +54,17 @@ public class ProfilesNavigationController: UINavigationController {
     }
     
     public override func popViewController(animated: Bool) -> UIViewController? {
-        UserDefaults.standard.removeObject(forKey: ProfilesNavigationController.selectedContactKey)
+        UserDefaults.standard.removeObject(forKey: ProfilesNavigationController.selectedProfileKey)
         return super.popViewController(animated: animated)
     }
     
     public override func popToRootViewController(animated: Bool) -> [UIViewController]? {
-        UserDefaults.standard.removeObject(forKey: ProfilesNavigationController.selectedContactKey)
+        UserDefaults.standard.removeObject(forKey: ProfilesNavigationController.selectedProfileKey)
         return super.popToRootViewController(animated: animated)
     }
     
     public override func popToViewController(_ viewController: UIViewController, animated: Bool) -> [UIViewController]? {
-        UserDefaults.standard.removeObject(forKey: ProfilesNavigationController.selectedContactKey)
+        UserDefaults.standard.removeObject(forKey: ProfilesNavigationController.selectedProfileKey)
         return super.popToViewController(viewController, animated: animated)
     }
 }
