@@ -1473,6 +1473,14 @@
 			path = CellConfigurator;
 			sourceTree = "<group>";
 		};
+		2B6C18FB1FCD494E00DE432B /* CellSectionData */ = {
+			isa = PBXGroup;
+			children = (
+				2B1D669A1FC2F96500EB166C /* TableViewData.swift */,
+			);
+			path = CellSectionData;
+			sourceTree = "<group>";
+		};
 		2BD0AC881F278619000D2A58 /* Certificate(dis) */ = {
 			isa = PBXGroup;
 			children = (
@@ -1656,6 +1664,7 @@
 		9F9238CE1E24F3EB004BEEE0 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				2B6C18FB1FCD494E00DE432B /* CellSectionData */,
 				2B4E25FD1FCCCE24004614D5 /* CellConfigurator */,
 				2B4E25E01FCCCCE2004614D5 /* Cells */,
 				A9AC74071E77E37500365029 /* ActionButton.swift */,
@@ -1676,7 +1685,6 @@
 				A9AC74101E78064500365029 /* TextLabel.swift */,
 				A9AC740D1E78051F00365029 /* TitleLabel.swift */,
 				D197BD136059B5C238CB3425 /* OfflineAlertView.swift */,
-				2B1D669A1FC2F96500EB166C /* TableViewData.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
