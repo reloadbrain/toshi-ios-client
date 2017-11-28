@@ -212,8 +212,6 @@ extension NewGroupViewController: UITableViewDelegate {
         let cellData = sectionData.cellsData[indexPath.row]
 
         switch cellData.tag {
-        case NewGroupItemType.participant.rawValue:
-            break // open participan details
         case NewGroupItemType.addParticipant.rawValue:
             break // push participants picker
         default:
