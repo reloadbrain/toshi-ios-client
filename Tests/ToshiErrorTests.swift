@@ -19,7 +19,6 @@ import Quick
 import Nimble
 import Teapot
 
-//swiftlint:disable force_cast
 class ToshiErrorTests: QuickSpec {
 
     override func spec() {
@@ -27,26 +26,26 @@ class ToshiErrorTests: QuickSpec {
             context("") {
 
                 it("initialises a toshi error from a teapot error") {
-                    let teapotError = TeapotError(withType: .invalidResponseStatus, errorDescription: "Teapot error description", responseStatus: 400, underlyingError: nil)
+                    let teapotError = TeapotError(withType: .invalidResponseStatus, description: "Teapot error description", responseStatus: 400, underlyingError: nil)
 
                     let toshiError = ToshiError(withTeapotError: teapotError)
                     expect(toshiError).toNot(beNil())
 
-                    expect(toshiError!.responseStatus).to(equal(400))
-                    expect(toshiError!.type).to(equal(ToshiError.ErrorType.invalidResponseStatus))
-
-                    //for some reason Nimble's string comparison does not work here
-                    XCTAssertEqual(toshiError!.description, "Teapot error description")
+                    expect(toshiError.responseStatus).to(equal(400))
+                    expect(toshiError.type).to(equal(ToshiError.ErrorType.invalidResponseStatus))
+                    expect(toshiError.description).to(equal("Teapot error description"))
                 }
 
-                it("doesn't initialise from an invalid teapot error type") {
-                    let teapotError = TeapotError(withType: .missingMockFile, errorDescription: "Teapot error description", responseStatus: 400, underlyingError: nil)
+                it("gives a generic error back from an invalid teapot error type") {
+                    let teapotError = TeapotError(withType: .missingMockFile, description: "Teapot error description", responseStatus: 400, underlyingError: nil)
 
                     let toshiError = ToshiError(withTeapotError: teapotError)
 
-                    expect(toshiError).to(beNil())
+                    expect(toshiError).toNot(beNil())
+                    expect(toshiError.type).to(equal(ToshiError.ErrorType.generic))
+                    expect(toshiError.responseStatus).to(equal(400))
                 }
             }
         }
     }
-} //swiftlint:enable force_cast
+}

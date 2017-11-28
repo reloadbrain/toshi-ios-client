@@ -16,7 +16,10 @@
 import UIKit
 
 /// Displays user's contacts.
-class ContactCell: UITableViewCell {
+class ProfileCell: UITableViewCell {
+    
+    static let reuseIdentifier = "ProfileCell"
+    
     var contact: TokenUser? {
         didSet {
             if let contact = self.contact {

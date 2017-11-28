@@ -14,10 +14,6 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import UIKit
-import SweetUIKit
-import SweetFoundation
-import SweetSwift
-import TinyConstraints
 
 public enum ProfilesViewControllerType {
     case favorites
@@ -25,23 +21,22 @@ public enum ProfilesViewControllerType {
     case newGroupChat
 }
 
-open class ProfilesViewController: SweetTableController, KeyboardAdjustable, Emptiable {
+open class ProfilesViewController: UIViewController, Emptiable {
     
     let type: ProfilesViewControllerType
     
     var scrollViewBottomInset: CGFloat = 0
     let emptyView = EmptyView(title: Localized("favorites_empty_title"), description: Localized("favorites_empty_description"), buttonTitle: Localized("invite_friends_action_title"))
-    let filteredDatabaseViewName = "filteredDatabaseViewName"
-    let keyboardWillShowSelector = #selector(keyboardShownNotificationReceived(_:))
-    let keyboardWillHideSelector = #selector(keyboardHiddenNotificationReceived(_:))
     
-    private lazy var cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(didPressCancel(_:)))
-    private lazy var addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(didTapAddButton))
-    
+    private lazy var cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(didTapCancel(_:)))
+    private lazy var addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(didTapAdd(_:)))
     private lazy var filteredView = YapDatabaseFilteredView(parentViewName: TokenUser.viewExtensionName, filtering: filtering)
     
+    var profilesView: ProfilesView? { return view as? ProfilesView }
+    
     var scrollView: UIScrollView {
-        return tableView
+        guard let profilesView = profilesView else { fatalError("profilesView should not be nil") }
+        return profilesView
     }
     
     private var filtering: YapDatabaseViewFiltering {
@@ -54,21 +49,6 @@ open class ProfilesViewController: SweetTableController, KeyboardAdjustable, Emp
         
         return YapDatabaseViewFiltering.withObjectBlock(filteringBlock)
     }
-    
-    private lazy var mappings: YapDatabaseViewMappings = {
-        let mappings = YapDatabaseViewMappings(groups: [TokenUser.favoritesCollectionKey], view: filteredDatabaseViewName)
-        mappings.setIsReversed(true, forGroup: TokenUser.favoritesCollectionKey)
-        
-        return mappings
-    }()
-    
-    lazy var uiDatabaseConnection: YapDatabaseConnection = {
-        let database = Yap.sharedInstance.database
-        let dbConnection = database!.newConnection()
-        dbConnection.beginLongLivedReadTransaction()
-        
-        return dbConnection
-    }()
     
     private lazy var databaseConnection: YapDatabaseConnection = {
         let database = Yap.sharedInstance.database
@@ -102,39 +82,34 @@ open class ProfilesViewController: SweetTableController, KeyboardAdjustable, Emp
         return controller
     }()
     
-    public init(type: ProfilesViewControllerType) {
+    required public init(type: ProfilesViewControllerType) {
         self.type = type
-        super.init(style: .plain)
+        super.init(nibName: nil, bundle: nil)
         
-        if TokenUser.current != nil {
-            setupForCurrentUserNotifications()
-        }
+        setupForCurrentUserNotifications()
         
         NotificationCenter.default.addObserver(self, selector: #selector(userCreated(_:)), name: .userCreated, object: nil)
     }
     
-    required public init?(coder _: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    open override func loadView() {
+        view = ProfilesView(frame: .zero, style: .plain, type: type)
     }
     
     open override func viewDidLoad() {
         super.viewDidLoad()
         
-        registerForKeyboardNotifications()
-        
-        tableView.register(ContactCell.self)
-        tableView.estimatedRowHeight = 80
-        tableView.dataSource = self
-        tableView.delegate = self
-        tableView.backgroundColor = Theme.viewBackgroundColor
-        tableView.separatorStyle = .none
+        profilesView?.selectionDelegate = self
         
         if #available(iOS 11.0, *) {
             navigationItem.searchController = searchController
             navigationItem.hidesSearchBarWhenScrolling = false
-            tableView.tableHeaderView = ProfilesHeaderView(type: type)
+            profilesView?.tableHeaderView = ProfilesHeaderView(type: type)
         } else {
-            tableView.tableHeaderView = ProfilesHeaderView(with: searchController.searchBar, type: type)
+            profilesView?.tableHeaderView = ProfilesHeaderView(with: searchController.searchBar, type: type)
         }
         
         if type == .newChat {
@@ -152,7 +127,15 @@ open class ProfilesViewController: SweetTableController, KeyboardAdjustable, Emp
         
         view.addSubview(emptyView)
         emptyView.actionButton.addTarget(self, action: #selector(emptyViewButtonPressed(_:)), for: .touchUpInside)
-        emptyView.edges(to: layoutGuide(), insets: UIEdgeInsets(top: tableView.tableHeaderView?.frame.height ?? 0, left: 0, bottom: 0, right: 0))
+        emptyView.edges(to: layoutGuide(), insets: UIEdgeInsets(top: profilesView?.tableHeaderView?.frame.height ?? 0, left: 0, bottom: 0, right: 0))
+        
+        if #available(iOS 11.0, *) {
+            profilesView?.performBatchUpdates({
+                self.profilesView?.reloadData()
+            }, completion: nil)
+        } else {
+            profilesView?.reloadData()
+        }
     }
     
     open override func viewWillAppear(_ animated: Bool) {
@@ -162,14 +145,14 @@ open class ProfilesViewController: SweetTableController, KeyboardAdjustable, Emp
         
         preferLargeTitleIfPossible(true)
         
-        tableView.reloadData()
+        profilesView?.reloadData()
         showOrHideEmptyState()
     }
     
     open override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        scrollViewBottomInset = tableView.contentInset.bottom
+        scrollViewBottomInset = profilesView?.contentInset.bottom ?? 0
     }
     
     open override func viewDidLayoutSubviews() {
@@ -181,14 +164,6 @@ open class ProfilesViewController: SweetTableController, KeyboardAdjustable, Emp
         searchController.searchBar.superview?.clipsToBounds = false
     }
     
-    @objc private func keyboardShownNotificationReceived(_ notification: NSNotification) {
-        keyboardWillShow(notification)
-    }
-    
-    @objc private func keyboardHiddenNotificationReceived(_ notification: NSNotification) {
-        keyboardWillHide(notification)
-    }
-    
     @objc private func userCreated(_ notification: Notification) {
         DispatchQueue.main.async {
             self.setupForCurrentUserNotifications()
@@ -196,10 +171,12 @@ open class ProfilesViewController: SweetTableController, KeyboardAdjustable, Emp
     }
     
     private func setupForCurrentUserNotifications() {
+        guard TokenUser.current != nil else { return }
+        
         registerTokenContactsDatabaseView()
         
-        uiDatabaseConnection.asyncRead { [weak self] transaction in
-            self?.mappings.update(with: transaction)
+        profilesView?.databaseConnection.asyncRead { [weak self] transaction in
+            self?.profilesView?.mappings.update(with: transaction)
         }
         
         registerDatabaseNotifications()
@@ -210,12 +187,9 @@ open class ProfilesViewController: SweetTableController, KeyboardAdjustable, Emp
         Navigator.presentModally(shareController)
     }
     
-    @objc private func didPressCancel(_ barButtonItem: UIBarButtonItem) {
-        dismiss(animated: true)
-    }
-    
     private func showOrHideEmptyState() {
-        emptyView.isHidden = searchController.isActive || mappings.numberOfItems(inSection: 0) > 0
+        guard let profilesView = profilesView else { return }
+        emptyView.isHidden = searchController.isActive || profilesView.mappings.numberOfItems(inSection: 0) > 0
     }
     
     private func contactSorting() -> YapDatabaseViewSorting {
@@ -255,13 +229,13 @@ open class ProfilesViewController: SweetTableController, KeyboardAdjustable, Emp
         let databaseView = YapDatabaseAutoView(grouping: viewGrouping, sorting: viewSorting, versionTag: "1", options: options)
         
         let mainViewIsRegistered: Bool = database.register(databaseView, withName: TokenUser.viewExtensionName)
-        let filteredViewIsRegistered = database.register(filteredView, withName: filteredDatabaseViewName)
+        let filteredViewIsRegistered = database.register(filteredView, withName: ProfilesView.filteredProfilesKey)
         
         return mainViewIsRegistered && filteredViewIsRegistered
     }
     
     private func displayContacts() {
-        tableView.reloadData()
+        profilesView?.reloadData()
         showOrHideEmptyState()
     }
     
@@ -275,27 +249,30 @@ open class ProfilesViewController: SweetTableController, KeyboardAdjustable, Emp
             showOrHideEmptyState()
         }
         
-        let notifications = uiDatabaseConnection.beginLongLivedReadTransaction()
+        guard let profilesView = profilesView else { return }
+        
+        let notifications = profilesView.databaseConnection.beginLongLivedReadTransaction()
         
         // If changes do not affect current view, update and return without updating collection view
+        
         // swiftlint:disable force_cast
-        let threadViewConnection = uiDatabaseConnection.ext(filteredDatabaseViewName) as! YapDatabaseViewConnection
+        let threadViewConnection = profilesView.databaseConnection.ext(ProfilesView.filteredProfilesKey) as! YapDatabaseViewConnection
         // swiftlint:enable force_cast
-        let hasChangesForCurrentView = threadViewConnection.hasChanges(for: notifications)
-        if !hasChangesForCurrentView {
-            uiDatabaseConnection.read { [weak self] transaction in
-                self?.mappings.update(with: transaction)
+        
+        if !threadViewConnection.hasChanges(for: notifications) {
+            profilesView.databaseConnection.read { [weak self] transaction in
+                profilesView.mappings.update(with: transaction)
             }
             
             return
         }
         
-        let yapDatabaseChanges = threadViewConnection.getChangesFor(notifications: notifications, with: mappings)
+        let yapDatabaseChanges = threadViewConnection.getChangesFor(notifications: notifications, with: profilesView.mappings)
         let isDatabaseChanged = yapDatabaseChanges.rowChanges.count != 0 || yapDatabaseChanges.sectionChanges.count != 0
         
         guard isDatabaseChanged else { return }
         
-        tableView.beginUpdates()
+        profilesView.beginUpdates()
         
         for rowChange in yapDatabaseChanges.rowChanges {
             
@@ -303,59 +280,32 @@ open class ProfilesViewController: SweetTableController, KeyboardAdjustable, Emp
             case .delete:
                 guard let indexPath = rowChange.indexPath else { continue }
                 
-                tableView.deleteRows(at: [indexPath], with: .none)
+                profilesView.deleteRows(at: [indexPath], with: .none)
             case .insert:
                 guard let newIndexPath = rowChange.newIndexPath else { continue }
                 
-                updateContactIfNeeded(at: newIndexPath)
-                tableView.insertRows(at: [newIndexPath], with: .none)
+                profilesView.updateProfileIfNeeded(at: newIndexPath)
+                profilesView.insertRows(at: [newIndexPath], with: .none)
             case .move:
                 guard let newIndexPath = rowChange.newIndexPath, let indexPath = rowChange.indexPath else { continue }
                 
-                tableView.deleteRows(at: [indexPath], with: .none)
-                tableView.insertRows(at: [newIndexPath], with: .none)
+                profilesView.deleteRows(at: [indexPath], with: .none)
+                profilesView.insertRows(at: [newIndexPath], with: .none)
             case .update:
                 guard let indexPath = rowChange.indexPath else { continue }
                 
-                tableView.reloadRows(at: [indexPath], with: .none)
+                profilesView.reloadRows(at: [indexPath], with: .none)
             }
         }
         
-        tableView.endUpdates()
+        profilesView.endUpdates()
     }
     
-    private func updateContactIfNeeded(at indexPath: IndexPath) {
-        guard let contact = contact(at: indexPath) else { return }
-        
-        print("Updating contact infor for address: \(contact.address).")
-        
-        IDAPIClient.shared.findContact(name: contact.address) { [weak self] contact in
-            if let contact = contact {
-                print("Added contact info for \(contact.username)")
-                
-                self?.tableView.beginUpdates()
-                self?.tableView.reloadRows(at: [indexPath], with: .automatic)
-                self?.tableView.endUpdates()
-            }
-        }
+    @objc private func didTapCancel(_ button: UIBarButtonItem) {
+        dismiss(animated: true)
     }
     
-    private func contact(at indexPath: IndexPath) -> TokenUser? {
-        var contact: TokenUser?
-        
-        uiDatabaseConnection.read { [weak self] transaction in
-            guard let strongSelf = self else { return }
-            guard let dbExtension: YapDatabaseViewTransaction = transaction.extension(strongSelf.filteredDatabaseViewName) as? YapDatabaseViewTransaction else { return }
-            
-            guard let data = dbExtension.object(at: indexPath, with: strongSelf.mappings) as? Data else { return }
-            
-            contact = TokenUser.user(with: data, shouldUpdate: false)
-        }
-        
-        return contact
-    }
-    
-    @objc private func didTapAddButton() {
+    @objc private func didTapAdd(_ button: UIBarButtonItem) {
         let addContactSheet = UIAlertController(title: Localized("favorites_add_title"), message: nil, preferredStyle: .actionSheet)
         
         addContactSheet.addAction(UIAlertAction(title: Localized("favorites_add_by_username"), style: .default, handler: { _ in
@@ -376,50 +326,25 @@ open class ProfilesViewController: SweetTableController, KeyboardAdjustable, Emp
         addContactSheet.addAction(UIAlertAction(title: Localized("cancel_action_title"), style: .cancel, handler: nil))
         
         addContactSheet.view.tintColor = Theme.tintColor
-        present(addContactSheet, animated: true) {
-            // Due to a UIKit "bug", tint colour need be reset here.
-            addContactSheet.view.tintColor = Theme.tintColor
-        }
+        present(addContactSheet, animated: true)
     }
 }
 
-extension ProfilesViewController: UITableViewDataSource {
+extension ProfilesViewController: ProfilesViewDelegate {
     
-    open func numberOfSections(in _: UITableView) -> Int {
-        return Int(mappings.numberOfSections())
-    }
-    
-    open func tableView(_: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return Int(mappings.numberOfItems(inSection: UInt(section)))
-    }
-    
-    open func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeue(ContactCell.self, for: indexPath)
-        cell.contact = contact(at: indexPath)
-        
-        return cell
-    }
-}
-
-extension ProfilesViewController: UITableViewDelegate {
-    
-    public func tableView(_: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+    func didSelectProfile(profile: TokenUser) {
         searchController.searchBar.resignFirstResponder()
         
-        if let contact = contact(at: indexPath) {
+        if type == .newChat {
+            ChatInteractor.getOrCreateThread(for: profile.address)
             
-            if type == .newChat {
-                ChatInteractor.getOrCreateThread(for: contact.address)
-                
-                DispatchQueue.main.async {
-                    Navigator.tabbarController?.displayMessage(forAddress: contact.address)
-                    self.dismiss(animated: true)
-                }
-            } else {
-                navigationController?.pushViewController(ProfileViewController(contact: contact), animated: true)
-                UserDefaults.standard.setValue(contact.address, forKey: ProfilesNavigationController.selectedContactKey)
+            DispatchQueue.main.async {
+                Navigator.tabbarController?.displayMessage(forAddress: profile.address)
+                self.dismiss(animated: true)
             }
+        } else {
+            navigationController?.pushViewController(ProfileViewController(profile: profile), animated: true)
+            UserDefaults.standard.setValue(profile.address, forKey: ProfilesNavigationController.selectedProfileKey)
         }
     }
 }
@@ -441,7 +366,7 @@ extension ProfilesViewController: UISearchResultsUpdating {
         
         databaseConnection.readWrite { [weak self] transaction in
             guard let strongSelf = self else { return }
-            guard let filterTransaction = transaction.ext(strongSelf.filteredDatabaseViewName) as? YapDatabaseFilteredViewTransaction else { return }
+            guard let filterTransaction = transaction.ext(ProfilesView.filteredProfilesKey) as? YapDatabaseFilteredViewTransaction else { return }
             
             let tag = Date().timeIntervalSinceReferenceDate
             filterTransaction.setFiltering(strongSelf.filtering, versionTag: String(describing: tag))

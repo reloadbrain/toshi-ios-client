@@ -23,10 +23,11 @@
 
 NSString *const LaunchedBefore = @"LaunchedBefore";
 NSString *const RequiresSignIn = @"RequiresSignIn";
+NSString *const ChatSertificateName = @"token";
 
 @import WebRTC;
 
-@interface AppDelegate ()
+@interface AppDelegate()
 
 @property (nonatomic) UIWindow *screenProtectionWindow;
 
@@ -42,6 +43,7 @@ NSString *const RequiresSignIn = @"RequiresSignIn";
 {
     NSString *tokenChatServiceBaseURL = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"TokenChatServiceBaseURL"];
     [OWSSignalService setBaseURLPath:tokenChatServiceBaseURL];
+    [OWSHTTPSecurityPolicy setCertificateServiceName:ChatSertificateName];
 
     // Set the seed the generator for rand().
     //
@@ -179,7 +181,7 @@ NSString *const RequiresSignIn = @"RequiresSignIn";
     [[Navigator tabbarController] setupControllers];
 
     __weak typeof(self)weakSelf = self;
-    [[IDAPIClient shared] registerUserIfNeeded:^(UserRegisterStatus status, NSString *message){
+    [[IDAPIClient shared] registerUserIfNeeded:^(UserRegisterStatus status){
 
         if (status != UserRegisterStatusFailed) {
 
@@ -188,7 +190,7 @@ NSString *const RequiresSignIn = @"RequiresSignIn";
             [strongSelf didCreateUser];
             [strongSelf setupDB];
 
-            [[ChatAPIClient shared] registerUserWithCompletion:^(BOOL success, NSString *message) {
+            [[ChatAPIClient shared] registerUserWithCompletion:^(BOOL success) {
                 if (status == UserRegisterStatusRegistered) {
                     [ChatInteractor triggerBotGreeting];
                 }
@@ -277,7 +279,7 @@ NSString *const RequiresSignIn = @"RequiresSignIn";
     [[TSAccountManager sharedInstance] storeLocalNumber:[Cereal shared].address];
 
     if (![storageManager database]) {
-        [CrashlyticsLogger log:@"Failed to create chat databse for the suer" attributes:nil];
+        [CrashlyticsLogger log:@"Failed to create chat databse for the user" attributes:nil];
     }
 
     self.messageSender = [[OWSMessageSender alloc] initWithNetworkManager:self.networkManager storageManager:storageManager contactsManager:self.contactsManager contactsUpdater:self.contactsUpdater];
@@ -428,11 +430,6 @@ NSString *const RequiresSignIn = @"RequiresSignIn";
             });
         }
     }];
-
-
-    PKPushRegistry *voipRegistry = [[PKPushRegistry alloc] initWithQueue:dispatch_get_main_queue()];
-    voipRegistry.delegate = self;
-    voipRegistry.desiredPushTypes = [NSSet setWithObject:PKPushTypeVoIP];
 }
 
 - (void)updateRemoteNotificationCredentials {

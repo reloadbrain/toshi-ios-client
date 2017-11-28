@@ -19,7 +19,6 @@ import Quick
 import Nimble
 import Teapot
 
-//swiftlint:disable force_cast
 class IDAPIClientTests: QuickSpec {
     override func spec() {
         describe("the id API Client") {
@@ -47,7 +46,7 @@ class IDAPIClientTests: QuickSpec {
                     subject = IDAPIClient(teapot: mockTeapot)
 
                     waitUntil { done in
-                        subject.registerUserIfNeeded { status, _ in
+                        subject.registerUserIfNeeded { status in
                             expect(status.rawValue).to(equal(UserRegisterStatus.registered.rawValue))
                             done()
                         }
@@ -61,8 +60,9 @@ class IDAPIClientTests: QuickSpec {
 
                     let testImage = UIImage(named: "testImage.png", in: Bundle(for: IDAPIClientTests.self), compatibleWith: nil)
                     waitUntil { done in
-                        subject.updateAvatar(testImage!) { success in
+                        subject.updateAvatar(testImage!) { success, error in
                             expect(success).to(beTruthy())
+                            expect(error).to(beNil())
                             done()
                         }
                     }
@@ -158,7 +158,7 @@ class IDAPIClientTests: QuickSpec {
 
                     waitUntil { done in
                         subject.getLatestPublicUsers { users, error in
-                            print(error)
+                            print(error ?? "Error was nil!")
                             expect(error).to(beNil())
                             expect(users!.count).to(equal(2))
                             expect(users!.first!.about).to(equal("Latest public"))
@@ -175,9 +175,9 @@ class IDAPIClientTests: QuickSpec {
                     let address = "0x6f70800cb47f7f84b6c71b3693fc02595eae7378"
 
                     waitUntil { done in
-                        subject.reportUser(address: address, reason: "Not good") { success, message in
+                        subject.reportUser(address: address, reason: "Not good") { success, error in
                             expect(success).to(beTruthy())
-                            expect(message).to(equal(""))
+                            expect(error).to(beNil())
                             done()
                         }
                     }
@@ -222,7 +222,7 @@ class IDAPIClientTests: QuickSpec {
                     subject = IDAPIClient(teapot: mockTeapot)
 
                     waitUntil { done in
-                        subject.registerUserIfNeeded { status, _ in
+                        subject.registerUserIfNeeded { status in
                             expect(status.rawValue).to(equal(UserRegisterStatus.failed.rawValue))
                             done()
                         }
@@ -236,8 +236,9 @@ class IDAPIClientTests: QuickSpec {
 
                     let testImage = UIImage(named: "testImage.png", in: Bundle(for: IDAPIClientTests.self), compatibleWith: nil)
                     waitUntil { done in
-                        subject.updateAvatar(testImage!) { success in
+                        subject.updateAvatar(testImage!) { success, error in
                             expect(success).to(beFalse())
+                            expect(error?.type).to(equal(.invalidResponseStatus))
                             done()
                         }
                     }
@@ -346,9 +347,9 @@ class IDAPIClientTests: QuickSpec {
                     let address = "0x6f70800cb47f7f84b6c71b3693fc02595eae7378"
 
                     waitUntil { done in
-                        subject.reportUser(address: address, reason: "Not good") { success, message in
+                        subject.reportUser(address: address, reason: "Not good") { success, error in
                             expect(success).to(beFalse())
-                            expect(message).toNot(equal(""))
+                            expect(error?.type).to(equal(.invalidResponseStatus))
                             done()
                         }
                     }
@@ -372,5 +373,3 @@ class IDAPIClientTests: QuickSpec {
         }
     }
 }
-
-//swiftlint:enable force_cast
