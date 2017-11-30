@@ -214,9 +214,10 @@
 /* Text Editing Options */
 "text_editing_options_paste" = "Paste";
 
-/* Favorites */
-"favorites_navigation_title" = "Favorites";
-"favorites_navigation_title_new_chat" = "New Chat";
+/* Profiles */
+"profiles_navigation_title_favorites" = "Favorites";
+"profiles_navigation_title_new_chat" = "New Chat";
+"profiles_navigation_title_new_group_chat" = "New Group Chat";
 
 /* Tab Bar */
 "tab_bar_title_browse" = "Browse";

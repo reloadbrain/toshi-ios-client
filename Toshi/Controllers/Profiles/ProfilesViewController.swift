@@ -19,6 +19,17 @@ public enum ProfilesViewControllerType {
     case favorites
     case newChat
     case newGroupChat
+    
+    var title: String {
+        switch self {
+        case .favorites:
+            return Localized("profiles_navigation_title_favorites")
+        case .newChat:
+            return Localized("profiles_navigation_title_new_chat")
+        case .newGroupChat:
+            return Localized("profiles_navigation_title_new_group_chat")
+        }
+    }
 }
 
 open class ProfilesViewController: UIViewController, Emptiable {
@@ -86,6 +97,8 @@ open class ProfilesViewController: UIViewController, Emptiable {
         self.type = type
         super.init(nibName: nil, bundle: nil)
         
+        title = type.title
+        
         setupForCurrentUserNotifications()
         
         NotificationCenter.default.addObserver(self, selector: #selector(userCreated(_:)), name: .userCreated, object: nil)
@@ -141,11 +154,7 @@ open class ProfilesViewController: UIViewController, Emptiable {
     open override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        title = type == .newChat ? Localized("favorites_navigation_title_new_chat") : Localized("favorites_navigation_title")
-        
         preferLargeTitleIfPossible(true)
-        
-        profilesView?.reloadData()
         showOrHideEmptyState()
     }
     
