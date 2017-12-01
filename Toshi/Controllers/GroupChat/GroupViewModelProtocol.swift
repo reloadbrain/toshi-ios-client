@@ -38,6 +38,8 @@ protocol GroupViewModelProtocol: class {
 
     var rightBarButtonSelector: Selector { get }
 
+    var participantsIDs: [String] { get }
+
     func updateAvatar(_ image: UIImage)
     func updatePublicState(_ isPublic: Bool)
     func updateTitle(_ title: String)

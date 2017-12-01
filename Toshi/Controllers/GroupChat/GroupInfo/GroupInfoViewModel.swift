@@ -18,8 +18,10 @@ import UIKit
 
 final class GroupInfoViewModel {
 
+    let filteredDatabaseViewName = "filteredDatabaseViewName"
+
     private var groupModel: TSGroupModel
-    var groupInfo: GroupInfo {
+    private var groupInfo: GroupInfo {
         didSet {
             setup()
         }
@@ -36,6 +38,21 @@ final class GroupInfoViewModel {
 
     private var models: [TableSectionData] = []
 
+    private lazy var uiDatabaseConnection: YapDatabaseConnection = {
+        let database = Yap.sharedInstance.database
+        let dbConnection = database!.newConnection()
+        dbConnection.beginLongLivedReadTransaction()
+
+        return dbConnection
+    }()
+
+    private lazy var mappings: YapDatabaseViewMappings = {
+        let mappings = YapDatabaseViewMappings(groups: [TokenUser.favoritesCollectionKey], view: filteredDatabaseViewName)
+        mappings.setIsReversed(true, forGroup: TokenUser.favoritesCollectionKey)
+
+        return mappings
+    }()
+
     private func setup() {
         let avatarTitleData = TableCellData(title: groupInfo.title, leftImage: groupInfo.avatar)
         avatarTitleData.isPlaceholder = groupInfo.title.length > 0
@@ -48,6 +65,8 @@ final class GroupInfoViewModel {
 
         let addParticipantsData = TableCellData(title: Localized("new_group_add_participants_action_title"))
         addParticipantsData.tag = NewGroupItemType.addParticipant.rawValue
+
+
         let addParticipantsSectionData = TableSectionData(cellsData: [addParticipantsData], headerTitle: Localized("new_group_participants_header_title"))
 
         models = [avatarTitleSectionData, publicSectionData, addParticipantsSectionData]
@@ -55,6 +74,21 @@ final class GroupInfoViewModel {
 
     @objc private func updateGroup() {
         ChatInteractor.updateGroup(with: groupModel)
+    }
+
+    private func contact(at indexPath: IndexPath) -> TokenUser? {
+        var contact: TokenUser?
+
+        uiDatabaseConnection.read { [weak self] transaction in
+            guard let strongSelf = self else { return }
+            guard let dbExtension: YapDatabaseViewTransaction = transaction.extension(strongSelf.filteredDatabaseViewName) as? YapDatabaseViewTransaction else { return }
+
+            guard let data = dbExtension.object(at: indexPath, with: strongSelf.mappings) as? Data else { return }
+
+            contact = TokenUser.user(with: data, shouldUpdate: false)
+        }
+
+        return contact
     }
 }
 
@@ -89,5 +123,6 @@ extension GroupInfoViewModel: GroupViewModelProtocol {
     var errorAlertMessage: String { return Localized("toshi_generic_error") }
 
     var isDoneButtonEnabled: Bool { return groupInfo.title.length > 0 }
+    var participantsIDs: [String] { return groupInfo.participantsIDs }
 }
 
