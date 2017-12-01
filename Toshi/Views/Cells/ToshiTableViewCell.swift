@@ -21,6 +21,7 @@ protocol ToshiCellActionDelegate {
     func didTapLeftImage(_ cell: ToshiTableViewCell)
     func didChangeSwitchState(_ cell: ToshiTableViewCell, _ state: Bool)
     func didFinishTitleInput(_ cell: ToshiTableViewCell, text: String?)
+    func titleShouldChangeCharactersInRange(_ cell: ToshiTableViewCell, text: String?, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool
 }
 
 //extenstion with default implementation which is alternative for optional functions in protocols
@@ -110,5 +111,9 @@ extension ToshiTableViewCell: UITextFieldDelegate {
 
     func textFieldDidEndEditing(_ textField: UITextField) {
         self.actionDelegate?.didFinishTitleInput(self, text: textField.text)
+    }
+
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        return actionDelegate?.titleShouldChangeCharactersInRange(self, text: textField.text, shouldChangeCharactersIn: range, replacementString: string) ?? true
     }
 }

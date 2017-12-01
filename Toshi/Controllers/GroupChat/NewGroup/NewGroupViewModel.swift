@@ -78,7 +78,6 @@ extension NewGroupViewModel: GroupViewModelProtocol {
         return #selector(createChat)
     }
 
-
     var viewControllerTitle: String { return Localized("new_group_title") }
     var rightBarButtonTitle: String { return Localized("create_group_button_title") }
     var imagePickerTitle: String { return Localized("image-picker-select-source-title") }

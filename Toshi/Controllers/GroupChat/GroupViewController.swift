@@ -96,6 +96,7 @@ open class GroupViewController: UIViewController, KeyboardAdjustable, UINavigati
         super.viewWillAppear(animated)
 
         registerForKeyboardNotifications()
+        adjustDoneButton()
     }
 
     open override func viewDidAppear(_ animated: Bool) {
@@ -181,7 +182,7 @@ open class GroupViewController: UIViewController, KeyboardAdjustable, UINavigati
         }
     }
 
-    fileprivate lazy var activityIndicator: UIActivityIndicatorView = {
+    private lazy var activityIndicator: UIActivityIndicatorView = {
         // need to initialize with large style which is available only white, thus need to set color later
         let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
         activityIndicator.color = Theme.lightGreyTextColor
@@ -189,6 +190,10 @@ open class GroupViewController: UIViewController, KeyboardAdjustable, UINavigati
 
         return activityIndicator
     }()
+
+    private func adjustDoneButton() {
+        navigationItem.rightBarButtonItem?.isEnabled = viewModel.isDoneButtonEnabled
+    }
 }
 
 extension GroupViewController: UIImagePickerControllerDelegate {
@@ -282,6 +287,15 @@ extension GroupViewController: ToshiCellActionDelegate {
         let title = text?.trimmingCharacters(in: .whitespaces) ?? ""
         viewModel.updateTitle(title)
         tableView.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
+    }
+
+    func titleShouldChangeCharactersInRange(_ cell: ToshiTableViewCell, text: String?, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+
+        let resultText = (text as NSString?)?.replacingCharacters(in: range, with: string) ?? string
+        viewModel.updateTitle(resultText)
+        adjustDoneButton()
+
+        return true
     }
 }
 
