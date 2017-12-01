@@ -41,4 +41,6 @@ protocol GroupViewModelProtocol: class {
     func updateAvatar(_ image: UIImage)
     func updatePublicState(_ isPublic: Bool)
     func updateTitle(_ title: String)
+
+    var isDoneButtonEnabled: Bool { get }
 }

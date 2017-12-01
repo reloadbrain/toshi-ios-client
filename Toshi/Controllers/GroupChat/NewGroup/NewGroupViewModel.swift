@@ -74,7 +74,10 @@ extension NewGroupViewModel: GroupViewModelProtocol {
         groupInfo.isPublic = isPublic
     }
 
-    var rightBarButtonSelector: Selector { return #selector(createChat) }
+    var rightBarButtonSelector: Selector {
+        return #selector(createChat)
+    }
+
 
     var viewControllerTitle: String { return Localized("new_group_title") }
     var rightBarButtonTitle: String { return Localized("create_group_button_title") }
@@ -85,4 +88,6 @@ extension NewGroupViewModel: GroupViewModelProtocol {
 
     var errorAlertTitle: String { return Localized("error_title") }
     var errorAlertMessage: String { return Localized("toshi_generic_error") }
+
+    var isDoneButtonEnabled: Bool { return groupInfo.title.length > 0 }
 }

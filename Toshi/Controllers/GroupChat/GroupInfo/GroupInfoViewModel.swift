@@ -87,5 +87,7 @@ extension GroupInfoViewModel: GroupViewModelProtocol {
 
     var errorAlertTitle: String { return Localized("error_title") }
     var errorAlertMessage: String { return Localized("toshi_generic_error") }
+
+    var isDoneButtonEnabled: Bool { return groupInfo.title.length > 0 }
 }
 

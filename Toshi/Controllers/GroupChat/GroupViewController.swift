@@ -85,7 +85,8 @@ open class GroupViewController: UIViewController, KeyboardAdjustable, UINavigati
         view.backgroundColor = Theme.lightGrayBackgroundColor
         title = viewModel.viewControllerTitle
 
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: viewModel.rightBarButtonTitle, style: .plain, target: self, action: viewModel.rightBarButtonSelector)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: viewModel.rightBarButtonTitle, style: .plain, target:
+            viewModel, action: viewModel.rightBarButtonSelector)
         navigationItem.rightBarButtonItem?.setTitleTextAttributes([.font: Theme.bold(size: 17.0), .foregroundColor: Theme.tintColor], for: .normal)
 
         addSubviewsAndConstraints()
@@ -161,10 +162,6 @@ open class GroupViewController: UIViewController, KeyboardAdjustable, UINavigati
 
     @objc func cancelAndDismiss() {
         navigationController?.popViewController(animated: true)
-    }
-
-    @objc func create() {
-
     }
 
     fileprivate func completeEdit(success: Bool, message: String?) {
