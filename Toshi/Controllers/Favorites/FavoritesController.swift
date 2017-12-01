@@ -368,11 +368,11 @@ open class FavoritesController: SweetTableController, KeyboardAdjustable, Emptia
     private func updateContactIfNeeded(at indexPath: IndexPath) {
         guard let contact = contact(at: indexPath) else { return }
 
-        print("Updating contact infor for address: \(contact.address).")
+        DLog("Updating contact info for address: \(contact.address).")
 
         idAPIClient.findContact(name: contact.address) { [weak self] contact in
             if let contact = contact {
-                print("Added contact info for \(contact.username)")
+                DLog("Added contact info for \(contact.username)")
 
                 self?.tableView.beginUpdates()
                 self?.tableView.reloadRows(at: [indexPath], with: .automatic)
