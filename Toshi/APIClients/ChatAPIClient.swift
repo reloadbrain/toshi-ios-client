@@ -85,7 +85,7 @@ public class ChatAPIClient: NSObject {
                     }
 
                     TSAccountManager.sharedInstance().storeServerAuthToken(parameters.password, signalingKey: parameters.signalingKey)
-                    DLog("Successfully registered chat user with address: \(cereal.address)")
+                    ALog("Successfully registered chat user with address: \(cereal.address)")
                     succeeded = true
                 case .failure(_, _, let error):
                     DLog("\(error)")

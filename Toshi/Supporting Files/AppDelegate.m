@@ -260,7 +260,7 @@ NSString *const ChatSertificateName = @"token";
 }
 
 - (void)setupTSKitEnv {
-    [OCDLog dlog:@"Setting up Signal KIT environment"
+    [OCDLog alog:@"Setting up Signal KIT environment"
         filePath:__FILE__
         function:__FUNCTION__
             line:__LINE__];
@@ -435,13 +435,13 @@ NSString *const ChatSertificateName = @"token";
 }
 
 - (void)updateRemoteNotificationCredentials {
-    [OCDLog dlog:[NSString stringWithFormat:@"\n||--------------------\n||\n|| --- Account is registered: %@ \n||\n||--------------------\n\n", @([TSAccountManager isRegistered])]
+    [OCDLog alog:[NSString stringWithFormat:@"\n||--------------------\n||\n|| --- Account is registered: %@ \n||\n||--------------------\n\n", @([TSAccountManager isRegistered])]
         filePath:__FILE__
         function:__FUNCTION__
             line:__LINE__];
 
     [[TSAccountManager sharedInstance] registerForPushNotificationsWithPushToken:self.token voipToken:nil success:^{
-        [OCDLog dlog:[NSString stringWithFormat:@"\n\n||------- \n||\n|| - TOKEN: chat PN register - SUCCESS: token: %@\n", self.token]
+        [OCDLog alog:[NSString stringWithFormat:@"\n\n||------- \n||\n|| - TOKEN: chat PN register - SUCCESS: token: %@\n", self.token]
             filePath:__FILE__
             function:__FUNCTION__
                 line:__LINE__];
@@ -451,7 +451,7 @@ NSString *const ChatSertificateName = @"token";
         [[EthereumAPIClient shared] registerForSwitchedNetworkPushNotificationsIfNeededWithCompletion:nil];
 
     } failure:^(NSError *error) {
-        [OCDLog dlog:[NSString stringWithFormat:@"\n\n||------- \n|| - TOKEN: chat PN register - FAILURE: %@\n||------- \n", error.localizedDescription]
+        [OCDLog alog:[NSString stringWithFormat:@"\n\n||------- \n|| - TOKEN: chat PN register - FAILURE: %@\n||------- \n", error.localizedDescription]
             filePath:__FILE__
             function:__FUNCTION__
                 line:__LINE__];
@@ -477,7 +477,7 @@ NSString *const ChatSertificateName = @"token";
 }
 
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
-    [OCDLog dlog:[NSString stringWithFormat:@"Failed to register for remote notifications. %@", error]
+    [OCDLog alog:[NSString stringWithFormat:@"Failed to register for remote notifications. %@", error]
         filePath:__FILE__
         function:__FUNCTION__
             line:__LINE__];
