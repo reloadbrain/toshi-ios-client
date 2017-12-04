@@ -325,12 +325,22 @@ final class ChatInteractor: NSObject {
     }
 
     public static func updateGroup(with groupModel: TSGroupModel) {
+        var thread: TSGroupThread?
+        TSStorageManager.shared().dbReadWriteConnection?.readWrite { transaction in
+            thread = TSGroupThread.getOrCreateThread(with: groupModel, transaction: transaction)
 
+            guard thread != nil else { return }
+            thread!.groupModel = groupModel
+            thread!.save(with: transaction)
+        }
+
+        sendGroupUpdateMessage(to: thread!, with: groupModel)
     }
 
-    public static func createGroup(with recipientsIds: NSMutableArray = ["0xfed3c4db1dc5878fd19c401754dd1e887da8af03", "0x60c7c1935f787a6474b84f3a997263080bb20b1c", "0xd79ade23a00ebbf1485938f375f1310ca5b57b6a"], name: String, avatar: UIImage) {
+    public static func createGroup(with recipientsIds: NSMutableArray, name: String, avatar: UIImage) {
 
         let groupId = Randomness.generateRandomBytes(32)
+
         guard let groupModel = TSGroupModel(title: name, memberIds: recipientsIds, image: avatar, groupId: groupId) else { return }
 
         var thread: TSGroupThread?
@@ -345,6 +355,17 @@ final class ChatInteractor: NSObject {
         Navigator.tabbarController?.openThread(thread!)
 
         sendInitialGroupMessage(to: thread!)
+    }
+
+    private static func sendGroupUpdateMessage(to thread: TSGroupThread, with groupModel: TSGroupModel) {
+        DispatchQueue.global(qos: .background).async {
+            let timestamp = NSDate.ows_millisecondTimeStamp()
+            let outgoingMessage = TSOutgoingMessage(timestamp: timestamp, in: thread, groupMetaMessage: TSGroupMetaMessage.update)
+            outgoingMessage.body = "GROUP_UPDATED"
+
+            let interactor = ChatInteractor(output: nil, thread: thread)
+            interactor.send(image: groupModel.groupImage, in: outgoingMessage)
+        }
     }
 
     private static func sendInitialGroupMessage(to thread: TSGroupThread) {

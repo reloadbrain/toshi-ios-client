@@ -51,7 +51,7 @@ final class ChatViewController: UIViewController, UINavigationControllerDelegate
         avatar.set(width: 34.0)
         avatar.isUserInteractionEnabled = true
 
-        let tap = UITapGestureRecognizer(target: self, action: #selector(self.showContactProfile))
+        let tap = UITapGestureRecognizer(target: self, action: #selector(self.showThreadOrRecipientDetails))
         avatar.addGestureRecognizer(tap)
 
         return avatar
@@ -251,7 +251,7 @@ final class ChatViewController: UIViewController, UINavigationControllerDelegate
         view.layoutIfNeeded()
     }
 
-    @objc fileprivate func showContactProfile(_ sender: UITapGestureRecognizer) {
+    @objc fileprivate func showThreadOrRecipientDetails(_ sender: UITapGestureRecognizer) {
 
         if let groupThread = thread as? TSGroupThread {
             let groupModel = groupThread.groupModel

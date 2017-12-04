@@ -65,7 +65,12 @@ final class GroupInfoViewModel {
     }
 
     @objc private func updateGroup() {
-        ChatInteractor.updateGroup(with: groupModel)
+        let memberIds = NSMutableArray()
+        memberIds.addObjects(from: groupInfo.participantsIDs)
+
+        guard let updatedGroupModel = TSGroupModel(title: groupInfo.title, memberIds: memberIds, image: groupInfo.avatar, groupId: groupModel.groupId) else { return }
+
+        ChatInteractor.updateGroup(with: updatedGroupModel)
     }
 }
 

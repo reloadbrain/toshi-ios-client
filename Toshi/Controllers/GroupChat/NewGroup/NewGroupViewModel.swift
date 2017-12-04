@@ -50,7 +50,12 @@ final class NewGroupViewModel {
     }
 
     @objc private func createChat() {
-        ChatInteractor.createGroup(name: groupInfo.title, avatar: groupInfo.avatar)
+
+       // guard let membersIds = groupInfo.participantsIDs as? NSMutableArray else { return } //TEST
+        let membersIds = NSMutableArray()
+        membersIds.addObjects(from: ["0x718f6d24b48a6c01f9178baf849a100d7cf55a05", "0xa826278610d81fae6e6e181e6b44689ea7ff7f4b", Cereal.shared.address])
+
+        ChatInteractor.createGroup(with: membersIds, name: groupInfo.title, avatar: groupInfo.avatar)
     }
 }
 
