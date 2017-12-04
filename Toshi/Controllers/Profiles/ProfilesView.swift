@@ -94,9 +94,7 @@ class ProfilesView: UITableView {
         let isDatabaseChanged = yapDatabaseChanges.rowChanges.count != 0 || yapDatabaseChanges.sectionChanges.count != 0
         
         guard isDatabaseChanged else { return }
-        
-        reloadData()
-        
+                
         beginUpdates()
         
         for rowChange in yapDatabaseChanges.rowChanges {
