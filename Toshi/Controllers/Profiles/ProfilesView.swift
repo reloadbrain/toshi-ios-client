@@ -78,9 +78,8 @@ class ProfilesView: UITableView {
         
         let notifications = databaseConnection.beginLongLivedReadTransaction()
         
-        // swiftlint:disable force_cast
+        // swiftlint:disable:next force_cast
         let threadViewConnection = databaseConnection.ext(ProfilesView.filteredProfilesKey) as! YapDatabaseViewConnection
-        // swiftlint:enable force_cast
         
         if !threadViewConnection.hasChanges(for: notifications) {
             databaseConnection.read { [weak self] transaction in
