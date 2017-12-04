@@ -18,24 +18,34 @@ import Foundation
 /*
  This file facilitates log statements which will only print when in debug mode.
  
- DLog will log when -D DEBUG is in the "Other Swift Flags" and do nothing when it is not.
+ By default, DLog will log when -D DEBUG is in the "Other Swift Flags" and do nothing when it is not. You can temporarily override this behavior by just forcing `shouldDebugLog` to return whatever you want, though it is reco
  
  ALog will always log with details about the file, function, and line of the caller.
  
  Note: The message is the only required variable for any of these.
  */
 
+/// Determines if debug logs should fire.
+/// NOTE: This can be overridden temporarily on a local basis, but it's not recommended that said changes be checked in
+///
+/// - Returns: True if debug logs should fire, false if not.
+private func shouldDebugLog() -> Bool {
+    #if DEBUG
+        return true
+    #else
+        return false
+    #endif
+}
+
 /**
  Prints a detailed log statement, but only when in debug mode.
  
  - parameter message:  The message you wish to log out.
  */
-public func DLog(_ message: @autoclosure () -> String, filePath: StaticString = #file, function: StaticString = #function, line: UInt = #line) {
-    #if DEBUG
-        detailedLog(message(), String(describing: filePath), String(describing: function), line)
-    #else
-        //Do nothing out of debug mode
-    #endif
+public func DLog(_ message: @autoclosure () -> String, filePath: StaticString = #file, function: StaticString = #function, line: UInt = #line) {    
+    guard shouldDebugLog() else { return }
+    
+    detailedLog(message(), String(describing: filePath), String(describing: function), line)
 }
 
 /**
