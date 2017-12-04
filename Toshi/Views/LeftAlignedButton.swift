@@ -16,6 +16,12 @@ class LeftAlignedButton: UIControl {
         }
     }
     
+    var titleColor: UIColor? {
+        didSet {
+            titleLabel.textColor = titleColor
+        }
+    }
+    
     private lazy var iconImageView = UIImageView()
     
     private lazy var titleLabel: UILabel = {
@@ -31,11 +37,17 @@ class LeftAlignedButton: UIControl {
         addSubview(iconImageView)
         addSubview(titleLabel)
         
-        iconImageView.left(to: self, offset: 15)
-        iconImageView.centerY(to: self)
-        iconImageView.size(CGSize(width: 38, height: 38))
+        let iconSize: CGFloat = 48
+        let margin: CGFloat = 16
         
-        titleLabel.edgesToSuperview(excluding: .left, insets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: -15))
+        iconImageView.left(to: self, offset: margin)
+        iconImageView.centerY(to: self)
+        iconImageView.size(CGSize(width: iconSize, height: iconSize))
+        
+        iconImageView.clipsToBounds = true
+        iconImageView.layer.cornerRadius = (iconSize / 2)
+        
+        titleLabel.edgesToSuperview(excluding: .left, insets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: -margin))
         titleLabel.leftToRight(of: iconImageView, offset: 10)
     }
     
