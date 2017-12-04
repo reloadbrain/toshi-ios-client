@@ -12,6 +12,7 @@ class ProfilesView: UITableView {
     static let filteredProfilesKey = "Filtered_Profiles_Key"
     
     private let type: ProfilesViewControllerType
+    private var selectedProfiles = Set<TokenUser>()
     
     private(set) lazy var databaseConnection: YapDatabaseConnection = {
         let database = Yap.sharedInstance.database
@@ -72,10 +73,6 @@ class ProfilesView: UITableView {
     }
     
     @objc private func yapDatabaseDidChange(notification _: NSNotification) {
-//        defer {
-//            showOrHideEmptyState()
-//        }
-        
         let notifications = databaseConnection.beginLongLivedReadTransaction()
         
         // swiftlint:disable:next force_cast
@@ -131,10 +128,19 @@ extension ProfilesView: UITableViewDataSource {
     }
     
     open func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: ProfileCell.reuseIdentifier, for: indexPath)
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: ProfileCell.reuseIdentifier, for: indexPath) as? ProfileCell else {
+            assertionFailure("This is not a profile cell!")
+            return UITableViewCell()
+        }
         
-        if let cell = cell as? ProfileCell {
-            cell.profile = profile(at: indexPath)
+        guard let rowProfile = profile(at: indexPath) else {
+            assertionFailure("Could not get profile at indexPath: \(indexPath)")
+            return cell
+        }
+        cell.profile = rowProfile
+        
+        if type == .newGroupChat {
+            cell.checkmarkView.checked = selectedProfiles.contains(rowProfile)
         }
         
         return cell
@@ -145,6 +151,28 @@ extension ProfilesView: UITableViewDelegate {
     
     public func tableView(_: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let profile = profile(at: indexPath) else { return }
-        selectionDelegate?.didSelectProfile(profile: profile)
+        
+        switch type {
+        case .favorites,
+             .newChat:
+            selectionDelegate?.didSelectProfile(profile: profile)
+        case .newGroupChat:
+            if selectedProfiles.contains(profile) {
+                selectedProfiles.remove(profile)
+            } else {
+                selectedProfiles.insert(profile)
+            }
+            
+            guard
+                let header = tableHeaderView as? ProfilesHeaderView,
+                let selectedProfilesView = header.subviews[0] as? ProfilesAddedToGroupHeader else {
+                    assertionFailure("Couldn't access header!")
+                    return
+            }
+            
+            selectedProfilesView.updateDisplay(with: selectedProfiles)
+            
+            reloadData()
+        }
     }
 }

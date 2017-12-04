@@ -6,48 +6,32 @@
 //  Copyright © 2017 Bakken&Baeck. All rights reserved.
 //
 
+import SweetUIKit
 import TinyConstraints
 import UIKit
 
 class ProfilesAddedToGroupHeader: UIView {
     
     lazy var profilesAddedLabel: UILabel = {
-        let label = UILabel()
+        let label = UILabel(withAutoLayout: true)
         label.numberOfLines = 0
         return label
     }()
     
-    private(set) var profiles = Set<TokenUser>()
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    convenience init(margin: CGFloat) {
+        self.init(withAutoLayout: true)
         addSubview(profilesAddedLabel)
-        profilesAddedLabel.edgesToSuperview()
-        updateDisplay()
+        profilesAddedLabel.edgesToSuperview(insets: UIEdgeInsets(top: margin / 2, left: margin, bottom: margin / 2, right: -margin))
+        updateDisplay(with: [])
     }
     
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("Use init(frame:)!")
-    }
-    
-    var sortedProfiles: [TokenUser] {
-        return profiles.sorted(by: { $0.name < $1.name })
-    }
-    
-    func add(profile: TokenUser) {
-        profiles.insert(profile)
-        updateDisplay()
-    }
-    
-    func remove(profile: TokenUser) {
-        profiles.remove(profile)
-        updateDisplay()
-    }
-    
-    private func updateDisplay() {
+    func updateDisplay(with profiles: Set<TokenUser>) {
+        let sortedProfiles = profiles.sorted(by: { $0.name < $1.name })
+        
         let nonNameAttributes = [ NSAttributedStringKey.foregroundColor: Theme.lightGreyTextColor ]
-        let prefix = NSMutableAttributedString(string: "To: ", attributes: nonNameAttributes)
-        let nameStrings = profiles.map { NSAttributedString(string: $0.name, attributes: [ .foregroundColor: Theme.tintColor ]) }
+        let toAttributedString = NSMutableAttributedString(string: Localized("profiles_add_to_group_prefix"), attributes: nonNameAttributes)
+        
+        let nameStrings = sortedProfiles.map { NSAttributedString(string: $0.name, attributes: [ .foregroundColor: Theme.tintColor ]) }
         
         // `join(with:)` doesn't work on attributed strings, so:
         let singleNamesString = nameStrings.reduce(NSMutableAttributedString(), { accumulated, next in
@@ -55,11 +39,12 @@ class ProfilesAddedToGroupHeader: UIView {
             
             // Don't add a comma after the last item
             guard next != nameStrings.last else { return accumulated }
-            accumulated.append(NSAttributedString(string: ",", attributes: nonNameAttributes))
+            accumulated.append(NSAttributedString(string: ", ", attributes: nonNameAttributes))
             
             return accumulated
         })
     
-        return prefix.append(singleNamesString)
+        toAttributedString.append(singleNamesString)
+        profilesAddedLabel.attributedText = toAttributedString
     }
 }

@@ -13,7 +13,6 @@ final class ProfilesHeaderView: UIView {
         self.searchBar = searchBar
         super.init(frame: .zero)
         
-        height(80)
         width(UIScreen.main.bounds.width)
         configure(for: type, with: delegate)
     }
@@ -26,17 +25,16 @@ final class ProfilesHeaderView: UIView {
         switch type {
         case .favorites,
              .newChat:
+            height(80)
             let addGroupHeader = ProfilesAddGroupHeader(with: delegate)
             self.addSubview(addGroupHeader)
             addGroupHeader.edgesToSuperview()
-            self.backgroundColor = .red
         case .newGroupChat:
             var frame = self.bounds
             frame.origin = .zero
-            let addedToGroupHeader = ProfilesAddedToGroupHeader(frame: frame)
+            let addedToGroupHeader = ProfilesAddedToGroupHeader(margin: 16)
             self.addSubview(addedToGroupHeader)
             addedToGroupHeader.edgesToSuperview()
-            self.backgroundColor = .blue
         }
     }
 }

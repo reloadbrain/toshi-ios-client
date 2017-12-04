@@ -218,6 +218,7 @@
 "profiles_navigation_title_favorites" = "Favorites";
 "profiles_navigation_title_new_chat" = "New Chat";
 "profiles_navigation_title_new_group_chat" = "New Group Chat";
+"profiles_add_to_group_prefix" = "To: ";
 
 /* Tab Bar */
 "tab_bar_title_browse" = "Browse";

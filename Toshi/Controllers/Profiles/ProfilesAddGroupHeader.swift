@@ -33,9 +33,7 @@ class ProfilesAddGroupHeader: UIView {
         self.init(withAutoLayout: true)
         self.delegate = delegate
         self.addSubview(button)
-        button.addTarget(self,
-                         action: #selector(tappedAddGroup),
-                         for: .touchUpInside)
+        button.edgesToSuperview()
     }
     
     @objc private func tappedAddGroup() {
