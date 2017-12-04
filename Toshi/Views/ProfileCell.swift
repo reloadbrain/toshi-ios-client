@@ -75,6 +75,12 @@ class ProfileCell: UITableViewCell {
         return view
     }()
 
+    lazy var checkmarkView: Checkbox = {
+        let checkbox = Checkbox(frame: CGRect(origin: .zero, size: CGSize(width: 38, height: 38)))
+        checkbox.checked = false
+        return checkbox
+    }()
+    
     override func prepareForReuse() {
         super.prepareForReuse()
 
@@ -88,6 +94,7 @@ class ProfileCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
         contentView.addSubview(avatarImageView)
+        contentView.addSubview(checkmarkView)
         contentView.addSubview(usernameLabel)
         contentView.addSubview(nameLabel)
         contentView.addSubview(separatorView)
@@ -101,21 +108,29 @@ class ProfileCell: UITableViewCell {
         avatarImageView.centerY(to: contentView)
         avatarImageView.left(to: contentView, offset: margin)
 
+        checkmarkView.centerY(to: contentView)
+        checkmarkView.right(to: contentView, offset: -margin)
+        checkmarkView.layer.borderColor = UIColor.red.cgColor
+        
         nameLabel.height(height, relation: .equalOrGreater)
         nameLabel.top(to: contentView, offset: margin)
         nameLabel.leftToRight(of: avatarImageView, offset: 10)
-        nameLabel.right(to: contentView, offset: -margin)
+        nameLabel.rightToLeft(of: checkmarkView, offset: -margin)
 
         usernameLabel.height(height, relation: .equalOrGreater)
         usernameLabel.topToBottom(of: nameLabel)
         usernameLabel.leftToRight(of: avatarImageView, offset: 10)
-        usernameLabel.right(to: contentView, offset: -margin)
+        usernameLabel.rightToLeft(of: checkmarkView, offset: -margin)
 
         separatorView.height(.lineHeight)
         separatorView.topToBottom(of: usernameLabel, offset: interLabelMargin)
         separatorView.left(to: contentView, offset: margin)
         separatorView.bottom(to: contentView)
         separatorView.right(to: contentView, offset: -margin)
+    }
+    
+    func setCheckmarkShowing(_ showing: Bool) {
+        checkmarkView.isHidden = !showing
     }
 
     required init?(coder _: NSCoder) {
