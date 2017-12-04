@@ -31,7 +31,7 @@ enum UserDefaultsKey: String, StringCaseListable {
     selectedContact = "Restoration::SelectedContact",
     selectedThreadAddress = "Restoration::SelectedThread",
     tabBarSelectedIndex = "TabBarSelectedIndex",
-    chatRegistrationUpdateTriggered = "chatRegistrationUpdateTriggered"
+    chatRegistrationUpdateTriggered = "Restoration::ChatRegistrationUpdateTriggered"
 }
 
 /// A wrapper for NSUserDefaults to facilitate type-safe fetching

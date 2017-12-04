@@ -374,18 +374,20 @@ NSString *const ChatSertificateName = @"token";
 {
     if ([UserDefaultsWrapper chatRegistrationUpdateTriggered] == NO) {
 
-        [UserDefaultsWrapper setChatRegistrationUpdateTriggered:YES];
-
         [TSPreKeyManager registerPreKeysWithMode:RefreshPreKeysMode_SignedAndOneTime
                                          success:^{
-
+                                             [UserDefaultsWrapper setChatRegistrationUpdateTriggered:YES];
                                          } failure:^(NSError *error) {
                                              [CrashlyticsLogger log:@"Failed registering prekeys - triggering Chat register" attributes:nil];
 
                                              if (error.code == 401) {
                                                  [ChatAPIClient.shared registerUserWithCompletion:^(BOOL success) {
                                                      if (success) {
+                                                         [UserDefaultsWrapper setChatRegistrationUpdateTriggered:YES];
+                                                         
                                                          [CrashlyticsLogger log:@"Successfully registered user with chat service after forced trigger" attributes:nil];
+                                                     } else {
+                                                         [CrashlyticsLogger log:@"Failed to register user with chat service after forced trigger" attributes:nil];
                                                      }
                                                  }];
                                              }
