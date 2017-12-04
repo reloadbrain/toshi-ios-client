@@ -38,12 +38,17 @@ class CellConfigurator {
         if cellData.components.contains(.leftImage) {
             cell.leftImageView.image = cellData.leftImage
         }
+        if cellData.components.contains(.doubleImage) {
+            cell.doubleImageView.setImages(cellData.doubleImage)
+        }
     }
 
     func cellIdentifier(for components: TableCellDataComponents) -> String {
         var reuseIdentifier = TitleCell.reuseIdentifier
 
-        if components.contains(.titleSubtitleSwitchControlLeftImage) {
+        if components.contains(.doubleImage) {
+          reuseIdentifier = DoubleAvatarTitleSubtitleCell.reuseIdentifier
+        } else if components.contains(.titleSubtitleSwitchControlLeftImage) {
             reuseIdentifier = AvatarTitleSubtitleSwitchCell.reuseIdentifier
         } else if components.contains(.titleSubtitleDetailsLeftImage) {
             reuseIdentifier = AvatarTitleSubtitleDetailsCell.reuseIdentifier

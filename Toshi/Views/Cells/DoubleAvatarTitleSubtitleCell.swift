@@ -15,38 +15,40 @@
 
 import UIKit
 
-final class AvatarTitleSubtitleCell: BasicTableViewCell {
+final class DoubleAvatarTitleSubtitleCell: BasicTableViewCell {
 
     override func addSubviewsAndConstraints() {
-        contentView.addSubview(leftImageView)
-        contentView.addSubview(subtitleLabel)
-        contentView.addSubview(titleTextField)
+        accessoryType = .disclosureIndicator
 
-        setupLeftImageView()
+        contentView.addSubview(doubleImageView)
+        contentView.addSubview(titleTextField)
+        contentView.addSubview(subtitleLabel)
+
+        setupDoubleImageView()
         setupTitleTextField()
         setupSubtitleLabel()
     }
 
-    private func setupLeftImageView() {
+    private func setupDoubleImageView() {
 
-        leftImageView.size(CGSize(width: BasicTableViewCell.imageSize, height: BasicTableViewCell.imageSize))
-        leftImageView.centerY(to: contentView)
-        leftImageView.left(to: contentView, offset: BasicTableViewCell.horizontalMargin)
-        leftImageView.top(to: contentView, offset: BasicTableViewCell.imageMargin, relation: .equalOrGreater, priority: .defaultLow)
-        leftImageView.bottom(to: contentView, offset: -BasicTableViewCell.imageMargin, relation: .equalOrGreater, priority: .defaultLow)
-    }
-
-    private func setupSubtitleLabel() {
-        subtitleLabel.topToBottom(of: titleTextField)
-        subtitleLabel.leftToRight(of: leftImageView, offset: BasicTableViewCell.interItemMargin)
-        subtitleLabel.right(to: contentView, offset: -BasicTableViewCell.horizontalMargin)
-        subtitleLabel.bottom(to: contentView, offset: -BasicTableViewCell.verticalMargin)
+        doubleImageView.size(CGSize(width: BasicTableViewCell.doubleImageSize, height: BasicTableViewCell.doubleImageSize))
+        doubleImageView.centerY(to: contentView)
+        doubleImageView.left(to: contentView, offset: BasicTableViewCell.horizontalMargin)
+        doubleImageView.top(to: contentView, offset: BasicTableViewCell.doubleImageMargin, relation: .equalOrGreater, priority: .defaultLow)
+        doubleImageView.bottom(to: contentView, offset: -BasicTableViewCell.doubleImageMargin, relation: .equalOrGreater, priority: .defaultLow)
     }
 
     private func setupTitleTextField() {
         titleTextField.top(to: contentView, offset: BasicTableViewCell.horizontalMargin)
-        titleTextField.leftToRight(of: leftImageView, offset: BasicTableViewCell.interItemMargin)
-        titleTextField.right(to: contentView, offset: -BasicTableViewCell.horizontalMargin)
+        titleTextField.leftToRight(of: doubleImageView, offset: BasicTableViewCell.interItemMargin)
+        titleTextField.right(to: contentView)
+    }
+
+    private func setupSubtitleLabel() {
+        subtitleLabel.topToBottom(of: titleTextField)
+        subtitleLabel.leftToRight(of: doubleImageView, offset: BasicTableViewCell.interItemMargin)
+        subtitleLabel.right(to: contentView)
+        subtitleLabel.bottom(to: contentView, offset: -BasicTableViewCell.verticalMargin)
     }
 
     override open func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {

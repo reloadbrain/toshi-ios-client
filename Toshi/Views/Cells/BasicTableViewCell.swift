@@ -23,7 +23,7 @@ protocol BasicCellActionDelegate {
     func didFinishTitleInput(_ cell: BasicTableViewCell, text: String?)
 }
 
-//extenstion with default implementation which is alternative for optional functions in protocols
+//extension with default implementation which is alternative for optional functions in protocols
 extension BasicCellActionDelegate {
     func didTapLeftImage(_ cell: BasicTableViewCell) {}
     func didChangeSwitchState(_ cell: BasicTableViewCell, _ state: Bool) {}
@@ -36,6 +36,8 @@ class BasicTableViewCell: UITableViewCell {
     static let verticalMargin: CGFloat = 10.0
     static let interItemMargin: CGFloat = 10.0
     static let imageSize: CGFloat = 38.0
+    static let doubleImageSize: CGFloat = 48.0
+    static let doubleImageMargin: CGFloat = 16.0
     static let imageMargin: CGFloat = 6.0
 
     var actionDelegate: BasicCellActionDelegate?
@@ -83,6 +85,18 @@ class BasicTableViewCell: UITableViewCell {
         return leftImageView
     }()
 
+    lazy var doubleImageView: DoubleImageView = {
+        let doubleImageView = DoubleImageView()
+
+        doubleImageView.contentMode = .scaleAspectFill
+        doubleImageView.isUserInteractionEnabled = true
+
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapLeftImage(_:)))
+        doubleImageView.addGestureRecognizer(tapGesture)
+
+        return doubleImageView
+    }()
+
     lazy var switchControl: UISwitch = {
         let switchControl = UISwitch()
 
@@ -124,6 +138,7 @@ class BasicTableViewCell: UITableViewCell {
         tableView.register(AvatarTitleSubtitleCell.self)
         tableView.register(AvatarTitleSubtitleDetailsCell.self)
         tableView.register(AvatarTitleSubtitleSwitchCell.self)
+        tableView.register(DoubleAvatarTitleSubtitleCell.self)
     }
 }
 

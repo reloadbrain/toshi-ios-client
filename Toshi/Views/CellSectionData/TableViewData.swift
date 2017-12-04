@@ -42,6 +42,7 @@ public struct TableCellDataComponents: OptionSet {
     static let details = TableCellDataComponents(rawValue: 1 << 2)
     static let leftImage = TableCellDataComponents(rawValue: 1 << 3)
     static let switchControl = TableCellDataComponents(rawValue: 1 << 4)
+    static let doubleImage = TableCellDataComponents(rawValue: 1 << 5)
 
     static let titleSubtitle: TableCellDataComponents = [.title, .subtitle]
     static let titleLeftImage: TableCellDataComponents = [.title, .leftImage]
@@ -50,6 +51,7 @@ public struct TableCellDataComponents: OptionSet {
     static let titleSwitchControl: TableCellDataComponents = [.title, .switchControl]
     static let titleSubtitleSwitchControl: TableCellDataComponents = [.titleSwitchControl, .subtitle]
     static let titleSubtitleSwitchControlLeftImage: TableCellDataComponents = [.titleLeftImage, .subtitle, .switchControl]
+    static let titleSubtitleDoubleImageImage: TableCellDataComponents = [.titleSubtitle, .doubleImage]
 }
 
 public final class TableCellData {
@@ -60,18 +62,20 @@ public final class TableCellData {
     var leftImage: UIImage?
     var details: String?
     var switchState: Bool?
+    var doubleImage: (firstImage: UIImage, secondImage: UIImage)?
 
     var isPlaceholder = false
 
     private(set) var components: TableCellDataComponents = []
 
-    init(title: String? = nil, isPlaceholder: Bool = false, subtitle: String? = nil, leftImage: UIImage? = nil, details: String? = nil, switchState: Bool? = nil) {
+    init(title: String? = nil, isPlaceholder: Bool = false, subtitle: String? = nil, leftImage: UIImage? = nil, details: String? = nil, switchState: Bool? = nil, doubleImage: (firstImage: UIImage, secondImage: UIImage)? = nil) {
         self.title = title
         self.subtitle = subtitle
         self.leftImage = leftImage
         self.details = details
         self.switchState = switchState
         self.isPlaceholder = isPlaceholder
+        self.doubleImage = doubleImage
 
         setupComponents()
     }
@@ -95,6 +99,10 @@ public final class TableCellData {
 
         if switchState != nil {
             components.insert(.switchControl)
+        }
+        
+        if doubleImage != nil {
+            components.insert(.doubleImage)
         }
     }
 }
