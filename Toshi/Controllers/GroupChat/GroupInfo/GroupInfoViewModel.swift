@@ -32,6 +32,7 @@ final class GroupInfoViewModel {
         groupInfo = GroupInfo()
         groupInfo.title = groupModel.groupName
         groupInfo.participantsIDs = groupModel.groupMemberIds
+        groupInfo.avatar = groupModel.groupImage
 
         setup()
     }
