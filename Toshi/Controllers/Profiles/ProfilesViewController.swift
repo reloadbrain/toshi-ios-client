@@ -289,7 +289,7 @@ extension ProfilesViewController: ProfilesViewDelegate {
             }
         } else {
             navigationController?.pushViewController(ProfileViewController(profile: profile), animated: true)
-            UserDefaults.standard.setValue(profile.address, forKey: ProfilesNavigationController.selectedProfileKey)
+            UserDefaultsWrapper.selectedContact = profile.address
         }
     }
 }

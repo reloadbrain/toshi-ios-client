@@ -23,7 +23,7 @@ public class ProfilesNavigationController: UINavigationController {
     
     public override init(rootViewController: UIViewController) {
         
-        if let rootViewController = rootViewController as? ProfilesViewController, let profilesView = rootViewController.profilesView, let address = UserDefaults.standard.string(forKey: ProfilesNavigationController.selectedProfileKey), rootViewController.type != .newChat {
+        if let rootViewController = rootViewController as? ProfilesViewController, let profilesView = rootViewController.profilesView, let address = UserDefaultsWrapper.selectedContact, rootViewController.type != .newChat {
             super.init(nibName: nil, bundle: nil)
             
             profilesView.databaseConnection.read { [weak self] transaction in
