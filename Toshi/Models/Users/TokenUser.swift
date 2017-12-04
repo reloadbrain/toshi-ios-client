@@ -213,7 +213,27 @@ public class TokenUser: NSObject, NSCoding {
     @objc(encodeWithCoder:) public func encode(with aCoder: NSCoder) {
         aCoder.encode(json, forKey: "jsonData")
     }
-
+    
+    public override func isEqual(_ object: Any?) -> Bool {
+        guard let other = object as? TokenUser else { return false }
+        
+        return self == other
+    }
+    
+    static func == (_ lhs: TokenUser, _ rhs: TokenUser) -> Bool {
+        guard
+            lhs.address == rhs.address,
+            lhs.paymentAddress == rhs.paymentAddress else {
+                return false
+        }
+        
+        return true
+    }
+    
+    public override var hashValue: Int {
+        return (address.hashValue + paymentAddress.hashValue)
+    }
+    
     func updateVerificationState(_ verified: Bool) {
         self.userSettings[Constants.verified] = verified
         saveSettings()
