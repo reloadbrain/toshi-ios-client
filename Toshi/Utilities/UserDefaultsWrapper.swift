@@ -30,7 +30,8 @@ enum UserDefaultsKey: String, StringCaseListable {
     selectedApp = "Restoration::SelectedApp",
     selectedContact = "Restoration::SelectedContact",
     selectedThreadAddress = "Restoration::SelectedThread",
-    tabBarSelectedIndex = "TabBarSelectedIndex"
+    tabBarSelectedIndex = "TabBarSelectedIndex",
+    chatRegistrationUpdateTriggered = "chatRegistrationUpdateTriggered"
 }
 
 /// A wrapper for NSUserDefaults to facilitate type-safe fetching
@@ -98,6 +99,15 @@ class UserDefaultsWrapper: NSObject {
         }
         set {
             setValue(newValue, for: .addressChangeAlertShown)
+        }
+    }
+
+    @objc static var chatRegistrationUpdateTriggered: Bool {
+        get {
+            return bool(for: .chatRegistrationUpdateTriggered)
+        }
+        set {
+            setValue(newValue, for: .chatRegistrationUpdateTriggered)
         }
     }
     
