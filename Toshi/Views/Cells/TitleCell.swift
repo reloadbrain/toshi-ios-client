@@ -16,16 +16,17 @@
 import UIKit
 import TinyConstraints
 
-final class TitleCell: ToshiTableViewCell {
+final class TitleCell: BasicTableViewCell {
 
     override open func addSubviewsAndConstraints() {
-        titleTextField = UITextField(frame: .zero)
-        contentView.addSubview(titleTextField!)
+        contentView.addSubview(titleTextField)
 
-        titleTextField?.edgesToSuperview(excluding: .right, insets: TinyEdgeInsets(top: 10, left: 16, bottom: 10, right: 0))
-        titleTextField?.setContentHuggingPriority(.required, for: .horizontal)
-        titleTextField?.setContentHuggingPriority(.required, for: .vertical)
-        titleTextField?.setContentCompressionResistancePriority(.required, for: .horizontal)
-        titleTextField?.setContentCompressionResistancePriority(.required, for: .vertical)
+        titleTextField.edgesToSuperview(insets: TinyEdgeInsets(top: BasicTableViewCell.verticalMargin, left: BasicTableViewCell.horizontalMargin, bottom: BasicTableViewCell.verticalMargin, right: -BasicTableViewCell.horizontalMargin))
+    }
+
+    override open func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+
+        titleTextField.font = Theme.preferredRegular()
     }
 }

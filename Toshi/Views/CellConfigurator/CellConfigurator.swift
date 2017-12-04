@@ -15,37 +15,36 @@
 
 import UIKit
 
-protocol ToshiCellConfigurator: class {
-
-    func configureCell(_ cell: UITableViewCell, with cellData: TableCellData)
-    func cellIdentifier(for components: TableCellDataComponents) -> String
-}
-
-class CellConfigurator: ToshiCellConfigurator { // lets say we have this configurator responsible for
-
+class CellConfigurator {
     func configureCell(_ cell: UITableViewCell, with cellData: TableCellData) {
-        guard let cell = cell as? ToshiTableViewCell else { return }
+        guard let cell = cell as? BasicTableViewCell else { return }
 
-        if cellData.isPlaceholder {
-            cell.titleTextField?.placeholder = cellData.title
-        } else {
-            cell.titleTextField?.text = cellData.title
+        if cellData.components.contains(.title) {
+            if cellData.isPlaceholder {
+                cell.titleTextField.placeholder = cellData.title
+            } else {
+                cell.titleTextField.text = cellData.title
+            }
         }
-
-        cell.subtitleLabel?.text = cellData.subtitle
-        cell.detailsLabel?.text = cellData.details
-        cell.leftImageView?.image = cellData.leftImage
-        cell.switchControl?.isOn = cellData.switchState == true
+        if cellData.components.contains(.subtitle) {
+            cell.subtitleLabel.text = cellData.subtitle
+        }
+        if cellData.components.contains(.switchControl) {
+            cell.switchControl.isOn = cellData.switchState == true
+        }
+        if cellData.components.contains(.details) {
+            cell.detailsLabel.text = cellData.details
+        }
+        if cellData.components.contains(.leftImage) {
+            cell.leftImageView.image = cellData.leftImage
+        }
     }
-}
-
-extension ToshiCellConfigurator {
 
     func cellIdentifier(for components: TableCellDataComponents) -> String {
         var reuseIdentifier = TitleCell.reuseIdentifier
 
         if components.contains(.titleSubtitleSwitchControlLeftImage) {
-            reuseIdentifier = AvatarTitleSubtitleSwitchTableViewCell.reuseIdentifier
+            reuseIdentifier = AvatarTitleSubtitleSwitchCell.reuseIdentifier
         } else if components.contains(.titleSubtitleDetailsLeftImage) {
             reuseIdentifier = AvatarTitleSubtitleDetailsCell.reuseIdentifier
         } else if components.contains(.titleSubtitleLeftImage) {

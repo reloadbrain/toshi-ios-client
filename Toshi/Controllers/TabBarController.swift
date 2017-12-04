@@ -86,6 +86,7 @@ open class TabBarController: UITabBarController, OfflineAlertDisplaying {
 
     @objc public func setupControllers() {
         browseViewController = BrowseNavigationController(rootViewController: BrowseViewController())
+
         favoritesController = FavoritesNavigationController(rootViewController: FavoritesController())
 
         messagingController = RecentNavigationController(nibName: nil, bundle: nil)
@@ -140,7 +141,7 @@ open class TabBarController: UITabBarController, OfflineAlertDisplaying {
         messagingController.openThread(withAddress: address, completion: completion)
     }
 
-    public func openThread(_ thread: TSThread, animated:  Bool = true) {
+    public func openThread(_ thread: TSThread, animated: Bool = true) {
         messagingController.openThread(thread, animated: animated)
     }
 

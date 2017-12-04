@@ -15,18 +15,18 @@
 
 import UIKit
 
-final class AvatarTitleSubtitleSwitchCell: BasicTableViewCell {
+final class AvatarTitleSubtitleDetailsCell: BasicTableViewCell {
 
     override func addSubviewsAndConstraints() {
         contentView.addSubview(leftImageView)
         contentView.addSubview(titleTextField)
         contentView.addSubview(subtitleLabel)
-        contentView.addSubview(switchControl)
+        contentView.addSubview(detailsLabel)
 
         setupLeftImageView()
         setupTitleTextField()
         setupSubtitleLabel()
-        setupSwitchControl()
+        setupDetailsLabel()
     }
 
     private func setupLeftImageView() {
@@ -40,21 +40,21 @@ final class AvatarTitleSubtitleSwitchCell: BasicTableViewCell {
     private func setupTitleTextField() {
         titleTextField.top(to: contentView, offset: BasicTableViewCell.horizontalMargin)
         titleTextField.leftToRight(of: leftImageView, offset: BasicTableViewCell.interItemMargin)
-        titleTextField.rightToLeft(of: switchControl, offset: -BasicTableViewCell.horizontalMargin)
+        titleTextField.rightToLeft(of: detailsLabel, offset: -BasicTableViewCell.interItemMargin)
         titleTextField.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
     }
 
     private func setupSubtitleLabel() {
         subtitleLabel.topToBottom(of: titleTextField)
-        subtitleLabel.leftToRight(of: leftImageView, offset: BasicTableViewCell.interItemMargin)
-        subtitleLabel.rightToLeft(of: switchControl, offset: -BasicTableViewCell.horizontalMargin)
+        subtitleLabel.leftToRight(of: leftImageView, offset: BasicTableViewCell.verticalMargin)
+        subtitleLabel.rightToLeft(of: detailsLabel, offset: -BasicTableViewCell.horizontalMargin)
         subtitleLabel.bottom(to: contentView, offset: -BasicTableViewCell.verticalMargin)
         subtitleLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
     }
 
-    private func setupSwitchControl() {
-        switchControl.centerY(to: contentView)
-        switchControl.right(to: contentView, offset: -BasicTableViewCell.horizontalMargin)
+    private func setupDetailsLabel() {
+        detailsLabel.centerY(to: contentView)
+        detailsLabel.right(to: contentView, offset:  -BasicTableViewCell.horizontalMargin)
     }
 
     override open func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -62,5 +62,6 @@ final class AvatarTitleSubtitleSwitchCell: BasicTableViewCell {
 
         titleTextField.font = Theme.preferredRegular()
         subtitleLabel.font = Theme.preferredRegularSmall()
+        detailsLabel.font = Theme.preferredFootnote()
     }
 }

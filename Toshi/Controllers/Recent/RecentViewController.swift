@@ -87,7 +87,7 @@ open class RecentViewController: SweetTableController, Emptiable {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(ChatCell.self)
-        ToshiTableViewCell.register(in: tableView)
+        BasicTableViewCell.register(in: tableView)
 
         tableView.showsVerticalScrollIndicator = true
         tableView.alwaysBounceVertical = true
@@ -336,10 +336,8 @@ extension RecentViewController: UITableViewDataSource {
     }
 
     open func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
         let configurator = CellConfigurator()
         var reuseIdentifier = ""
-
 
         var tableData: TableCellData!
 
@@ -350,9 +348,9 @@ extension RecentViewController: UITableViewDataSource {
         } else if indexPath.row == 2 {
             tableData = TableCellData(title: "Title, subtitle and switch cell", subtitle: "some subtitle", switchState: false)
         } else if indexPath.row == 3 {
-            tableData = TableCellData(title: "Title, subtitle and avatar cell", subtitle: "some subtitle", leftImage: UIImage(named: "CameraExposureIcon")!)
+            tableData = TableCellData(title: "Title, subtitle and avatar cell", subtitle: "some subtitle", leftImage: UIImage(named: "CameraExposureIcon"))
         } else if indexPath.row == 4 {
-            tableData = TableCellData(title: "Title and avatar cell", leftImage: UIImage(named: "CameraExposureIcon")!)
+            tableData = TableCellData(title: "Title and avatar cell", leftImage: UIImage(named: "CameraExposureIcon"))
         } else if indexPath.row == 5 {
             tableData = TableCellData(title: "Title and switch cell", switchState: true)
         } else if indexPath.row == 6 {

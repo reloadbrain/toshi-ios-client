@@ -15,28 +15,33 @@
 
 import UIKit
 
-final class TitleSubtitleCell: ToshiTableViewCell {
+final class TitleSubtitleCell: BasicTableViewCell {
 
     override func addSubviewsAndConstraints() {
-        titleTextField = UITextField(frame: .zero)
-        contentView.addSubview(titleTextField!)
+        contentView.addSubview(titleTextField)
+        contentView.addSubview(subtitleLabel)
 
-        titleTextField?.top(to: contentView, offset: 16.0, priority: .defaultHigh)
-        titleTextField?.leading(to: contentView, offset: 16.0, priority: .defaultHigh)
-        titleTextField?.trailing(to: contentView, offset: -16.0, priority: .defaultHigh)
-        titleTextField?.setContentHuggingPriority(.required, for: .vertical)
-        titleTextField?.setContentCompressionResistancePriority(.required, for: .horizontal)
-        titleTextField?.setContentCompressionResistancePriority(.required, for: .vertical)
+        setupTitleTextField()
+        setupSubtitleLabel()
+    }
 
-        subtitleLabel = UILabel(frame: .zero)
-        contentView.addSubview(subtitleLabel!)
+    private func setupTitleTextField() {
+        titleTextField.top(to: contentView, offset: BasicTableViewCell.verticalMargin)
+        titleTextField.left(to: contentView, offset: BasicTableViewCell.horizontalMargin)
+        titleTextField.right(to: contentView, offset: -BasicTableViewCell.horizontalMargin)
+    }
 
-        subtitleLabel?.leading(to: contentView, offset: 16.0, priority: .defaultHigh)
-        subtitleLabel?.topToBottom(of: titleTextField!, offset: 5.0, priority: .defaultHigh)
-        subtitleLabel?.bottom(to: contentView, offset: -16.0, priority: .required)
-        subtitleLabel?.setContentHuggingPriority(.required, for: .horizontal)
-        subtitleLabel?.setContentHuggingPriority(.required, for: .vertical)
-        subtitleLabel?.setContentCompressionResistancePriority(.required, for: .horizontal)
-        subtitleLabel?.setContentCompressionResistancePriority(.required, for: .vertical)
+    private func setupSubtitleLabel() {
+        subtitleLabel.topToBottom(of: titleTextField)
+        subtitleLabel.left(to: contentView, offset: BasicTableViewCell.horizontalMargin)
+        subtitleLabel.right(to: contentView, offset: -BasicTableViewCell.horizontalMargin)
+        subtitleLabel.bottom(to: contentView, offset: -BasicTableViewCell.verticalMargin)
+    }
+
+    override open func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+
+        titleTextField.font = Theme.preferredRegular()
+        subtitleLabel.font = Theme.preferredRegularSmall()
     }
 }

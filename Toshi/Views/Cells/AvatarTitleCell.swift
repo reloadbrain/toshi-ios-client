@@ -15,26 +15,33 @@
 
 import UIKit
 
-final class AvatarTitleCell: ToshiTableViewCell {
+final class AvatarTitleCell: BasicTableViewCell {
 
     open override func addSubviewsAndConstraints() {
-        leftImageView = UIImageView(frame: .zero)
-        leftImageView?.contentMode = .scaleAspectFill
-        contentView.addSubview(leftImageView!)
-        leftImageView?.leading(to: contentView, offset: 16.0, priority: .required)
-        leftImageView?.top(to: contentView, offset: 16.0)
-        leftImageView?.bottom(to: contentView, offset: -16.0)
-        leftImageView?.set(width: 40.0)
-        leftImageView?.set(height: 40.0)
+        contentView.addSubview(leftImageView)
+        contentView.addSubview(titleTextField)
 
-        titleTextField = UITextField(frame: .zero)
-        contentView.addSubview(titleTextField!)
+        setupTitleTextField()
+        setupLeftImageView()
+    }
 
-        titleTextField?.centerY(to: contentView)
-        titleTextField?.leftToRight(of: leftImageView!, offset: 10.0)
-        titleTextField?.trailing(to: contentView, offset: -16.0)
-        titleTextField?.setContentHuggingPriority(.required, for: .vertical)
-        titleTextField?.setContentCompressionResistancePriority(.required, for: .horizontal)
-        titleTextField?.setContentCompressionResistancePriority(.required, for: .vertical)
+    private func setupLeftImageView() {
+        leftImageView.size(CGSize(width: BasicTableViewCell.imageSize, height: BasicTableViewCell.imageSize))
+        leftImageView.centerY(to: contentView, priority: .defaultHigh)
+        leftImageView.left(to: contentView, offset: BasicTableViewCell.horizontalMargin)
+        leftImageView.top(to: contentView, offset: BasicTableViewCell.imageMargin, relation: .equalOrGreater)
+        leftImageView.bottom(to: contentView, offset: -BasicTableViewCell.imageMargin, relation: .equalOrGreater)
+    }
+
+    private func setupTitleTextField() {
+        titleTextField.centerY(to: contentView)
+        titleTextField.leftToRight(of: leftImageView, offset: BasicTableViewCell.interItemMargin)
+        titleTextField.right(to: contentView, offset: -BasicTableViewCell.horizontalMargin)
+    }
+
+    override open func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+
+        titleTextField.font = Theme.preferredRegular()
     }
 }

@@ -15,22 +15,32 @@
 
 import UIKit
 
-final class TitleSwitchCell: ToshiTableViewCell {
+final class TitleSwitchCell: BasicTableViewCell {
 
     override func addSubviewsAndConstraints() {
-        switchControl = UISwitch(frame: .zero)
-        contentView.addSubview(switchControl!)
-        switchControl!.trailing(to: contentView, offset: -16.0, priority: .defaultHigh)
-        switchControl!.centerY(to: contentView)
+        contentView.addSubview(titleTextField)
+        contentView.addSubview(switchControl)
 
-        titleTextField = UITextField(frame: .zero)
-        contentView.addSubview(titleTextField!)
+        setupTitleTextField()
+        setupSwitchControl()
+    }
 
-        titleTextField?.top(to: contentView, offset: 16.0)
-        titleTextField?.leading(to: contentView, offset: 16.0, priority: .defaultHigh)
-        titleTextField?.rightToLeft(of: switchControl!, offset: -10.0)
-        titleTextField?.setContentHuggingPriority(.required, for: .vertical)
-        titleTextField?.setContentCompressionResistancePriority(.required, for: .horizontal)
-        titleTextField?.setContentCompressionResistancePriority(.required, for: .vertical)
+    private func setupTitleTextField() {
+        titleTextField.top(to: contentView, offset: BasicTableViewCell.verticalMargin)
+        titleTextField.left(to: contentView, offset: BasicTableViewCell.horizontalMargin)
+        titleTextField.rightToLeft(of: switchControl, offset: -BasicTableViewCell.horizontalMargin)
+        titleTextField.bottom(to: contentView, offset: -BasicTableViewCell.verticalMargin)
+        titleTextField.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+    }
+
+    private func setupSwitchControl() {
+        switchControl.right(to: contentView, offset: -BasicTableViewCell.horizontalMargin)
+        switchControl.centerY(to: contentView)
+    }
+
+    override open func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+
+        titleTextField.font = Theme.preferredRegular()
     }
 }

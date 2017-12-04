@@ -53,9 +53,9 @@
 		2B0EF8291F948931001A76CA /* CrashlyticsClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B0EF8281F948931001A76CA /* CrashlyticsClient.swift */; };
 		2B0EF82A1F948931001A76CA /* CrashlyticsClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B0EF8281F948931001A76CA /* CrashlyticsClient.swift */; };
 		2B0EF82B1F948931001A76CA /* CrashlyticsClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B0EF8281F948931001A76CA /* CrashlyticsClient.swift */; };
-		2B1D66961FC2E00E00EB166C /* ToshiTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1D66951FC2E00E00EB166C /* ToshiTableViewCell.swift */; };
-		2B1D66971FC2E00E00EB166C /* ToshiTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1D66951FC2E00E00EB166C /* ToshiTableViewCell.swift */; };
-		2B1D66981FC2E00E00EB166C /* ToshiTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1D66951FC2E00E00EB166C /* ToshiTableViewCell.swift */; };
+		2B1D66961FC2E00E00EB166C /* BasicTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1D66951FC2E00E00EB166C /* BasicTableViewCell.swift */; };
+		2B1D66971FC2E00E00EB166C /* BasicTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1D66951FC2E00E00EB166C /* BasicTableViewCell.swift */; };
+		2B1D66981FC2E00E00EB166C /* BasicTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1D66951FC2E00E00EB166C /* BasicTableViewCell.swift */; };
 		2B1D669B1FC2F96500EB166C /* TableViewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1D669A1FC2F96500EB166C /* TableViewData.swift */; };
 		2B1D669C1FC2F96500EB166C /* TableViewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1D669A1FC2F96500EB166C /* TableViewData.swift */; };
 		2B1D669D1FC2F96500EB166C /* TableViewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1D669A1FC2F96500EB166C /* TableViewData.swift */; };
@@ -83,15 +83,15 @@
 		2B47941B1F1E06BB00AC3EB4 /* ProfileEditItem .swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4794191F1E06BB00AC3EB4 /* ProfileEditItem .swift */; };
 		2B4BCD5A1F59954E00F9E609 /* DistributionDevTokenURLPaths.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4BCD591F59954E00F9E609 /* DistributionDevTokenURLPaths.swift */; };
 		2B4BCD5B1F599BEA00F9E609 /* token.cer in Resources */ = {isa = PBXBuildFile; fileRef = 2BD0AC8B1F278677000D2A58 /* token.cer */; };
-		2B4E25E21FCCCD04004614D5 /* ToshiAvatarTitleSubtitleDetailsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4E25E11FCCCD04004614D5 /* ToshiAvatarTitleSubtitleDetailsCell.swift */; };
-		2B4E25E31FCCCD04004614D5 /* ToshiAvatarTitleSubtitleDetailsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4E25E11FCCCD04004614D5 /* ToshiAvatarTitleSubtitleDetailsCell.swift */; };
-		2B4E25E41FCCCD04004614D5 /* ToshiAvatarTitleSubtitleDetailsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4E25E11FCCCD04004614D5 /* ToshiAvatarTitleSubtitleDetailsCell.swift */; };
+		2B4E25E21FCCCD04004614D5 /* AvatarTitleSubtitleDetailsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4E25E11FCCCD04004614D5 /* AvatarTitleSubtitleDetailsCell.swift */; };
+		2B4E25E31FCCCD04004614D5 /* AvatarTitleSubtitleDetailsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4E25E11FCCCD04004614D5 /* AvatarTitleSubtitleDetailsCell.swift */; };
+		2B4E25E41FCCCD04004614D5 /* AvatarTitleSubtitleDetailsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4E25E11FCCCD04004614D5 /* AvatarTitleSubtitleDetailsCell.swift */; };
 		2B4E25E61FCCCD5D004614D5 /* TitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4E25E51FCCCD5D004614D5 /* TitleCell.swift */; };
 		2B4E25E71FCCCD5D004614D5 /* TitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4E25E51FCCCD5D004614D5 /* TitleCell.swift */; };
 		2B4E25E81FCCCD5D004614D5 /* TitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4E25E51FCCCD5D004614D5 /* TitleCell.swift */; };
-		2B4E25EA1FCCCD71004614D5 /* ToshiAvatarTitleSubtitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4E25E91FCCCD71004614D5 /* ToshiAvatarTitleSubtitleCell.swift */; };
-		2B4E25EB1FCCCD71004614D5 /* ToshiAvatarTitleSubtitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4E25E91FCCCD71004614D5 /* ToshiAvatarTitleSubtitleCell.swift */; };
-		2B4E25EC1FCCCD71004614D5 /* ToshiAvatarTitleSubtitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4E25E91FCCCD71004614D5 /* ToshiAvatarTitleSubtitleCell.swift */; };
+		2B4E25EA1FCCCD71004614D5 /* AvatarTitleSubtitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4E25E91FCCCD71004614D5 /* AvatarTitleSubtitleCell.swift */; };
+		2B4E25EB1FCCCD71004614D5 /* AvatarTitleSubtitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4E25E91FCCCD71004614D5 /* AvatarTitleSubtitleCell.swift */; };
+		2B4E25EC1FCCCD71004614D5 /* AvatarTitleSubtitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4E25E91FCCCD71004614D5 /* AvatarTitleSubtitleCell.swift */; };
 		2B4E25EE1FCCCDA6004614D5 /* TitleSubtitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4E25ED1FCCCDA6004614D5 /* TitleSubtitleCell.swift */; };
 		2B4E25EF1FCCCDA6004614D5 /* TitleSubtitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4E25ED1FCCCDA6004614D5 /* TitleSubtitleCell.swift */; };
 		2B4E25F01FCCCDA6004614D5 /* TitleSubtitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4E25ED1FCCCDA6004614D5 /* TitleSubtitleCell.swift */; };
@@ -104,9 +104,9 @@
 		2B4E25FA1FCCCE00004614D5 /* AvatarTitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4E25F91FCCCE00004614D5 /* AvatarTitleCell.swift */; };
 		2B4E25FB1FCCCE00004614D5 /* AvatarTitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4E25F91FCCCE00004614D5 /* AvatarTitleCell.swift */; };
 		2B4E25FC1FCCCE00004614D5 /* AvatarTitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4E25F91FCCCE00004614D5 /* AvatarTitleCell.swift */; };
-		2B4E25FF1FCCCE38004614D5 /* ToshiCellConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4E25FE1FCCCE38004614D5 /* ToshiCellConfigurator.swift */; };
-		2B4E26001FCCCE38004614D5 /* ToshiCellConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4E25FE1FCCCE38004614D5 /* ToshiCellConfigurator.swift */; };
-		2B4E26011FCCCE39004614D5 /* ToshiCellConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4E25FE1FCCCE38004614D5 /* ToshiCellConfigurator.swift */; };
+		2B4E25FF1FCCCE38004614D5 /* CellConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4E25FE1FCCCE38004614D5 /* CellConfigurator.swift */; };
+		2B4E26001FCCCE38004614D5 /* CellConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4E25FE1FCCCE38004614D5 /* CellConfigurator.swift */; };
+		2B4E26011FCCCE39004614D5 /* CellConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4E25FE1FCCCE38004614D5 /* CellConfigurator.swift */; };
 		2B4E26031FCCCE78004614D5 /* AvatarTitleSubtitleSwitchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4E26021FCCCE78004614D5 /* AvatarTitleSubtitleSwitchCell.swift */; };
 		2B4E26041FCCCE78004614D5 /* AvatarTitleSubtitleSwitchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4E26021FCCCE78004614D5 /* AvatarTitleSubtitleSwitchCell.swift */; };
 		2B4E26051FCCCE78004614D5 /* AvatarTitleSubtitleSwitchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4E26021FCCCE78004614D5 /* AvatarTitleSubtitleSwitchCell.swift */; };
@@ -901,7 +901,7 @@
 		24AC0CEAA51D7F8A19F246E9 /* libPods-CocoaPods-Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CocoaPods-Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2B002D8E1F17BA1800D92240 /* NetworkSwitcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkSwitcher.swift; sourceTree = "<group>"; };
 		2B0EF8281F948931001A76CA /* CrashlyticsClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrashlyticsClient.swift; sourceTree = "<group>"; };
-		2B1D66951FC2E00E00EB166C /* ToshiTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToshiTableViewCell.swift; sourceTree = "<group>"; };
+		2B1D66951FC2E00E00EB166C /* BasicTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicTableViewCell.swift; sourceTree = "<group>"; };
 		2B1D669A1FC2F96500EB166C /* TableViewData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewData.swift; sourceTree = "<group>"; };
 		2B20BBDE1F7A53A400844315 /* APIKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKeys.swift; sourceTree = "<group>"; };
 		2B355BD91EAE356C0093FA8F /* TokenUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenUser.swift; sourceTree = "<group>"; };
@@ -911,14 +911,14 @@
 		2B44A1391F4AEBFF00B9C760 /* ExchangeRateAPIClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExchangeRateAPIClient.swift; sourceTree = "<group>"; };
 		2B4794191F1E06BB00AC3EB4 /* ProfileEditItem .swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ProfileEditItem .swift"; sourceTree = "<group>"; };
 		2B4BCD591F59954E00F9E609 /* DistributionDevTokenURLPaths.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DistributionDevTokenURLPaths.swift; sourceTree = "<group>"; };
-		2B4E25E11FCCCD04004614D5 /* ToshiAvatarTitleSubtitleDetailsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToshiAvatarTitleSubtitleDetailsCell.swift; sourceTree = "<group>"; };
+		2B4E25E11FCCCD04004614D5 /* AvatarTitleSubtitleDetailsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarTitleSubtitleDetailsCell.swift; sourceTree = "<group>"; };
 		2B4E25E51FCCCD5D004614D5 /* TitleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleCell.swift; sourceTree = "<group>"; };
-		2B4E25E91FCCCD71004614D5 /* ToshiAvatarTitleSubtitleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToshiAvatarTitleSubtitleCell.swift; sourceTree = "<group>"; };
+		2B4E25E91FCCCD71004614D5 /* AvatarTitleSubtitleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarTitleSubtitleCell.swift; sourceTree = "<group>"; };
 		2B4E25ED1FCCCDA6004614D5 /* TitleSubtitleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleSubtitleCell.swift; sourceTree = "<group>"; };
 		2B4E25F11FCCCDC4004614D5 /* TitleSubtitleSwitchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleSubtitleSwitchCell.swift; sourceTree = "<group>"; };
 		2B4E25F51FCCCDE3004614D5 /* TitleSwitchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleSwitchCell.swift; sourceTree = "<group>"; };
 		2B4E25F91FCCCE00004614D5 /* AvatarTitleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarTitleCell.swift; sourceTree = "<group>"; };
-		2B4E25FE1FCCCE38004614D5 /* ToshiCellConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToshiCellConfigurator.swift; sourceTree = "<group>"; };
+		2B4E25FE1FCCCE38004614D5 /* CellConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellConfigurator.swift; sourceTree = "<group>"; };
 		2B4E26021FCCCE78004614D5 /* AvatarTitleSubtitleSwitchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarTitleSubtitleSwitchCell.swift; sourceTree = "<group>"; };
 		2B953AC31FAC9E19005A5BF3 /* NSString+OWS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+OWS.h"; sourceTree = "<group>"; };
 		2B953AC41FAC9E1A005A5BF3 /* NSString+OWS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+OWS.m"; sourceTree = "<group>"; };
@@ -1457,10 +1457,10 @@
 		2B4E25E01FCCCCE2004614D5 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				2B1D66951FC2E00E00EB166C /* ToshiTableViewCell.swift */,
-				2B4E25E11FCCCD04004614D5 /* ToshiAvatarTitleSubtitleDetailsCell.swift */,
+				2B1D66951FC2E00E00EB166C /* BasicTableViewCell.swift */,
+				2B4E25E11FCCCD04004614D5 /* AvatarTitleSubtitleDetailsCell.swift */,
 				2B4E25E51FCCCD5D004614D5 /* TitleCell.swift */,
-				2B4E25E91FCCCD71004614D5 /* ToshiAvatarTitleSubtitleCell.swift */,
+				2B4E25E91FCCCD71004614D5 /* AvatarTitleSubtitleCell.swift */,
 				2B4E25ED1FCCCDA6004614D5 /* TitleSubtitleCell.swift */,
 				2B4E25F11FCCCDC4004614D5 /* TitleSubtitleSwitchCell.swift */,
 				2B4E25F51FCCCDE3004614D5 /* TitleSwitchCell.swift */,
@@ -1473,7 +1473,7 @@
 		2B4E25FD1FCCCE24004614D5 /* CellConfigurator */ = {
 			isa = PBXGroup;
 			children = (
-				2B4E25FE1FCCCE38004614D5 /* ToshiCellConfigurator.swift */,
+				2B4E25FE1FCCCE38004614D5 /* CellConfigurator.swift */,
 			);
 			path = CellConfigurator;
 			sourceTree = "<group>";
@@ -2901,7 +2901,7 @@
 				84FFE1E51F3C7D09008CEEF2 /* EthereumAddress.swift in Sources */,
 				9F78D9D91EE93F36003A0B95 /* AlertController.swift in Sources */,
 				9F30A81E1ED2EDA9003E56A2 /* SOFAWebController.swift in Sources */,
-				2B4E25E41FCCCD04004614D5 /* ToshiAvatarTitleSubtitleDetailsCell.swift in Sources */,
+				2B4E25E41FCCCD04004614D5 /* AvatarTitleSubtitleDetailsCell.swift in Sources */,
 				9F78D9D01EE93E68003A0B95 /* ModalPresentationController.swift in Sources */,
 				2B20BBE11F7A595700844315 /* APIKeys.swift in Sources */,
 				149F9A631E72E29A00FB74AA /* SignalNotificationHandler.swift in Sources */,
@@ -2956,7 +2956,7 @@
 				A95D315D1F8289C900B0FED1 /* TextEditingOptionsViewController.swift in Sources */,
 				8446632C1F41CD5700892DB8 /* PaymentRequestMetadata.swift in Sources */,
 				A9E691CD1F7A49AB00317DB1 /* SignInFooterView.swift in Sources */,
-				2B1D66981FC2E00E00EB166C /* ToshiTableViewCell.swift in Sources */,
+				2B1D66981FC2E00E00EB166C /* BasicTableViewCell.swift in Sources */,
 				A9CADC241F94B1C50096D017 /* BrowseViewController.swift in Sources */,
 				A9CADC2C1F94B1D30096D017 /* SearchResultCell.swift in Sources */,
 				9F54A7241E951F1500FEB67B /* RatingsClient.swift in Sources */,
@@ -2997,7 +2997,7 @@
 				9F5B9BA21EBB530B006448F0 /* RatingView.swift in Sources */,
 				A97600321F8F738600D1C79E /* ChatMenuTableViewCell.swift in Sources */,
 				149F9A8D1E72E29A00FB74AA /* Theme.swift in Sources */,
-				2B4E26011FCCCE39004614D5 /* ToshiCellConfigurator.swift in Sources */,
+				2B4E26011FCCCE39004614D5 /* CellConfigurator.swift in Sources */,
 				9F82B1B31EDF0ECC00EA7626 /* ChatInputTextPanel.swift in Sources */,
 				6ACC21641FBDE72E002345D0 /* RLP.swift in Sources */,
 				A9ED6CD11E83CD8400160637 /* Footnote.swift in Sources */,
@@ -3057,7 +3057,7 @@
 				A9CADC341F94B1E10096D017 /* BrowseCollectionViewCell.swift in Sources */,
 				D197B83F0A9396CF2E7628D5 /* ActiveNetworkView.swift in Sources */,
 				D197BEB965F76FE14EF90555 /* ActiveNetworkDisplaying.swift in Sources */,
-				2B4E25EC1FCCCD71004614D5 /* ToshiAvatarTitleSubtitleCell.swift in Sources */,
+				2B4E25EC1FCCCD71004614D5 /* AvatarTitleSubtitleCell.swift in Sources */,
 				D197B11DD70DB5696FFC4FD2 /* UINotificationName+Additions.swift in Sources */,
 				D197B968EE5E2CE52CC92F1D /* YapDatabaseViewConnection+Additions.swift in Sources */,
 				2BA888ED1F600ED500B03D8E /* Currency.swift in Sources */,
@@ -3100,7 +3100,7 @@
 				9F2433D41E5F46F6003D95A1 /* SignalNotificationHandler.swift in Sources */,
 				9FAC46ED1E800C13005F76A9 /* UIColor+Additions.swift in Sources */,
 				A9AC740B1E77E62900365029 /* UIView+Additions.swift in Sources */,
-				2B4E25E21FCCCD04004614D5 /* ToshiAvatarTitleSubtitleDetailsCell.swift in Sources */,
+				2B4E25E21FCCCD04004614D5 /* AvatarTitleSubtitleDetailsCell.swift in Sources */,
 				A9CADC1C1F94AF2D0096D017 /* BrowseEntityCollectionViewCell.swift in Sources */,
 				9F54AB0D1ECC8D390008489F /* ScannerController.swift in Sources */,
 				9F2162621E5EF76000292B14 /* BackgroundNotificationHandler.swift in Sources */,
@@ -3156,7 +3156,7 @@
 				A9E691C51F7A496800317DB1 /* SignInLayout.swift in Sources */,
 				9FEB8C8B1E6832120088D5A6 /* NSData+ows_StripToken.m in Sources */,
 				A9BA6B7F1EF7D864007C3206 /* DepositMoneyItem.swift in Sources */,
-				2B1D66961FC2E00E00EB166C /* ToshiTableViewCell.swift in Sources */,
+				2B1D66961FC2E00E00EB166C /* BasicTableViewCell.swift in Sources */,
 				9FE398411E2E225600386FAF /* ProfileItemCell.swift in Sources */,
 				A9E691C11F7A496800317DB1 /* SignInView.swift in Sources */,
 				9FB228861EEEA45B00CCAA1D /* PropertyListPreferences.m in Sources */,
@@ -3197,7 +3197,7 @@
 				A9202E621ED84F6A0036E9B7 /* Extensions.swift in Sources */,
 				A97600301F8F738600D1C79E /* ChatMenuTableViewCell.swift in Sources */,
 				14E4D8D01E72CB6E00389DF9 /* DevelopmentTokenURLPaths.swift in Sources */,
-				2B4E25FF1FCCCE38004614D5 /* ToshiCellConfigurator.swift in Sources */,
+				2B4E25FF1FCCCE38004614D5 /* CellConfigurator.swift in Sources */,
 				9FC72A3D1E251ACC00EF1141 /* ChatAPIClient.swift in Sources */,
 				6ACC21621FBDE72E002345D0 /* RLP.swift in Sources */,
 				A96B19011F87CCE1002E5B52 /* Collection+Additions.swift in Sources */,
@@ -3257,7 +3257,7 @@
 				9F9B25551ECB1BC0007B435A /* ContactActionView.swift in Sources */,
 				D197B6D91E419A23890C7E8B /* BlurView.swift in Sources */,
 				6AE44D971F45C38B00F5AF02 /* CurrencyPicker.swift in Sources */,
-				2B4E25EA1FCCCD71004614D5 /* ToshiAvatarTitleSubtitleCell.swift in Sources */,
+				2B4E25EA1FCCCD71004614D5 /* AvatarTitleSubtitleCell.swift in Sources */,
 				D197BC32BA4D952C0E815F18 /* ActiveNetworkView.swift in Sources */,
 				D197B401E977724E946A55BE /* ActiveNetworkDisplaying.swift in Sources */,
 				D197B61F77E710DF67E4FBD2 /* UINotificationName+Additions.swift in Sources */,
@@ -3300,7 +3300,7 @@
 				A9603D6D1F4DABDC00BF57B1 /* SOFAWebController.swift in Sources */,
 				A9603D711F4DABDC00BF57B1 /* ModalPresentationController.swift in Sources */,
 				2B20BBE01F7A595700844315 /* APIKeys.swift in Sources */,
-				2B4E25E31FCCCD04004614D5 /* ToshiAvatarTitleSubtitleDetailsCell.swift in Sources */,
+				2B4E25E31FCCCD04004614D5 /* AvatarTitleSubtitleDetailsCell.swift in Sources */,
 				A9603D7E1F4DABDC00BF57B1 /* SignalNotificationHandler.swift in Sources */,
 				A9603D831F4DABDC00BF57B1 /* PaymentRequestInfoView.swift in Sources */,
 				A9A9F9A41F8B70840010F877 /* ChatFloatingHeaderView.swift in Sources */,
@@ -3355,7 +3355,7 @@
 				A9E691CC1F7A49AB00317DB1 /* SignInFooterView.swift in Sources */,
 				A9CADC231F94B1C50096D017 /* BrowseViewController.swift in Sources */,
 				A9CADC2B1F94B1D30096D017 /* SearchResultCell.swift in Sources */,
-				2B1D66971FC2E00E00EB166C /* ToshiTableViewCell.swift in Sources */,
+				2B1D66971FC2E00E00EB166C /* BasicTableViewCell.swift in Sources */,
 				A9603E1D1F4DABDC00BF57B1 /* RatingsClient.swift in Sources */,
 				A9603E1F1F4DABDC00BF57B1 /* AvatarManager.swift in Sources */,
 				A9603E201F4DABDC00BF57B1 /* ConfirmationButton.swift in Sources */,
@@ -3396,7 +3396,7 @@
 				A97600311F8F738600D1C79E /* ChatMenuTableViewCell.swift in Sources */,
 				A9603E911F4DABDC00BF57B1 /* Theme.swift in Sources */,
 				A9603E951F4DABDC00BF57B1 /* ChatInputTextPanel.swift in Sources */,
-				2B4E26001FCCCE38004614D5 /* ToshiCellConfigurator.swift in Sources */,
+				2B4E26001FCCCE38004614D5 /* CellConfigurator.swift in Sources */,
 				A9603E9D1F4DABDC00BF57B1 /* Footnote.swift in Sources */,
 				6ACC21631FBDE72E002345D0 /* RLP.swift in Sources */,
 				A9603EA01F4DABDC00BF57B1 /* ImageCell.swift in Sources */,
@@ -3456,7 +3456,7 @@
 				A9CADC331F94B1E00096D017 /* BrowseCollectionViewCell.swift in Sources */,
 				A9603F331F4DABDC00BF57B1 /* ActiveNetworkView.swift in Sources */,
 				A9603F341F4DABDC00BF57B1 /* ActiveNetworkDisplaying.swift in Sources */,
-				2B4E25EB1FCCCD71004614D5 /* ToshiAvatarTitleSubtitleCell.swift in Sources */,
+				2B4E25EB1FCCCD71004614D5 /* AvatarTitleSubtitleCell.swift in Sources */,
 				A9603F351F4DABDC00BF57B1 /* UINotificationName+Additions.swift in Sources */,
 				A9603F361F4DABDC00BF57B1 /* YapDatabaseViewConnection+Additions.swift in Sources */,
 				2BA888EC1F600ED500B03D8E /* Currency.swift in Sources */,

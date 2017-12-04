@@ -53,7 +53,7 @@ public struct TableCellDataComponents: OptionSet {
 }
 
 public final class TableCellData {
-    var tag: Int = 0
+    var tag: Int?
 
     var title: String?
     var subtitle: String?
