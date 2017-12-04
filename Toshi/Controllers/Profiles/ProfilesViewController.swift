@@ -120,9 +120,9 @@ open class ProfilesViewController: UIViewController, Emptiable {
         if #available(iOS 11.0, *) {
             navigationItem.searchController = searchController
             navigationItem.hidesSearchBarWhenScrolling = false
-            profilesView?.tableHeaderView = ProfilesHeaderView(type: type)
+            profilesView?.tableHeaderView = ProfilesHeaderView(type: type, delegate: self)
         } else {
-            profilesView?.tableHeaderView = ProfilesHeaderView(with: searchController.searchBar, type: type)
+            profilesView?.tableHeaderView = ProfilesHeaderView(with: searchController.searchBar, type: type, delegate: self)
         }
         
         if type == .newChat {
@@ -316,5 +316,13 @@ extension ProfilesViewController: UISearchResultsUpdating {
             let tag = Date().timeIntervalSinceReferenceDate
             filterTransaction.setFiltering(strongSelf.filtering, versionTag: String(describing: tag))
         }
+    }
+}
+
+extension ProfilesViewController: ProfilesAddGroupHeaderDelegate {
+    
+    func newGroup() {
+        let groupChatSelection = ProfilesViewController(type: .newGroupChat)
+        navigationController?.pushViewController(groupChatSelection, animated: true)
     }
 }

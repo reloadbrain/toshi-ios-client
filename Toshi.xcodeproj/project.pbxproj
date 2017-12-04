@@ -138,6 +138,8 @@
 		33CF51391FD1952500293FD1 /* StringCaseListable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33CF51381FD1952500293FD1 /* StringCaseListable.swift */; };
 		33CF513A1FD1952500293FD1 /* StringCaseListable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33CF51381FD1952500293FD1 /* StringCaseListable.swift */; };
 		33CF513B1FD1952500293FD1 /* StringCaseListable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33CF51381FD1952500293FD1 /* StringCaseListable.swift */; };
+		33CF513F1FD56E8200293FD1 /* ProfilesAddGroupHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33CF513E1FD56E8200293FD1 /* ProfilesAddGroupHeader.swift */; };
+		33CF51411FD56EA000293FD1 /* ProfilesAddedToGroupHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33CF51401FD56EA000293FD1 /* ProfilesAddedToGroupHeader.swift */; };
 		33F1B9A71FCC3E3900D186AB /* TokenUserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33F1B9A61FCC3E3900D186AB /* TokenUserTests.swift */; };
 		40F452374014D1BCC886E826 /* libPods-CocoaPods-Development.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 30B89C992242CEAAB91C1B7C /* libPods-CocoaPods-Development.a */; };
 		6A369A3A1FBF2AB50099C2FF /* RLPTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A369A391FBF2AB50099C2FF /* RLPTests.swift */; };
@@ -911,6 +913,8 @@
 		339959AC1FCEE74F00D69A01 /* EarlGrey.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EarlGrey.framework; path = Carthage/Build/iOS/EarlGrey.framework; sourceTree = "<group>"; };
 		33CF51341FD184AB00293FD1 /* UserDefaultsWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsWrapper.swift; sourceTree = "<group>"; };
 		33CF51381FD1952500293FD1 /* StringCaseListable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringCaseListable.swift; sourceTree = "<group>"; };
+		33CF513E1FD56E8200293FD1 /* ProfilesAddGroupHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilesAddGroupHeader.swift; sourceTree = "<group>"; };
+		33CF51401FD56EA000293FD1 /* ProfilesAddedToGroupHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilesAddedToGroupHeader.swift; sourceTree = "<group>"; };
 		33F1B9A61FCC3E3900D186AB /* TokenUserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenUserTests.swift; sourceTree = "<group>"; };
 		3F0DBA781E2F9F3F471A6BAD /* Pods-CocoaPods-Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CocoaPods-Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CocoaPods-Tests/Pods-CocoaPods-Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		4DE939A571E431967E87D37E /* Pods-CocoaPods-Development.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CocoaPods-Development.release.xcconfig"; path = "Pods/Target Support Files/Pods-CocoaPods-Development/Pods-CocoaPods-Development.release.xcconfig"; sourceTree = "<group>"; };
@@ -1891,6 +1895,8 @@
 		A96823C51FBC89F3000993FE /* Profiles */ = {
 			isa = PBXGroup;
 			children = (
+				33CF513E1FD56E8200293FD1 /* ProfilesAddGroupHeader.swift */,
+				33CF51401FD56EA000293FD1 /* ProfilesAddedToGroupHeader.swift */,
 				A938AE021FBEF332002A2CD3 /* ProfilesHeaderView.swift */,
 				A96823C61FBC89F3000993FE /* ProfilesNavigationController.swift */,
 				A9BCB35F1FCD693A0047CCA7 /* ProfilesView.swift */,
@@ -2990,6 +2996,7 @@
 				A91D72A31F877FFA0093420C /* ChatInteractor.swift in Sources */,
 				9F4D817E1EEA8BD600FB5361 /* ImagesViewController.swift in Sources */,
 				9F78D9CF1EE93E68003A0B95 /* ModalPresentationController.swift in Sources */,
+				33CF513F1FD56E8200293FD1 /* ProfilesAddGroupHeader.swift in Sources */,
 				84C1952C1ECF057E00B9512F /* SOFAWebController.swift in Sources */,
 				A976002C1F8F711C00D1C79E /* ChatMenuTableViewController.swift in Sources */,
 				A91D72A21F877FFA0093420C /* ChatFloatingHeaderView.swift in Sources */,
@@ -3114,6 +3121,7 @@
 				9F78D9D41EE93EFF003A0B95 /* PaymentConfirmationController.swift in Sources */,
 				E6B8577A1F25F3D700979650 /* AddressChangeAlertController.swift in Sources */,
 				84FFE1E41F3C7D09008CEEF2 /* EthereumAddress.swift in Sources */,
+				33CF51411FD56EA000293FD1 /* ProfilesAddedToGroupHeader.swift in Sources */,
 				2BE66A0C1EF910B6007A7130 /* KeyboardAdjustable.swift in Sources */,
 				A9180FB11F5452A000DC668E /* MessagesErrorView.swift in Sources */,
 				A9ED6CD01E83CD8400160637 /* Footnote.swift in Sources */,
