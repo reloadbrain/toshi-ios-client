@@ -3,6 +3,7 @@
 #import <SignalServiceKit/SignalRecipient.h>
 
 #import "ContactsManager.h"
+#import "Contact.h"
 
 #import "Toshi-Swift.h"
 
@@ -64,7 +65,7 @@
 
     NSMutableArray *mutableContacts = self.tokenContacts.mutableCopy;
     if (existingContactIndex != NSNotFound) {
-        [mutableContacts replaceObjectAtIndex:existingContactIndex withObject:contact];
+        mutableContacts[existingContactIndex] = contact;
     } else {
         [mutableContacts addObject:contact];
     }
