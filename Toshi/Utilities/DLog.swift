@@ -79,7 +79,7 @@ class OCDLog: NSObject {
     }
     
     /**
-     Allows access to this debugging feature from Objective-C.
+     Allows access to the debug-only logging feature from Objective-C.
      
      Note that all items must be passed in, but should be able to be passed in with macros like so:
      [OCDLog dlog:@"The message to print"
@@ -88,6 +88,21 @@ class OCDLog: NSObject {
              line:__LINE__];
      */
     @objc static func dlog(_ message: String, filePath: UnsafePointer<CChar>, function: UnsafePointer<CChar>, line: UInt) {
+        guard shouldDebugLog() else { return }
+        
+        detailedLog(message, String(cString: filePath), String(cString: function), line)
+    }
+    
+    /**
+     Allows access to the always-logging feature from Objective-C.
+     
+     Note that all items must be passed in, but should be able to be passed in with macros like so:
+     [OCDLog alog:@"The message to print"
+         filePath:__FILE__
+         function:__FUNCTION__
+             line:__LINE__];
+     */
+    @objc static func alog(_ message: String, filePath: UnsafePointer<CChar>, function: UnsafePointer<CChar>, line: UInt) {
         detailedLog(message, String(cString: filePath), String(cString: function), line)
     }
 }
